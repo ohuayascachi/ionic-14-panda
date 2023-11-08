@@ -1,0 +1,251 @@
+ion-grid {
+
+
+
+  .t-body {
+
+    border-bottom: #000000 1px solid;
+
+
+  }
+
+  ion-row {
+
+
+    height: 2.5rem;
+    border-right: #000000 1px solid;
+
+    :first-child {
+      border-right: #000000 1px solid;
+
+    }
+
+    ion-col {
+      background-color: none;
+      width: 100%;
+
+      color: #030303;
+      text-align: center;
+      height: 100%;
+
+
+      ion-input {
+
+        --padding-bottom: 0px;
+        --padding-end: 0px;
+        --padding-start: 0px;
+        --padding-top: 0px;
+        //height: 2rem;
+
+
+
+
+      }
+    }
+  }
+}
+
+.btn {
+  &-small {
+    border-radius: 5px;
+    border: 2px solid #777;
+    padding: 5px 8px 4px 8px;
+    margin: 5px 5px;
+
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+}
+
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 60%;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+//ITEM
+
+
+
+ion-card-content {
+  height: 400px;
+  background-color: lightblue;
+
+  overflow: scroll;
+}
+
+.t-input {
+  width: 100%;
+  border-radius: 10px;
+
+  height: 2rem;
+
+  border: none;
+  background-color: none;
+  text-align: center;
+  border: #000000 0.5px solid;
+
+  &:disabled {
+    background-color: #999a9a;
+  }
+
+}
+
+.table {
+  border: #e2e2e2 1px solid;
+  text-align: center;
+  // border-radius: 2rem;
+  // margin: 1rem;
+
+}
+
+.t-header {
+  background-color: #18C6F2;
+  border: #000000 1px solid;
+  font-weight: 600;
+  //height: 2rem;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+
+}
+
+.t-col {
+  background-color: #18C6F2;
+  // border: #000000 1px solid;
+  border-left: #000000 1px solid;
+  // border-top: #000000 1px solid;
+  // border-right: #000000 1px solid;
+}
+
+
+
+.t-item {
+  font-weight: 600;
+  background-color: #18C6F2;
+  border: #626262 1px solid;
+  width: 1.5rem;
+}
+
+
+.title-seller {
+  display: flex;
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.s-number {
+  width: 5rem;
+}
+
+.btns-add {
+  display: flex;
+  justify-content: right;
+}
+
+.select-rango {
+  display: flex;
+  margin: 1.5rem;
+  align-content: space-around;
+  align-items: center;
+
+}
+
+.select-seller {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.seller-option {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  grid-gap: 2rem;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+
+  ion-toggle {
+    padding-right: 1rem;
+  }
+}
+
+.info-product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  margin-bottom: 1rem;
+
+}
+
+ion-spinner {
+  align-self: center;
+  height: 10rem;
+  animation: backwards;
+}
+
+.info-title {
+  font-weight: 600;
+
+
+}
+
+.info-count {
+  display: flex;
+  align-items: center;
+
+  .info-count-number {
+    font-weight: 600;
+  }
+
+}
+
+.nota {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+
+  .nota-title {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 11px;
+
+  }
+
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+
+
+}
+
+.btn-change {
+  font-weight: 600;
+}
+
+.btn-change:disabled {
+  --background: red;
+  --color: blue;
+
+}
+
+.matrix-prices {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.nota-text ul li {
+
+  text-align: justify;
+}

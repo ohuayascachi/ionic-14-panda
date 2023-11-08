@@ -1,0 +1,41 @@
+// @import "../config/variables";
+
+.btn-link {
+  color: $color-primary;
+  padding: .4rem 1rem;
+  background-color: $color-grey-dark;
+  min-width: 0;
+  text-decoration: none;
+  border: none;
+  border-bottom: .1rem solid transparent;
+  letter-spacing: 0;
+  font-size: 1.4rem;
+  min-width: 0;
+
+  &.btn-link-dark {
+    color: #333;
+  }
+
+  &:hover,
+  &:focus,
+  .btn-link-dark:hover,
+  .btn-link-dark:focus {
+
+    text-decoration: none;
+  }
+
+  i {
+    &:first-child {
+      margin-right: 1rem;
+    }
+
+    &:last-child {
+      margin-left: 1rem;
+    }
+  }
+}
+
+.btn {
+  color: $color-third;
+
+}

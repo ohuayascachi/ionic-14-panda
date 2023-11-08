@@ -1,0 +1,27 @@
+.header {
+
+  --min-height: 2.8rem;
+  --background: linear-gradient(90deg, hsla(212, 35%, 58%, 1) 0%, hsla(218, 32%, 80%, 1) 100%);
+  //--background: none;
+
+  &_btn {
+    padding-left: 1rem;
+    background: none;
+    color: $color-text-dark;
+
+    .header__icon {
+      --background: none;
+      font-size: 26px;
+      color: none;
+    }
+  }
+
+  &__text {
+    font-weight: 600;
+    color: $color-text-dark;
+    font-size: $text-title-main;
+    // padding-left: 0.5rem;
+    // margin-left: 0.5rem;
+    text-transform: uppercase;
+  }
+}

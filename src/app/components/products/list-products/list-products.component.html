@@ -1,0 +1,60 @@
+<ion-segment
+  (ionChange)="filtroProducts($event)"
+  value="todos"
+  mode="ios"
+  class="segment"
+>
+  <ion-segment-button value="todos">
+    <ion-label>Todos</ion-label>
+  </ion-segment-button>
+  <!-- EL VALUE ESTA PENDIENTE CAMBIAR POR CATEOGIRAS DESDE EL BACKEND -->
+  <ion-segment-button value="647bb85d6d467078092caffc">
+    <ion-label>Cintas</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="647bb84c6d467078092caff9">
+    <ion-label>Film</ion-label>
+  </ion-segment-button>
+</ion-segment>
+
+<ion-grid class="grid-items">
+  <div *ngFor="let item of products">
+    <ion-card
+      class="card-item"
+      [routerLink]="['/products', item.slug]"
+      (click)="pasarDataService(item)"
+      lines="none"
+    >
+      <!--  (click)="pasarDataService(item)"    src="https://ionicframework.com/docs/img/demos/thumbnail.svg" -->
+      <ion-card-content class="content-img">
+        <img
+          *ngIf="!item.image1.imgMediun"
+          alt="product #"
+          class="img-product"
+          src="../../../../assets/img/products/medium_1_big_f3d14c6d9e.jpg"
+        />
+
+        <img
+          *ngIf="item.image1.imgMediun"
+          alt="product #"
+          class="img-product"
+          [src]="item.image1.imgMediun"
+        />
+      </ion-card-content>
+      <p class="text-prices-1">
+        {{ item.name }}
+      </p>
+
+      <p class="text-prices">
+        <span>
+          <span> RANGO </span>
+          {{ item.unidadprice }}
+          {{ item.precios[item.precios.length - 1].price
+          }}<span class="ceros-price">.00</span> - {{ item.precios[0].price
+          }}<span class="ceros-price">.00</span>
+        </span>
+      </p>
+    </ion-card>
+  </div>
+
+  <app-loading></app-loading>
+</ion-grid>

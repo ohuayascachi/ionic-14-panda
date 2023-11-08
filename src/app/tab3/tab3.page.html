@@ -1,17 +1,12 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+  <ion-toolbar class="header">
+    <button slot="start" class="header_btn">
+      <ion-icon class="header__icon" name="logo-buffer"></ion-icon>
+    </button>
+    <ion-title class="header__text"> Pedidos </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <app-inventory name="Tab 3 page"></app-inventory>
 </ion-content>

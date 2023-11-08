@@ -1,0 +1,115 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+
+.grid-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+// .grid-items div {
+
+// }
+.card-item {
+
+  border-radius: 5px;
+  transition: all 0.4s;
+  position: relative;
+  height: max-content;
+
+}
+
+.card-item:hover {
+
+  transform: translateY(-0.2rem);
+}
+
+div:nth-child(2) .card-item::after {
+  content: 'OFERTA';
+  background-color: #ffd43b;
+  color: #333;
+  position: absolute;
+  padding: 0.1rem 3.2rem;
+  transform: rotate(45deg);
+  top: 8%;
+  right: -25%;
+  font-size: 0.7rem;
+  font-weight: 700;
+
+}
+
+.content-img {
+
+  height: min-content;
+
+  padding: 0px;
+  overflow: hidden;
+}
+
+.img-product {
+  width: 100%;
+  height: 100%;
+
+}
+
+.text-prices-1 {
+  font-size: 0.75rem;
+  text-align: center;
+  color: #333;
+}
+
+.text-prices {
+  display: flex;
+  margin: 0 0.5rem 0.2rem 0;
+  gap: 0.5rem;
+
+  align-items: center;
+  justify-content: center;
+  color: #333;
+}
+
+.text-prices span {
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 0;
+  margin: 0;
+
+
+  & span:first-child {
+    font-weight: 600;
+    font-size: 0.7rem;
+    // right: 70%;
+  }
+
+
+}
+
+.label-pricing {
+  display: flex;
+  margin: 0 0.5rem;
+  font-weight: 600;
+
+
+  align-items: center;
+  justify-content: center;
+  color: #333;
+}
+
+.ceros-price {
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.segment {
+  margin-bottom: 1rem;
+}
+
+ion-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}

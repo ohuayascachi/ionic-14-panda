@@ -1,7 +1,8 @@
 {
   "name": "garde-app",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

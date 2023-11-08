@@ -1,0 +1,141 @@
+.card {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  box-shadow: none;
+  margin: 0;
+  padding: 2px 0px;
+
+  position: relative;
+  // background-color: rgb(0, 255, 4);
+}
+
+.header-text {
+  width: 100%;
+  width: max-content;
+  // background-color: aqua;
+  margin: 0.5rem 0px;
+  padding: 0 0;
+}
+
+.text-client {
+  font-weight: 600;
+  color: #3D3C3A;
+}
+
+.text-phone {
+  font-weight: 600;
+  font-size: 12px;
+  color: #3D3C3A;
+}
+
+.text-adress {
+  font-size: 12px;
+  color: #3D3C3A;
+}
+
+.info-badge-1 {
+  position: absolute;
+  text-transform: uppercase;
+  top: 10%;
+  right: 1%;
+  font-size: 12px;
+}
+
+.info-badge-2 {
+  position: absolute;
+  text-transform: uppercase;
+  top: 35%;
+  right: 1%;
+  font-size: 12px;
+}
+
+.text-cant {
+  font-size: 12px;
+  font-style: monospace;
+  font-family: monospace;
+}
+
+.text-fecha {
+  font-size: 12px;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  // border: 1px solid black;
+}
+
+.item-orden {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  gap: 0.2rem;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 1.2rem;
+  padding-top: 0px;
+
+}
+
+.produc-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+
+  padding-bottom: 0.1rem;
+  margin-bottom: 0.1rem;
+}
+
+ion-progress-bar {
+  height: 14px;
+  border-radius: 0.2rem;
+
+  margin-top: 0;
+}
+
+.item-orden-1 {
+  display: flex;
+  justify-content: space-between;
+  // border: 1px solid black;
+
+  gap: 1rem;
+  width: 100%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.text-feuter {
+  font-size: 14px;
+  // background-color: rgb(51, 0, 255);
+}
+
+.text-sub {
+  // background-color: rgb(51, 255, 0);
+  align-self: flex-end;
+}
+
+.text-total {
+  text-transform: uppercase;
+  // align-self: end;
+  justify-self: end;
+  text-align: end;
+  font-size: 14px;
+}
+
+.label-total {
+  text-transform: uppercase;
+  margin: 0px;
+  padding: 0px;
+  font-weight: 600;
+  align-self: flex-end;
+}
+
+.md button.alert-button.alert-button-confirm {
+  border-radius: 10px;
+}

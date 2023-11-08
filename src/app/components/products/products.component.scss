@@ -1,0 +1,27 @@
+ .label-busqueda {
+   font-weight: 600;
+   font-size: 16px;
+   margin: 0.5rem 0.2rem 0.2rem;
+ }
+
+ .card-search {
+   //position: absolute;
+   z-index: 1;
+ }
+
+
+ .busqueda {
+   margin: 0 1rem 1.5rem 1rem;
+ }
+
+ .card-products {
+   margin: 0rem 1rem;
+ }
+
+ .select-rango {
+
+   display: flex;
+   gap: 2rem;
+
+   align-content: center;
+ }

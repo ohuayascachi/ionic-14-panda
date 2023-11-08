@@ -1,0 +1,81 @@
+<ion-content>
+  <!-- <ion-thumbnail>
+    <img class="logo" alt="logo" src="/assets/img/logo.png" />
+  </ion-thumbnail> -->
+
+  <section class="text-1">
+    <h2>Bienvenido a la Tienda vitual de</h2>
+    <h1 class="name-tienda">CINTAS PANDA</h1>
+  </section>
+
+  <section class="text-2">
+    <a href="/products"> <h3 class="button-1">Ir a Tienda</h3></a>
+  </section>
+
+  <section id="formInput">
+    <form (ngSubmit)="onSubmit()" [formGroup]="formLogin">
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col>
+            <!-- <img class="person" src="/assets/avatars/avatar.png" /> -->
+            <img class="person" alt="logo" src="/assets/img/logo.png" />
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-list>
+              <ion-item>
+                <ion-label>Celular</ion-label>
+                <ion-input
+                  formControlName="phone"
+                  name="email"
+                  type="email"
+                  required
+                ></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Password</ion-label>
+                <ion-input
+                  formControlName="password"
+                  name="password"
+                  type="password"
+                  required
+                ></ion-input>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+        <!-- <div>
+          {{ this.authService.islogingMsg || async }}
+        </div> -->
+
+        <!-- <ion-row>
+          <ion-col *ngIf="formLogin.invalid && formLogin.get('password').dirty">
+            <ion-list>
+              <strong id="alertaPass"> Contraseña o usuario incorrecto</strong>
+            </ion-list>
+          </ion-col>
+        </ion-row> -->
+
+        <ion-row>
+          <ion-col>
+            <ion-button
+              id="buttonColor"
+              type="submit"
+              color="danger"
+              shape="round"
+            >
+              Login
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </section>
+
+  <div class="navigation-text">
+    <a href="/auth/sign-in" class="navigation-text__text"> Registrarse </a>
+  </div>
+</ion-content>

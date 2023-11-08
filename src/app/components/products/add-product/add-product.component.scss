@@ -1,0 +1,117 @@
+.title-principal {
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+
+// .header-toolbar {
+//   --background: radial-gradient(circle at -4.17% 4.55%, #dcaf3d 0, #e4a63a 7.14%, #eb9b38 14.29%, #f18e37 21.43%, #f68039 28.57%, #f9703c 35.71%, #fa5d41 42.86%, #f94646 50%, #f7284d 57.14%, #f30057 64.29%, #ee0062 71.43%, #e7006f 78.57%, #de007e 85.71%, #d2008d 92.86%, #c4009e 100%);
+//   // color: #04040400;
+//   color: #282828;
+//   height: 3rem;
+//   margin-top: 0;
+//   padding-top: 0;
+// }
+
+// .btn-cerrar {
+//   padding-top: 4px;
+//   padding-left: 10px;
+//   padding-bottom: 5px;
+// }
+
+.btn-add {
+  border-radius: 10px;
+}
+
+ion-item {
+  padding-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+
+}
+
+.inputNombre ion-input {
+
+
+  text-align: end;
+
+
+}
+
+ion-item {
+  border-top: 1px solid rgba(174, 166, 166, 0.386);
+  border-left: 1px solid rgba(174, 166, 166, 0.386);
+  border-right: 1px solid rgba(174, 166, 166, 0.386);
+}
+
+ion-content {
+  // padding-left: 1rem;
+  // padding-right: 2rem;
+  padding-top: 3rem;
+  margin-top: 3rem;
+
+  // margin-left: 1rem;
+  // margin-right: 3rem;
+  .card {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border: none;
+
+    .inputNombre .inputCategoria {
+      vertical-align: text-top !important;
+      height: 40px;
+      border-top: 1px solid rgba(174, 166, 166, 0.386);
+      border-left: 1px solid rgba(174, 166, 166, 0.386);
+      border-right: 1px solid rgba(174, 166, 166, 0.386);
+    }
+
+
+  }
+
+}
+
+.card-add-feature {
+  padding: 1rem 1rem 0.1rem;
+  display: flex;
+
+
+
+}
+
+.color-button-pedido {
+  --background: #ee0062;
+  --border-radius: 30px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.d-grid {
+  border-radius: 10px;
+}
+
+
+
+.table-hover {
+
+  margin: 0 1rem 0 0rem;
+
+}
+
+.clave {
+  background-color: rgba(65, 65, 65, 0.067);
+  text-transform: uppercase;
+}
+
+.list-precios {
+  display: flex;
+  flex-direction: column;
+  margin: 0 4rem;
+}
+
+.list-item {
+  display: flex;
+  gap: 0px;
+}

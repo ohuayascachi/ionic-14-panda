@@ -1,0 +1,169 @@
+<app-loading></app-loading>
+
+<ion-content fullscreen *ngIf="showContent">
+  <ion-list>
+    <ion-list-header>
+      <a href="/products" class="button-pedido">
+        <ion-card class="cinta-venta"> Hacer pedido </ion-card>
+      </a>
+    </ion-list-header>
+  </ion-list>
+
+  <ion-list *ngIf="isLoggedInd$ | async">
+    <ion-item [routerLink]="['/historico']" lines="none" *ngIf="false">
+      <ion-icon slot="start" name="reader-outline"></ion-icon>
+      <ion-label>Histórico de ventas </ion-label>
+    </ion-item>
+
+    <!-- <ion-item [routerLink]="['/order']" lines="none" class="item"> -->
+
+    <a href="/order" class="cart-list">
+      <ion-item lines="none" class="item">
+        <ion-icon slot="start" name="cart-outline"></ion-icon>
+        <ion-label>Carrito de compras</ion-label>
+        <ion-badge slot="end">{{ carrito$ | async }}</ion-badge>
+      </ion-item>
+    </a>
+
+    <ion-item lines="none" [routerLink]="['/orders-list']">
+      <ion-icon slot="start" name="reader-outline"></ion-icon>
+      <ion-label>Registro de pedidos</ion-label>
+    </ion-item>
+
+    <ion-item
+      *ngIf="role !== 'general'"
+      [routerLink]="['/customer']"
+      lines="none"
+    >
+      <ion-icon slot="start" name="person-add-outline"></ion-icon>
+      <ion-label>Agregar nuevo cliente</ion-label>
+    </ion-item>
+
+    <ion-item
+      *ngIf="role !== 'general'"
+      lines="none"
+      [routerLink]="['/customer-list']"
+      routerLinkActive="router-link-active"
+    >
+      <ion-icon slot="start" name="people-outline"></ion-icon>
+      <ion-label>Tus clientes</ion-label>
+    </ion-item>
+
+    <ion-item
+      lines="none"
+      [routerLink]="['/customer-list']"
+      routerLinkActive="router-link-active"
+    >
+      <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+      <ion-label>Actulizar mis datos personales</ion-label>
+    </ion-item>
+
+    <ion-item
+      *ngIf="role === 'root'"
+      [routerLink]="['/add-product']"
+      lines="none"
+    >
+      <ion-icon slot="start" name="cube-outline"></ion-icon>
+      <ion-label>Agregar producto</ion-label>
+    </ion-item>
+
+    <ion-item
+      *ngIf="role === 'root'"
+      [routerLink]="['/list-products']"
+      lines="none"
+    >
+      <ion-icon slot="start" name="cube-outline"></ion-icon>
+      <ion-label>Lista de productos</ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="role === 'root'" [routerLink]="['/prices']" lines="none">
+      <ion-icon slot="start" name="cash-outline"></ion-icon>
+      <ion-label>Precios</ion-label>
+    </ion-item>
+
+    <!-- esto esta pendiente --  [routerLink]="['/my-products-list']" -->
+    <!-- <ion-item lines="none" routerLinkActive="router-link-active">
+      <ion-icon slot="start" name="layers-outline"></ion-icon>
+      <ion-label
+        >Tus productos <small class="text-temp"> pendiente</small>
+      </ion-label>
+    </ion-item> -->
+  </ion-list>
+
+  <ion-list *ngIf="isLoggedInd$ | async">
+    <ion-list-header>
+      <strong> Estadisticas </strong>
+    </ion-list-header>
+
+    <ion-item-group>
+      <ion-item lines="none">
+        <ion-icon slot="start" name="cart-outline"></ion-icon>
+        <ion-label
+          >Ventas <small class="text-temp"> pendiente</small>
+        </ion-label>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-icon slot="start" name="briefcase-outline"></ion-icon>
+        <ion-label
+          >Pedidos pendientes
+          <small class="text-temp"> pendiente</small></ion-label
+        >
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+
+  <ion-list *ngIf="isLoggedInd$ | async">
+    <ion-list-header>
+      <strong> Configuracion de cuenta </strong>
+    </ion-list-header>
+
+    <ion-item-group>
+      <ion-item lines="none">
+        <ion-label>Correo<small class="text-temp"> pendiente</small></ion-label>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label
+          >Contraseña<small class="text-temp"> pendiente</small></ion-label
+        >
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label
+          >Numeros<small class="text-temp"> pendiente</small></ion-label
+        >
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+
+  <ion-list *ngIf="isLoggedInd$ | async">
+    <ion-list-header>
+      <strong> Notes </strong>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Notas <small class="text-temp"> pendiente</small></ion-label>
+
+      <!-- <ion-note slot="end" color="primary">99</ion-note> -->
+    </ion-item>
+  </ion-list>
+
+  <div class="content-button" *ngIf="isLoggedInd$ | async">
+    <ion-button
+      class="button-out"
+      (click)="logout()"
+      color="light"
+      expand="block"
+      >Cerrar sessión</ion-button
+    >
+  </div>
+
+  <div class="content-button" *ngIf="isLoggedOut$ | async">
+    <ion-button class="button-in" (click)="rediretToLoggIn()" expand="block"
+      >Iniciar sessión</ion-button
+    >
+  </div>
+  <!-- <span>loggin {{ authService.isLoggedIn$ | async }}</span>
+  <br />
+  <span>loggOut {{ authService.isLoggedOut$ | async }}</span>
+  <span> juntos:{{ isLoggedInd$ | async }}</span> -->
+</ion-content>

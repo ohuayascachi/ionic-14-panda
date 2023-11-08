@@ -1,0 +1,18 @@
+.segment {
+  // --background: #dc545f;
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 1rem;
+
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.segment-label {
+  font-weight: 600;
+}
+
+.segment-1 {
+  width: 100%;
+}

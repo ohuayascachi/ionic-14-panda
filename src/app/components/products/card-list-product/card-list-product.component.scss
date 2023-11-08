@@ -1,0 +1,143 @@
+.card-item {
+  //box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.4);
+  // border-radius: 5px;
+  padding: 1rem;
+  //padding-right: 1rem;
+  // margin: 5px;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  color: #191919;
+}
+
+.info-input {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.img-and-tex {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+
+  // background-color: aqua;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.img-product {
+  // background-color: #00af6c;
+  border-radius: 10px;
+  height: 100%;
+  width: 100%;
+
+  margin-right: 0px;
+  display: flex;
+  align-items: center;
+
+  img {
+    border-radius: 10px;
+
+  }
+}
+
+.item-text {
+  //background-color: #af5d00;
+  margin: 0px 0px 0px 0.5rem;
+  display: flex;
+  flex-direction: column;
+
+  p {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.text-pricing {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 0.7rem;
+
+}
+
+.item-detail {
+
+  margin: 0 1rem 0 0.5rem;
+  font-size: 0.8rem;
+  display: flex;
+
+  justify-content: space-between;
+  gap: 1.5rem;
+
+}
+
+.name-product {
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 600;
+
+}
+
+
+.cant {
+  display: flex;
+  gap: 2rem;
+  margin: 1rem 1rem 0.7rem;
+  justify-content: space-between;
+  align-items: center;
+  // background-color: #00af6c;
+
+  label {
+    color: #000000;
+  }
+}
+
+.select {
+  width: 100%;
+}
+
+.pricing {
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  // width: 2.2rem;
+  padding: 0px;
+  //background-color: brown;
+  align-self: center;
+
+}
+
+.icon-button {
+  color: red;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.input-number {
+
+  border-radius: 5px;
+  width: 50%;
+  border: #808080 1px solid;
+  text-align: center;
+  font-weight: 600;
+}
+
+.btn:link,
+.btn:visited {
+  display: inline-block;
+
+  text-decoration: none;
+  /*Elimina la underline del button */
+  font-size: 2rem;
+  padding: 1.6rem 3.2rem;
+  border-radius: 15px;
+
+  transition: background-color 0.3s;
+  /* Esto anima el moton con el pasar del mouse*/
+
+  background-color: #e67e22;
+  color: #fff;
+  margin-right: 1.6rem;
+
+}

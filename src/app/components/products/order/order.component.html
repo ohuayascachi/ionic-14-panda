@@ -1,0 +1,395 @@
+<app-header
+  [title]="'carrito de compras'"
+  [iconName]="'chevron-back-sharp'"
+  (pathRetro)="cerrarOrder()"
+>
+</app-header>
+<!-- [count]="cantidadItems$ | async" -->
+<ion-content [scrollEvents]="true" class="content">
+  <div class="card">
+    <div class="text">
+      <h2 class="card-title">{{ fullName | titlecase }}</h2>
+      <p class="text-sub">Telf. {{ telefono }}</p>
+
+      <p *ngIf="direccion === 'Sin direccion'" class="text-sub-foot">
+        Direccion: {{ direccion }}
+      </p>
+      <p *ngIf="direccion !== 'Sin direccion'" class="text-sub-foot">
+        Direccion: {{ direccion }}
+      </p>
+    </div>
+
+    <div [hidden]="(userRole$ | async) === 'general'">
+      <h5 class="text-card">
+        Si el producto es para un cliente, seleccione cliente.
+      </h5>
+
+      <div>
+        <div class="select-rango">
+          <label for="">Cliente :</label>
+          <select
+            (change)="selectClient($event)"
+            class="select"
+            placeholder="Clientes"
+          >
+            <option value="yo">Yo mismo</option>
+            <option *ngFor="let item of clients$ | async" value="{{ item.id }}">
+              {{ item.name }} {{ item.lastName1 }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <p>
+          Si el cliente no se encuntra en su lista,
+          <a href="/customer">agregar</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Articulos de orden -->
+
+  <ion-title class="toolbar-subtitile">
+    <strong>Artículos</strong>
+  </ion-title>
+
+  <app-loading></app-loading>
+
+  <app-card-list-product
+    *ngIf="carList"
+    [cart]="carrito$ | async"
+    (delCart)="deleteArrayCart($event)"
+    (pricingChanged)="patchCountCart($event)"
+  >
+  </app-card-list-product>
+
+  <form [formGroup]="formOrder">
+    <!-- metodo de pago -->
+
+    <!-- Resumen economico de pedido -CALCULADO-->
+    <div>
+      <ion-title class="toolbar-subtitile">
+        <strong>Resumen de pedido</strong>
+      </ion-title>
+
+      <div>
+        <ion-grid class="card grid-of-pricing">
+          <ion-row>
+            <ion-col size="6" size-md="4" size-lg="2" class="sub-note"
+              >Subtotal</ion-col
+            >
+            <ion-col size="6" size-md="4" size-lg="2" class="pricing">
+              <span>{{ tipoMoneda }} </span>{{ subtotal$ | async }}</ion-col
+            >
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" size-md="4" size-lg="2" class="sub-note"
+              >Envio</ion-col
+            >
+            <ion-col size="6" size-md="4" size-lg="2" class="pricing">
+              <span>{{ tipoMoneda }}</span
+              >{{ envio }}</ion-col
+            >
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" size-md="4" size-lg="2" class="sub-note"
+              >Descuento</ion-col
+            >
+            <ion-col size="6" size-md="4" size-lg="2" class="pricing"
+              ><span>{{ tipoMoneda }}</span
+              >{{ descuento }}</ion-col
+            >
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" size-md="4" size-lg="2" class="sub-note total"
+              >TOTAL</ion-col
+            >
+            <ion-col size="6" size-md="4" size-lg="2" class="pricing">
+              <span>{{ tipoMoneda }}</span>
+              <span> {{ (subtotal$ | async) + envio }}</span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+
+    <ion-title class="toolbar-subtitile">
+      <strong>Método de pago</strong>
+    </ion-title>
+
+    <div class="card item-metodoPago">
+      <ion-label> Seleccione </ion-label>
+
+      <ion-select
+        class="seleccione-metodo"
+        (ionChange)="metodoPago($event)"
+        placeholder="Método"
+        formControlName="metodoPago"
+      >
+        <ion-select-option
+          *ngFor="let item of metodosPago"
+          [value]="item.name"
+          >{{ item.name }}</ion-select-option
+        >
+      </ion-select>
+    </div>
+
+    <div class="card item-metodoPago">
+      <ion-label> Documento requerido </ion-label>
+
+      <ion-select
+        class="seleccione-metodo"
+        placeholder="Documento"
+        formControlName="docSolitado"
+      >
+        <ion-select-option
+          *ngFor="let item of docSolicitado"
+          [value]="item.name"
+          >{{ item.name }}</ion-select-option
+        >
+      </ion-select>
+    </div>
+
+    <!-- Nota adicional de pedido -->
+    <div class="item-nota">
+      <ion-title class="toolbar-subtitile">
+        <strong>Nota </strong>
+      </ion-title>
+
+      <div>
+        <ion-textarea
+          formControlName="comment"
+          class="text-nota"
+          placeholder="Nota ...."
+        >
+        </ion-textarea>
+      </div>
+    </div>
+
+    <!-- <br />
+    <span style="margin-bottom: 5rem">
+      <strong>{{ formOrder.value | json }} </strong>
+    </span>
+    <br /> -->
+    <!--
+    <span style="margin-bottom: 5rem">
+      <strong>{{ formOrder.valid }} </strong>
+    </span> -->
+  </form>
+
+  <div>
+    <ion-button
+      (click)="postPedido()"
+      expand="full"
+      shape="round"
+      [disabled]="!formOrder.valid"
+      ><strong>Realizar pedido</strong>
+    </ion-button>
+    <!-- <button  class="my-popover-product"  class="btn-button-pedido" class="btn btn-warning" type="button" data-bs-toggle="offcanvas" 
+                  data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><strong>Realizar pedido</strong></button> -->
+    <!-- <ion-fab vertical="bottom" slot="fixed"></ion-fab> -->
+  </div>
+</ion-content>
+
+<!-- Clietes bUSQIEDA POR CELULAR-->
+<!-- <ion-grid class="item-client">
+        <ion-col class="client-label"> Cliente <small> Telf. </small> </ion-col>
+        <ion-col class="ion-align-self-end">
+          <ion-item lines="none">
+            <form class="row g-3" [formGroup]="formClient" class="form-inline">
+              <div>
+                <input
+                  type="tel"
+                  formControlName="phone"
+                  minlength="9"
+                  maxlength="11"
+                  class="form-control"
+                  id="input-number"
+                  [ngClass]="{
+                    'is-valid': this.classInputNumber1,
+                    'is-invalid': this.classInputNumber2
+                  }"
+                  placeholder="987 654 321"
+                  value="{{ this.formClient.get('phone').value }}"
+                  required
+                />
+               popover of cliente 
+                <div *ngIf="customer !== undefined" class="valid-feedback">
+                  <ion-row class="row-between">
+                    <div class="name-user">
+                      <span class="message-alert">
+                        {{ customer.name + " " + customer.lastName1 }}</span
+                      >
+                    </div>
+                    <ion-col class="col-2">
+                      <ion-icon
+                        (click)="presentPopover($event)"
+                        class="verde icon-small"
+                        name="person"
+                      ></ion-icon>
+                    </ion-col>
+                  </ion-row>
+                   
+               
+                  <ion-popover
+                    #popover
+                    [isOpen]="isOpen"
+                    (didDismiss)="isOpen = false"
+                  >
+                    <ion-content class="ion-padding">
+                      <ion-list>
+                        <ion-item style="border: 2px solid rgb(252, 252, 252)">
+                          <ion-avatar slot="start">
+                            <img
+                              src="../../../../assets/avatars/icon-robot.webp"
+                            />
+                          </ion-avatar>
+                          <ion-label>
+                            <h2>
+                              <strong> {{ customer.name }} </strong>
+                            </h2>
+                            <h3>
+                              <strong>
+                                {{
+                                  customer.lastName1 + " " + customer.lastName2
+                                }}
+                              </strong>
+                            </h3>
+                          </ion-label>
+                        </ion-item>
+                        <ion-item>
+                          <ion-label>
+                            <ion-row>
+                              <ion-col size="auto">
+                                <h2>
+                                  <strong> DNI </strong>
+                                </h2>
+                              </ion-col>
+                              <ion-col size="auto">
+                                <h2>{{ customer.dni }}</h2>
+                              </ion-col>
+                            </ion-row>
+                          </ion-label>
+                        </ion-item>
+                        <ion-item>
+                          <ion-label>
+                            <ion-row>
+                              <ion-col size="auto">
+                                <h2>
+                                  <strong> RUC </strong>
+                                </h2>
+                              </ion-col>
+                              <ion-col size="auto">
+                                <h2>{{ customer.ruc }}</h2>
+                              </ion-col>
+                            </ion-row>
+                          </ion-label>
+                        </ion-item>
+                        <ion-item>
+                          <ion-label>
+                            <ion-row>
+                              <ion-col size="auto">
+                                <h2>
+                                  <strong> Último pedi. </strong>
+                                </h2>
+                              </ion-col>
+                              <ion-col size="auto">
+                                <h2>Cintas 38 micras</h2>
+                              </ion-col>
+                            </ion-row>
+                          </ion-label>
+                        </ion-item>
+                        <ion-item>
+                          <ion-label>
+                            <ion-row>
+                              <ion-col size="auto">
+                                <h2>
+                                  <strong> Celular </strong>
+                                </h2>
+                              </ion-col>
+                              <ion-col size="auto">
+                                <h2>{{ customer.phone }}</h2>
+                              </ion-col>
+                            </ion-row>
+                          </ion-label>
+                        </ion-item>
+                      </ion-list>
+                    </ion-content>
+                  </ion-popover>
+                </div>
+                <div class="invalid-feedback">
+                  <ion-row class="row-between">
+                    <div class="col-10 name-user">
+                      <span class="message-alert">No registrado</span>
+                    </div>
+                    <div class="col-2">
+                      <ion-icon
+                        class="rojo icon-small"
+                        (click)="
+                          agregarUser(this.formClient.get('phone').value)
+                        "
+                        name="person-add-outline"
+                      ></ion-icon>
+                    </div>
+                  </ion-row>
+                </div>
+                <div *ngIf="messegeFormNumber !== ''">
+                  <ion-row>
+                    <ion-col class="name-user">
+                      <span class="message-alert">{{
+                        this.messegeFormNumber
+                      }}</span>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div class="name-user">
+                  <ion-spinner *ngIf="timeBusqueda" name="dots"></ion-spinner>
+                </div>
+              </div>
+            </form>
+          </ion-item>
+        </ion-col>
+      </ion-grid> -->
+
+<!-- MEnsajes -->
+<!-- <ion-row class="card-footer">
+    <ul class="list-group">
+      <li>1 UND: uno, compras menores a 12 und.</li>
+      <li>1 DC: Docenas equiv. 12 und.</li>
+      <li>1 CAJ: Una caja 36 ó 72 und</li>
+    </ul>
+  </ion-row> -->
+<!-- Direccion de cliente -->
+<!-- <div class="item-direction">
+      <ion-toolbar class="toolbar-subtitile">
+        <ion-title class="toolbar-subtitile">
+          <strong>Dirección </strong>
+        </ion-title>
+      </ion-toolbar>
+      <ion-item *ngIf="!customer">
+        <div class="text-direccion">
+          Requiere completar el campo <strong>cliente</strong> para mostrar
+          dirección.
+        </div>
+      </ion-item>
+      <ion-item *ngIf="customer">
+        <div *ngIf="customer.adress" class="text-direccion">
+          <div>
+            {{ customer.adress.adress.location }},
+            {{ customer.adress.distrito }}, {{ customer.adress.provincia }},
+            {{ customer.adress.estado }}, {{ customer.adress.pais }},
+          </div>
+          <div>
+            <em> <strong class="text-refe">Referencia :</strong> </em>
+            {{ customer.adress.adress.reference }}
+          </div>
+        </div>
+
+        <div *ngIf="!customer.adress" class="text-direccion">
+          Dirección de cliente no registrado :
+          <em>{{ customer.name + " " + customer.lastName1 }}</em>
+        </div>
+      </ion-item>
+    </div> -->

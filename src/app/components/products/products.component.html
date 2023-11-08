@@ -1,0 +1,33 @@
+<ion-content fullscreen>
+  <div *ngIf="(userRole$ | async) !== 'root'" class="busqueda"></div>
+
+  <div *ngIf="(userRole$ | async) === 'root'" class="select-rango">
+    <div>Como desea ver</div>
+
+    <select class="select" (change)="changeProductsXUser($event)">
+      <option value="" selected="true">Tipo vendedor</option>
+      <option value="general">General</option>
+      <option value="seller-1">Vendedor 1</option>
+      <option value="seller-2">Vendedor 2</option>
+      <option value="seller-3">Vendedor 3</option>
+      <option value="seller-4">Vendedor 4</option>
+      <option value="seller-5">Vendedor 5</option>
+    </select>
+  </div>
+
+  <div class="card-products">
+    <app-list-products
+      *ngIf="(userRole$ | async) !== 'root'"
+      [productsList]="products$ | async"
+      (filterByCategoria)="filterCategoria($event)"
+    >
+    </app-list-products>
+    <app-list-products
+      *ngIf="(userRole$ | async) === 'root'"
+      [productsList]="prodByRoot$ | async"
+    >
+    </app-list-products>
+  </div>
+
+  <!-- </div> -->
+</ion-content>

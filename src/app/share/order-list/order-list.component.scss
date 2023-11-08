@@ -1,0 +1,35 @@
+.segment {
+  // --background: #dc545f;
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 1rem;
+
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.segment-label {
+  font-weight: 600;
+}
+
+.segment-1 {
+  width: 100%;
+}
+
+.icon-retro {
+  font-size: 25px;
+  vertical-align: bottom;
+  margin-bottom: 3px;
+}
+
+ion-toolbar {
+
+  --background: radial-gradient(circle at -4.17% 4.55%, #dcaf3d 0, #e4a63a 7.14%, #eb9b38 14.29%, #f18e37 21.43%, #f68039 28.57%, #f9703c 35.71%, #fa5d41 42.86%, #f94646 50%, #f7284d 57.14%, #f30057 64.29%, #ee0062 71.43%, #e7006f 78.57%, #de007e 85.71%, #d2008d 92.86%, #c4009e 100%);
+  --min-height: 46px;
+}
+
+.nota {
+  margin: 0.4rem 1.1rem;
+  text-align: justify;
+}

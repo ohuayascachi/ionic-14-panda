@@ -3,10 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  serverDev: 'https://app-garde-f8b21f7e7211.herokuapp.com/api',
+  // serverDev: 'http://localhost:2001/api',
 };
 
 /*
+ https://app-garde-f8b21f7e7211.herokuapp.com/
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
  *

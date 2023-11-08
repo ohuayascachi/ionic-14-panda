@@ -1,0 +1,40 @@
+.card {
+  background-color: $color-background-0;
+  border-radius: 15px;
+  margin: 0.7rem 1rem;
+  padding: 0 0.7rem;
+
+  //fexl
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.card-title {
+  font-weight: 600;
+
+}
+
+.text-title {
+  text-align: center;
+  margin-bottom: 0.2rem;
+}
+
+.text-sub {
+  font-size: 16px;
+  text-align: center;
+  margin-top: 0.2rem;
+  margin-bottom: 0.1rem;
+
+  &-foot {
+    font-size: 16px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    line-height: 18px;
+    text-align: center;
+  }
+}
+
+.text-card {
+  text-align: justify;
+}

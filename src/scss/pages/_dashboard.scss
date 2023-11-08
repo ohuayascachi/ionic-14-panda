@@ -1,0 +1,29 @@
+.dashboard {
+  position: relative;
+  height: 15rem;
+
+
+  &__card-content {
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    // left: 50%;
+    margin: 1rem 2rem;
+    transform: translate(0, -50%);
+    text-align: center;
+
+
+    .dashboard__img {
+      width: 100%;
+    }
+
+    .dashboard__text {
+      font-weight: 600;
+    }
+
+    .dashboard__btn-continue {
+      font-weight: 600;
+    }
+  }
+
+}

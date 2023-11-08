@@ -1,0 +1,45 @@
+<app-header
+  [title]="'pedidos'"
+  [iconName]="'chevron-back-sharp'"
+  (pathRetro)="routerLinkRetro()"
+>
+</app-header>
+
+<ion-content fullscreen class="content">
+  <section>
+    <div class="nota">
+      <p>
+        Solo puede <strong>eliminar</strong> su pedido demntro de las primeras 4
+        horas a su registro, favor de ponerse en
+        <a href="/dashboard">contacto.</a>
+      </p>
+    </div>
+  </section>
+  <ion-segment
+    class="segment"
+    (ionChange)="cambioSegment($event)"
+    value="no-completed"
+    mode="ios"
+  >
+    <ion-segment-button class="segment-1" value="no-completed">
+      <ion-label class="segment-label">En proceso</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button class="segment-1" value="completed">
+      <ion-label class="segment-label">Completados</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <app-loading></app-loading>
+
+  <app-card-list-orders
+    *ngIf="segment === 'no-completed'"
+    [orders]="ordersNoEnd$ | async"
+  >
+  </app-card-list-orders>
+  <app-card-list-orders
+    *ngIf="segment === 'completed'"
+    [orders]="ordersEnd$ | async"
+  >
+  </app-card-list-orders>
+</ion-content>

@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="header">
+    <button slot="start" class="header_btn">
+      <ion-icon class="header__icon" name="person-circle"></ion-icon>
+    </button>
+    <ion-title class="header__text">
+      Bienvenido
+
+      <span class="text-litle">{{ userName$ | async }}</span>
+
+      <span class="text-litle"> {{ userLas1$ | async }}</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <app-loading></app-loading>
+  <app-user *ngIf="showuser" [usuario]="userDB" name="Tab 4 page"></app-user>
+
+  <div *ngIf="!showuser" class="sesion">
+    <ion-button
+      class="btn"
+      fill="outline"
+      [routerLink]="['/auth/log-in']"
+      routerLinkActive="router-link-active"
+    >
+      <strong>Ir a INICIAR SESSION</strong>
+    </ion-button>
+  </div>
+</ion-content>

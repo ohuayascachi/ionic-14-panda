@@ -1,0 +1,23 @@
+Formato de imagen
+
+Imagen FOrmato : JPG PNG y webp
+
+Imge thumbnail format:
+size: 156 * 156 - 72ppp
+weight:6 KB
+
+Imgen small format:
+size:500 * 500 - 72PPP
+weight:25KB
+
+Imgen medium format:
+size: 750 * 750 - 72PPP
+weight: 47KB
+
+Imgen Large format:
+size:1000 *1000  - 72PPP
+weight: 77KB
+
+Imgen Super format:
+size:1200 *1200  - 72PPP
+weight: 107KB

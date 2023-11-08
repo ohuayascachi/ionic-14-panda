@@ -1,0 +1,64 @@
+<div id="items-1">
+  <div *ngFor="let item of cart; let i = index">
+    <ion-card class="card card-item" id="id-{{ i }}">
+      <div class="info-input">
+        <div class="img-and-tex">
+          <div class="img-product">
+            <img
+              *ngIf="item.producto.image1.imgSmall"
+              alt="product #1"
+              [src]="item.producto.image1.imgSmall"
+            />
+            <img
+              *ngIf="!item.producto.image1.imgSmall"
+              alt="product #2"
+              [src]="item.producto.image1.imgMediun"
+            />
+          </div>
+          <div class="item-text">
+            <p class="name-product">
+              {{ item.producto.name }}
+            </p>
+            <div class="text-pricing">
+              <div>
+                <div
+                  class="item-detail"
+                  *ngFor="let p of item.producto.precios"
+                >
+                  <label> [ {{ p.range.start }} - {{ p.range.end }} ] </label>
+
+                  <span>{{ p.unidadMoneda }} {{ p.price }} </span>
+                </div>
+              </div>
+              <div *ngIf="!pricingOfTrue && i + 1" class="pricing">
+                S/ {{ item.precioSelect }}
+              </div>
+              <div *ngIf="pricingOfTrue" class="pricing">
+                <ion-spinner name="circles"></ion-spinner>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cant">
+          <label for="">Cantidad</label>
+          <form>
+            <input
+              class="input-number nu + {i}"
+              id="{{ item.id }}"
+              type="number"
+              [value]="item.count"
+              (keyup)="qtyChange(item.id, item.producto.id, $event)"
+            />
+          </form>
+
+          <ion-icon
+            (click)="deleteCart(item.id)"
+            class="btn icon-button"
+            name="trash"
+          ></ion-icon>
+        </div>
+      </div>
+    </ion-card>
+  </div>
+</div>

@@ -6,6 +6,12 @@ const routes: Routes = [
   {
     path: '',
     component: Tab2Page,
+    children:  [
+      {
+        path: '',
+        loadChildren: () => import('../share/share.module').then(m => m.ShareModule)
+      },
+    ]
   }
 ];
 

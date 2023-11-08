@@ -1,0 +1,447 @@
+<ion-header translucent="true">
+  <ion-toolbar class="header">
+    <ion-buttons slot="start" class="header_btn" (click)="routerLinkRetro()">
+      <ion-icon class="header__icon" name="chevron-back-sharp"></ion-icon>
+    </ion-buttons>
+    <ion-title class="header__text">Agregar Producto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <div class="card pt-2" class="form">
+    <form (ngSubmit)="postProduct()" [formGroup]="formProduct">
+      <ion-item class="inputNombre" lines="none">
+        <ion-label>Nombre</ion-label>
+        <ion-input formControlName="name" type="text" required></ion-input>
+      </ion-item>
+
+      <ion-item class="inputCategoria" lines="none">
+        <ion-label>Categoría</ion-label>
+        <ion-select
+          (ionChange)="getAllSubcateXcategoria($event)"
+          formControlName="categoria"
+          placeholder="Seleccione categoría"
+          required
+        >
+          <ion-select-option
+            *ngFor="let item of categorias$ | async"
+            value="{{ item.id }}"
+            >{{ item.name }}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="inputCategoria" lines="none">
+        <ion-label>Subcategoria</ion-label>
+        <ion-select
+          formControlName="subcategoria"
+          placeholder="Seleccione categoría"
+          required
+        >
+          <ion-select-option
+            *ngFor="let item of subcategor$ | async"
+            value="{{ item.id }}"
+            >{{ item.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="floating">Descripción</ion-label>
+        <ion-textarea
+          formControlName="description"
+          rows="5"
+          required
+        ></ion-textarea>
+      </ion-item>
+
+      <ion-accordion-group>
+        <ion-accordion value="first">
+          <ion-item slot="header" color="light">
+            <ion-label>Caracteristícas</ion-label>
+          </ion-item>
+
+          <div class="ion-padding" slot="content">
+            <table
+              class="table table-hover"
+              *ngIf="this.formProduct.get('features').length > 0"
+            >
+              <tbody>
+                <!-- <tr *ngFor="let item of caracteristicas.controls; let i = index" > -->
+                <tr
+                  *ngFor="
+                    let item of formProduct.get('features').value;
+                    let i = index
+                  "
+                >
+                  <th scope="row" class="clave">{{ i + 1 }}</th>
+                  <th class="clave">{{ item.key }}</th>
+
+                  <td>{{ item.value }}</td>
+                  <td>
+                    <i
+                      class="bi bi-x-lg"
+                      (click)="deleteItemArrayFeature(i)"
+                    ></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="card card-add-feature" [formGroup]="formFeature">
+              <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm"
+                  >Clave</span
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="key"
+                  aria-describedby="inputGroup-sizing-sm"
+                />
+              </div>
+
+              <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm"
+                  >Valor</span
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="value"
+                  aria-describedby="inputGroup-sizing-sm"
+                />
+              </div>
+            </div>
+
+            <div style="text-align: center; padding: 0; margin: 0">
+              <button
+                type="button"
+                [disabled]="!this.formFeature.valid"
+                (click)="addViewFeature()"
+                class="btn btn-outline-info btn-sm"
+              >
+                Agregar
+              </button>
+            </div>
+          </div>
+        </ion-accordion>
+
+        <ion-accordion value="third" disabled="true" hidden>
+          <ion-item slot="header" color="light">
+            <ion-label> Imagenes </ion-label>
+          </ion-item>
+
+          <div class="ion-padding mt-3" slot="content">
+            <div class="card text-white bg-secondary mb-3">
+              <div class="card-header" style="height: 3rem">
+                <h4>¡Instrucciones!</h4>
+              </div>
+              <div class="card-body">
+                <ul style="padding-left: 3px; margin-left: 0px">
+                  <li class="card-text">
+                    Las imagenes deben ser de 400x300px.
+                  </li>
+                  <li class="card-text">
+                    El peso debe estar entre 50 a 150 kbs.
+                  </li>
+                  <li class="card-text">
+                    En la primera imagen debe sobre-escribir el nombre del
+                    producto.
+                  </li>
+                  <li class="card-text">
+                    Si tan solo con mostrar la imagen es posible identificar el
+                    nombre del producto, no será necesario sobre-escribir el
+                    nombre.
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <label for="InputFile3"> Imagen 3 </label>
+            <div class="input-group mb-3">
+              <input
+                type="file"
+                class="form-control"
+                id="InputFile1"
+                formControlName="image1"
+                aria-describedby="InputFile1"
+                aria-label="Upload"
+              />
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                id="InputFile1"
+              >
+                Subir
+              </button>
+            </div>
+
+            <label for="InputFile3"> Imagen 2 </label>
+            <div class="input-group mb-3">
+              <input
+                type="file"
+                class="form-control"
+                id="InputFile2"
+                formControlName="image2"
+                aria-describedby="InputFile2"
+                aria-label="Upload"
+              />
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                id="InputFile1"
+              >
+                Subir
+              </button>
+            </div>
+
+            <label for="InputFile3"> Imagen 3 </label>
+            <div class="input-group mb-3">
+              <input
+                type="file"
+                class="form-control"
+                id="InputFile3"
+                formControlName="image3"
+                aria-describedby="InputFile3"
+                aria-label="Upload"
+              />
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                id="InputFile1"
+              >
+                Subir
+              </button>
+            </div>
+          </div>
+        </ion-accordion>
+
+        <ion-accordion value="fourth">
+          <ion-item slot="header" color="light">
+            <ion-label> Localización y stock</ion-label>
+          </ion-item>
+
+          <div class="ion-padding" slot="content">
+            <div class="row g-3 mt-3">
+              <div class="mt-3 mb-3 row">
+                <div class="col-4">
+                  <label for="tienda" class="col-form-label">Tienda</label>
+                </div>
+
+                <div class="col-8">
+                  <input
+                    type="text"
+                    formControlName="tienda"
+                    class="form-control"
+                    id="tienda"
+                  />
+                </div>
+              </div>
+
+              <div class="mb-3 row">
+                <div class="col-4">
+                  <label for="priceUno" class="col-form-label">Cantidad</label>
+                  <small style="color: red"> <strong> (STOK)</strong> </small>
+                </div>
+
+                <div class="col-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="count"
+                    id="priceUno"
+                  />
+                </div>
+              </div>
+
+              <div class="mb-3 row">
+                <div class="col-4">
+                  <label for="priceUno" class="col-form-label"
+                    >Unidades por caja</label
+                  >
+                </div>
+
+                <div class="col-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="countByBox"
+                    id="unidadporcaja"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+
+      <ion-item lines="none">
+        <ion-label position="floating">Nota adicional</ion-label>
+        <ion-textarea formControlName="nota" rows="4" required></ion-textarea>
+      </ion-item>
+
+      <div class="mt-3">
+        <div class="d-grid gap-2 col-10 mx-auto">
+          <ion-button
+            type="submit"
+            [disabled]="!this.formProduct.valid"
+            class="color-button-pedido"
+            expand="full"
+            >Agregar producto</ion-button
+          >
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div>
+    <!-- <span>
+      {{ this.formProduct.value | json }}
+    </span> -->
+  </div>
+</ion-content>
+
+<!--
+<ion-accordion value="second">
+  <ion-item slot="header" color="light">
+    <ion-label>Precio</ion-label>
+  </ion-item>
+  <div class="ion-padding" slot="content">
+    <div class="row" style="text-align: center">
+      <h4>
+        Precio (<strong> <small>S/</small> </strong>)
+      </h4>
+      <small> Nuevo soles</small>
+    </div>
+
+    <div class="list-precios">
+      <div class="list-item mt-3 mb-3 row">
+        <div class="item col-6">
+          <label for="priceUno" class="col-form-label">Unidad</label>
+        </div>
+
+        <div class="item col-6">
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">S/</span>
+            <input
+              type="text"
+              autocomplete="off"
+              formControlName="priceUnidad"
+              class="form-control"
+              id="priceUno"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="list-item mb-3 row">
+        <div class="col-6">
+          <label for="priceDocena" class="col-form-label">Docena</label>
+        </div>
+   
+        <div class="col-6">
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">S/</span>
+            <input
+              type="text"
+              autocomplete="off"
+              formControlName="priceDocena"
+              class="form-control"
+              id="priceDocena"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="list-item mb-3 row">
+        <div class="col-6">
+          <label for="priceCaja" class="col-form-label">Caja</label>
+        </div>
+ 
+
+        <div class="col-6">
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">S/</span>
+            <input
+              type="text"
+              autocomplete="off"
+              formControlName="priceCaja"
+              class="form-control"
+              id="priceCaja"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="list-item mb-3 row">
+        <div class="col-6">
+          <label for="priceDiezCaja" class="col-form-label"
+            >10 Cj.</label
+          >
+        </div>
+ 
+
+        <div class="col-6">
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">S/</span>
+            <input
+              type="text"
+              autocomplete="off"
+              formControlName="priceDecaCaja"
+              class="form-control"
+              id="priceDiezCaja"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="list-item mb-3 row">
+        <div class="col-6">
+          <label for="priceCincuetaCaja" class="col-form-label"
+            >50 Cj.</label
+          >
+        </div>
+     
+
+        <div class="col-6">
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">S/</span>
+            <input
+              type="text"
+              autocomplete="off"
+              formControlName="priceQuincuaCaja"
+              class="form-control"
+              id="priceCincuetaCaja"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="list-item mb-3 row">
+        <div class="col-6">
+          <label for="priceCienCaja" class="col-form-label"
+            >100 Cj.</label
+          >
+        </div>
+ 
+
+        <div class="col-6">
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">S/</span>
+            <input
+              type="text"
+              formControlName="priceCentiCaja"
+              autocomplete="off"
+              class="form-control"
+              id="priceCienCaja"
+            />
+          </div>
+        </div>
+      </div>
+
+   
+    </div>
+  </div>
+</ion-accordion>
+ -->

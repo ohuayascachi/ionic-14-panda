@@ -1,0 +1,73 @@
+.title-header {
+  padding: 1rem 1.5rem;
+}
+
+.segment {
+  display: flex;
+  flex-direction: column;
+  background: #BFBFBF;
+  padding-top: 0.8rem;
+  border-radius: 15px;
+
+}
+
+.segment-header {
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+
+ion-segment-button::part(indicator-background) {
+  background: #e3e1e1;
+
+
+}
+
+
+.btn:link,
+.btn:visited {
+  display: inline-block;
+
+  text-decoration: none;
+  /*Elimina la underline del button */
+  font-size: 1rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 1.1px;
+
+  transition: background-color 0.3s;
+  /* Esto anima el moton con el pasar del mouse*/
+
+  background-color: #46598C;
+  color: #fff;
+  margin-right: 0.8rem;
+
+}
+
+/* esto dará cambiara el color al pasar el mouse */
+.btn--full:hover,
+.btn--full:active {
+  background-color: #46598C;
+  color: #fff;
+}
+
+.btn-segment {
+
+  display: flex;
+  margin: 2rem 0rem;
+
+  justify-content: space-around;
+
+
+}
+
+.icon-delete {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.nota-text {
+  margin: 0.5rem 1rem;
+}

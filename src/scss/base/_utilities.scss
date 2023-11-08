@@ -1,0 +1,36 @@
+ // Seleccion
+
+ //Esto es para el seleccion y para su label
+ .select-rango {
+   display: flex;
+   margin: 1.5rem;
+   align-content: space-around;
+   align-items: center;
+
+ }
+
+ .select {
+   height: 2rem;
+   border-radius: 0.5rem;
+   padding: 3px 5px;
+ }
+
+ .select-seller {
+   display: flex;
+   flex-direction: column;
+   margin-left: 1.5rem;
+   margin-right: 1.5rem;
+ }
+
+ .seller-option {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   justify-content: center;
+   grid-gap: 2rem;
+   margin-bottom: 2rem;
+   margin-top: 1rem;
+
+   ion-toggle {
+     padding-right: 1rem;
+   }
+ }

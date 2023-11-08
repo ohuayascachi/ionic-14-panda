@@ -1,0 +1,85 @@
+.mainSlide,
+.mainSlide ion-slide {
+    width: 100%;
+    height: 100%;
+}
+
+img {
+    width: 150px;
+}
+
+.pick-avatar {
+    width: 80px;
+    opacity: 0.3;
+}
+
+.pick-avatar-seleccionado {
+    transition: opacity 0.5s linear;
+    opacity: 1 !important;
+}
+
+ion-content {
+    text-align: center;
+    position: relative;
+    // --background :radial-gradient(circle at -4.17% 4.55%, #dcaf3d 0, #e4a63a 7.14%, #eb9b38 14.29%, #f18e37 21.43%, #f68039 28.57%, #f9703c 35.71%, #fa5d41 42.86%, #f94646 50%, #f7284d 57.14%, #f30057 64.29%, #ee0062 71.43%, #e7006f 78.57%, #de007e 85.71%, #d2008d 92.86%, #c4009e 100%);
+    --background: linear-gradient(180deg, hsla(212, 35%, 58%, 1) 0%, hsla(218, 32%, 80%, 1) 100%);
+}
+
+#formInput {
+    margin: 1.5rem;
+    border-radius: 15px;
+    background-color: rgb(251, 246, 246);
+    /* centrar vertical y horizontalmente */
+    position: relative;
+    top: 10%;
+
+}
+
+#register {
+    margin: 1.5rem;
+    border-radius: 15px;
+    // background-color: rgb(251, 246, 246);
+    /* centrar vertical y horizontalmente */
+    position: relative;
+    top: 10%;
+    //color:#050505;
+    font-weight: 600;
+    //font-weight: bold;
+}
+
+#buttonColor {
+    //     --background: radial-gradient(circle at -4.17% 4.55%, #dcaf3d 0, #e4a63a 7.14%, #eb9b38 14.29%, #f18e37 21.43%, #f68039 28.57%, #f9703c 35.71%, #fa5d41 42.86%, #f94646 50%, #f7284d 57.14%, #f30057 64.29%, #ee0062 71.43%, #e7006f 78.57%, #de007e 85.71%, #d2008d 92.86%, #c4009e 100%);
+    --ion-color-danger: #2b1d7c;
+}
+
+ion-input {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#alertaPass {
+    color: red;
+}
+
+#nameInput {
+    text-transform: capitalize;
+}
+
+#lastName1Input {
+    text-transform: capitalize;
+}
+
+#lastName2Input {
+    text-transform: capitalize;
+}
+
+.text-valid {
+    color: green;
+    font-weight: 600;
+}
+
+
+.text-invalid {
+    color: red;
+    font-weight: 600;
+}
