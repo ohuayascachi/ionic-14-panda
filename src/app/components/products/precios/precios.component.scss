@@ -31,11 +31,11 @@ ion-segment-button::part(indicator-background) {
 
   text-decoration: none;
   /*Elimina la underline del button */
-  font-size: 1rem;
-  padding: 0.7rem 1.4rem;
+  font-size: 0.7rem;
+  padding: 0.4rem 1rem;
   border-radius: 8px;
   font-weight: 600;
-  letter-spacing: 1.1px;
+  letter-spacing: 0.8px;
 
   transition: background-color 0.3s;
   /* Esto anima el moton con el pasar del mouse*/

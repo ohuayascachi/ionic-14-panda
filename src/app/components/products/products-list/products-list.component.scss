@@ -1,13 +1,46 @@
-.user-reister {
-  font-size: 12px;
-}
-
-.name-product {
-  --color: black;
+ .name-product {
+   --color: black;
+   font-size: 0.9rem;
+   font-weight: 600;
 
 
-}
+ }
 
-.ion-item {
-  --color: black;
-}
+ .filtro-products {
+   margin-bottom: 1.7rem;
+ }
+
+ .select {
+   width: 10rem;
+ }
+
+ .label-option {
+   margin-top: 0.5rem;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+ }
+
+
+ .label-select {
+   position: relative;
+ }
+
+ .title-select {
+   font-size: 1rem;
+   font-weight: 600;
+   margin-bottom: 0.4rem;
+ }
+
+ .nota-text {
+   font-size: 0.8rem;
+   width: 100%;
+   padding: 0.5rem;
+ }
+
+ .card {
+   //  background-color: aqua;
+   padding: 0 0rem;
+   margin: 0.5rem 0.2rem;
+
+ }

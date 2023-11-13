@@ -19,12 +19,12 @@ export class PreciosComponent implements OnInit {
   ngOnInit() {
     this.productService.getAllProducts();
     this.productsAllWithPrecio$ = this.productService.dataPrAll$.pipe(
-      tap((x) => console.log('COM PRECIO', x)),
+      // tap((x) => console.log('COM PRECIO', x)),
       map((resp) => resp.filter((x) => x.precios.length > 0))
     );
 
     this.productsAllWithoutPrecio$ = this.productService.dataPrAll$.pipe(
-      tap((x) => console.log('SIN PRECIO', x)),
+      // tap((x) => console.log('SIN PRECIO', x)),
       map((resp) => resp.filter((x) => x.precios.length === 0))
     );
   }

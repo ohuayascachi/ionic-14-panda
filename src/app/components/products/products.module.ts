@@ -24,6 +24,7 @@ import { PrecioProdListComponent } from './precio-prod/precio-prod-list.componen
 import { PrecioListComponent } from './precio-list/precio-list.component';
 import { ShareModule } from 'src/app/share/share.module';
 import { HeaderComponent } from 'src/app/share/header/header.component';
+import { ProductsListComponent } from './products-list/products-list.component';
 
 //shared
 
@@ -44,6 +45,7 @@ import { HeaderComponent } from 'src/app/share/header/header.component';
     //HeaderComponent,
     //LoadingComponent,
     //PrecioProdListComponent,
+    ProductsListComponent,
 
     // LoadingComponent,
   ],

@@ -90,17 +90,17 @@ export class ProductService {
         this.headers
       )
       .pipe(
-        catchError(this.errorHandler),
         tap(() => {
           alert.present();
         }),
-        tap((x) => loading.dismiss(x)) // De esta manera se termina el alert
+        tap((x) => loading.dismiss(x)),
+
         // tap(() => this.router.navigate(['/prices']))
-        //  tap((resp) => console.log(resp.item))
+        tap((resp) => console.log(resp)),
+        // tap(() => this.getAllProducts()),
+        catchError(this.errorHandler)
       )
-      .subscribe(() => {
-        this.getAllProducts();
-      });
+      .subscribe(() => this.getAllProducts());
   }
 
   /*Esto reemplazara get ALL PRODUCTO
@@ -114,7 +114,6 @@ export class ProductService {
       )
       .pipe(
         shareReplay(),
-
         map((resp) => resp.item),
         //  tap((res) => console.log('servicoo', res)),
         tap((x) => this.subjectPrAll.next(x)), // Muestra todo los products
@@ -196,6 +195,28 @@ export class ProductService {
       )
       .subscribe();
   }
+
+  async deleteProductById(productID: string) {
+    if (!productID) {
+      return console.log('No hay ID');
+    }
+
+    const alert = await this.fncService.presentAlertWhenDelete();
+    // http://localhost:2001/api/product/651995689aceffad47fd7e6f
+    this.http
+      .get<{ item: any; msg: string; count: number }>(
+        `${server}/product/${productID}`,
+        this.headers
+      )
+      .pipe(
+        map((resp) => resp.item),
+        tap(() => alert.present()),
+        catchError(this.errorHandler)
+        //  tap((resp) => this.subjectPric.next(resp))
+      )
+      .subscribe();
+  }
+
   errorHandler(er: HttpErrorResponse) {
     // console.log(er);
     // this.islogingMsg$ = of(er.error.message);

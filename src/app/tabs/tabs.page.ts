@@ -33,6 +33,5 @@ export class TabsPage implements OnInit {
     } else {
       this.userRole$ = of(user.role);
     }
-    await this.storage.create();
   }
 }

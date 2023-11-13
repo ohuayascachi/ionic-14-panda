@@ -23,10 +23,11 @@ export class UserGeneralGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+    this.storage.create();
     this.storage.get('user').then((resp) => (this.userRole = resp.role));
-    console.log(this.userRole);
-    console.log('GUAR DE EJECUTO+O');
-    console.log(route);
+    //console.log(this.userRole);
+    // console.log('GUAR DE EJECUTO+O');
+    //console.log(route);
     if (this.userRole !== 'root') {
       return false; // es true, si queremos q pase;
     } else if (this.userRole === 'root') {

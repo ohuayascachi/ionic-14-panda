@@ -7,28 +7,71 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="content">
+<ion-content class="content ion-padding">
+  <div class="filtro-products">
+    <section>
+      <p class="title-select">Filtre productos</p>
+    </section>
+    <!--  seleccion por categoria -->
+    <div class="label-option">
+      <label for="cate">Seleccione categoria</label>
+      <select
+        class="select"
+        name="cate"
+        id=""
+        (change)="selectProdByCategoria($event)"
+      >
+        <option class="option" value="">Seleccione</option>
+        <option
+          class="option"
+          *ngFor="let item of categorias$ | async"
+          value="{{ item.id }}"
+        >
+          {{ item.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- seleccione subcategoria -->
+    <div class="label-option">
+      <label for="subca">Seleccione subcategoria</label>
+      <select
+        class="select"
+        name="subca"
+        (change)="selectProdBySubCategoria($event)"
+      >
+        <option class="option" value="">Seleccione</option>
+        <option
+          class="option"
+          *ngFor="let item of subcategorias$ | async"
+          value="{{ item.id }}"
+        >
+          {{ item.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+
   <ion-list [inset]="true" class="card">
-    <!-- <ion-item-sliding *ngFor="let item of productsAllWithPrecio$ | async"> -->
-    <ion-item-sliding>
+    <ion-item-sliding *ngFor="let item of products$ | async" class="">
       <ion-item [button]="true">
         <p class="name-product">
-          Film de 18pulg. 1.1kg -
-          <em class="user-reister">Oscar Huayascachi</em>
+          {{ item.name }}
         </p>
       </ion-item>
       <ion-item-options slot="end">
         <ion-item-option color="danger" expandable="true">
-          <!-- <ion-icon
-          (click)="deletePrice(item.id)" -->
-          <ion-icon class="icon-delete" name="trash-outline"></ion-icon>
+          <ion-icon
+            (click)="deleteProduct(item.id)"
+            class="icon-delete"
+            name="trash-outline"
+          ></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
     <p class="nota-text">
       <strong>NOTA: </strong>
-      Arrastra el nombre hacia la izquiera para eliminar el precio y poder
-      actualizarlo.
+      Arrastra el nombre hacia la izquiera para eliminar el producto.
     </p>
   </ion-list>
 </ion-content>

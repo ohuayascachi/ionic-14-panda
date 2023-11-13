@@ -92,4 +92,6 @@ export class FuncionesService {
 
     await alert.present();
   }
+
+  //para indicar alvertencia de eliminar
 }
