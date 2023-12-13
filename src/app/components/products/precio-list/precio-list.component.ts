@@ -89,10 +89,10 @@ export class PrecioListComponent implements OnInit {
   }
 
   selectProduct(e: any) {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     this.productService.getPriciosByProductID(e.target.value);
     const precios$ = this.productService.dataPrice$;
-    precios$.subscribe((x) => console.log(x));
+    // precios$.subscribe((x) => console.log(x));
     this.preciosGeneral$ = precios$.pipe(
       map((resp) => resp.filter((x) => x.toUser === 'general'))
     );

@@ -8,7 +8,9 @@ import { LoadingService } from './loading.service';
   styleUrls: ['./loading.component.css'],
 })
 export class LoadingComponent implements OnInit {
-  constructor(public loadingSvc: LoadingService) {}
+  constructor(public loadingSvc: LoadingService) {
+    console.log('created instace....');
+  }
 
   ngOnInit() {}
 }

@@ -8,11 +8,11 @@
     <ion-label>Todos</ion-label>
   </ion-segment-button>
   <!-- EL VALUE ESTA PENDIENTE CAMBIAR POR CATEOGIRAS DESDE EL BACKEND -->
-  <ion-segment-button value="647bb85d6d467078092caffc">
-    <ion-label>Cintas</ion-label>
-  </ion-segment-button>
-  <ion-segment-button value="647bb84c6d467078092caff9">
-    <ion-label>Film</ion-label>
+  <ion-segment-button
+    *ngFor="let item of categorias$ | async"
+    value="{{ item.id }}"
+  >
+    <ion-label>{{ item.name }}</ion-label>
   </ion-segment-button>
 </ion-segment>
 
@@ -24,13 +24,12 @@
       (click)="pasarDataService(item)"
       lines="none"
     >
-      <!--  (click)="pasarDataService(item)"    src="https://ionicframework.com/docs/img/demos/thumbnail.svg" -->
       <ion-card-content class="content-img">
         <img
           *ngIf="!item.image1.imgMediun"
           alt="product #"
           class="img-product"
-          src="../../../../assets/img/products/medium_1_big_f3d14c6d9e.jpg"
+          src="../../../../assets/img/products/noproduct-large.png"
         />
 
         <img
@@ -49,8 +48,8 @@
           <span> RANGO </span>
           {{ item.unidadprice }}
           {{ item.precios[item.precios.length - 1].price
-          }}<span class="ceros-price">.00</span> - {{ item.precios[0].price
-          }}<span class="ceros-price">.00</span>
+          }}<span class="ceros-price"></span> - {{ item.precios[0].price
+          }}<span class="ceros-price"></span>
         </span>
       </p>
     </ion-card>

@@ -1,27 +1,13 @@
- .label-busqueda {
-   font-weight: 600;
-   font-size: 16px;
-   margin: 0.5rem 0.2rem 0.2rem;
- }
-
- .card-search {
-   //position: absolute;
-   z-index: 1;
- }
-
-
- .busqueda {
-   margin: 0 1rem 1.5rem 1rem;
- }
-
  .card-products {
-   margin: 0rem 1rem;
+   margin: 0.4rem 1rem; //Cambia el margen de la lista de productos del header
+
  }
 
- .select-rango {
 
-   display: flex;
-   gap: 2rem;
+ .productos {
+   //  --background: linear-gradient(360deg, #6e91b9 0%, #bcc8dc 100%);
+   --background: hsla(217, 83%, 50%, 1);
+   //  border-top: none;
+   --background: linear-gradient(180deg, hsla(217, 83%, 50%, 1) 0%, hsla(186, 100%, 69%, 1) 96%);
 
-   align-content: center;
  }

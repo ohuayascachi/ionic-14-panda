@@ -1,0 +1,62 @@
+.filtro-products {
+  margin-bottom: 2.5rem;
+  margin-left: 1.3rem;
+  margin-right: 1.3rem;
+
+  &__item {
+    //label-option
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+  }
+
+
+  &__select {
+    //select
+    width: 10rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    padding: 3px 5px;
+    font-size: 0.9rem;
+  }
+
+  &__product {
+    //product
+    margin-top: 1rem;
+
+    div {
+      margin-bottom: 0.4rem;
+    }
+  }
+
+
+  &__label-select {
+    //label-select
+    position: relative;
+  }
+
+  &__select-product {
+    //select-product
+    width: 20rem;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  &__option {
+
+    font-size: 0.8rem;
+  }
+
+}
+
+
+
+
+// .select {
+//   height: 2rem;
+//   border-radius: 0.5rem;
+//   padding: 3px 5px;
+// }

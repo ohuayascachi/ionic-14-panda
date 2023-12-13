@@ -9,6 +9,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrderService } from 'src/app/services/order.service';
 import { CartService } from 'src/app/services/cart.service';
 
+//
 @Component({
   selector: 'app-item-product',
   templateUrl: './item-product.component.html',
@@ -18,8 +19,7 @@ export class ItemProductComponent implements OnInit {
   @ViewChild('userInput') userInputViewChild: ElementRef;
 
   userInputElement: HTMLInputElement;
-
-  product: ProductGet;
+  public product: ProductGet;
   public productSub: Subscription;
   public formOrderProducts: FormGroup;
   public noExiste = true;
@@ -79,7 +79,7 @@ export class ItemProductComponent implements OnInit {
     return this.formOrderProducts.controls.order as FormArray;
   }
 
-  segmentChange(event: CustomEvent) {
+  segmentChange(event: any) {
     this.seletedValue = event.detail.value;
   }
 

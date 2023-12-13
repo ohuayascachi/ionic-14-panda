@@ -9,13 +9,16 @@ import { ProductResolver } from '../resolver/product.resolver';
 import { CustomerListComponent } from './customer-list/customer-list.component';
 import { CustomerComponent } from './customer/customer.component';
 import { OrderListComponent } from './order-list/order-list.component';
-import { ProductDetailsComponent } from './product-details/product-details.component';
 // import { HistoricoVentaComponent } from './historico-venta/historico-venta.component';
 import { PreciosComponent } from '../components/products/precios/precios.component';
 import { PrecioProdComponent } from '../components/products/precio-prod/precio-prod.component';
 import { PrecioListComponent } from '../components/products/precio-list/precio-list.component';
 import { UserGeneralGuard } from '../user-general.guard';
 import { ProductsListComponent } from '../components/products/products-list/products-list.component';
+import { CostComponent } from '../components/costos/cost/cost.component';
+import { SimulacionComponent } from '../components/costos/simulacion/simulacion.component';
+import { UploadImgComponent } from '../components/products/upload-img/upload-img.component';
+import { MyProdListComponent } from '../components/products/my-prod-list/my-prod-list.component';
 
 const routes: Routes = [
   {
@@ -53,6 +56,17 @@ const routes: Routes = [
     component: PrecioProdComponent,
   },
   {
+    path: 'costos',
+    component: CostComponent,
+    // canActivate: [UserGeneralGuard],
+  },
+
+  {
+    path: 'simulacion',
+    component: SimulacionComponent,
+    canActivate: [UserGeneralGuard],
+  },
+  {
     path: 'customer',
     component: CustomerComponent,
   },
@@ -70,8 +84,16 @@ const routes: Routes = [
     component: AddProductComponent,
   },
   {
+    path: 'uploand-img',
+    component: UploadImgComponent,
+  },
+  {
     path: 'list-products',
     component: ProductsListComponent,
+  },
+  {
+    path: 'my-products',
+    component: MyProdListComponent,
   },
   // {
   //   path: 'historico',
@@ -83,4 +105,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ShareRoutingModule {}
+export class ShareRoutingModule { }

@@ -18,11 +18,21 @@ img {
     opacity: 1 !important;
 }
 
-ion-content {
+.content-reg {
     text-align: center;
     position: relative;
-    // --background :radial-gradient(circle at -4.17% 4.55%, #dcaf3d 0, #e4a63a 7.14%, #eb9b38 14.29%, #f18e37 21.43%, #f68039 28.57%, #f9703c 35.71%, #fa5d41 42.86%, #f94646 50%, #f7284d 57.14%, #f30057 64.29%, #ee0062 71.43%, #e7006f 78.57%, #de007e 85.71%, #d2008d 92.86%, #c4009e 100%);
+
     --background: linear-gradient(180deg, hsla(212, 35%, 58%, 1) 0%, hsla(218, 32%, 80%, 1) 100%);
+
+}
+
+.content-ven {
+    text-align: center;
+    position: relative;
+
+    // --background: hsla(217, 83%, 50%, 1);
+
+    --background: linear-gradient(180deg, hsla(217, 83%, 50%, 1) 0%, hsla(186, 100%, 69%, 1) 96%);
 }
 
 #formInput {
@@ -38,18 +48,27 @@ ion-content {
 #register {
     margin: 1.5rem;
     border-radius: 15px;
-    // background-color: rgb(251, 246, 246);
-    /* centrar vertical y horizontalmente */
     position: relative;
     top: 10%;
-    //color:#050505;
+
     font-weight: 600;
     //font-weight: bold;
 }
 
+.vendedor-register {
+    margin: 1.5rem;
+    border-radius: 15px;
+    position: relative;
+    top: 8%;
+    right: 50%;
+    transform: translate(70%, 0);
+    font-weight: 600;
+}
+
+
 #buttonColor {
-    //     --background: radial-gradient(circle at -4.17% 4.55%, #dcaf3d 0, #e4a63a 7.14%, #eb9b38 14.29%, #f18e37 21.43%, #f68039 28.57%, #f9703c 35.71%, #fa5d41 42.86%, #f94646 50%, #f7284d 57.14%, #f30057 64.29%, #ee0062 71.43%, #e7006f 78.57%, #de007e 85.71%, #d2008d 92.86%, #c4009e 100%);
-    --ion-color-danger: #2b1d7c;
+    --ion-color-danger: #0034BF;
+
 }
 
 ion-input {

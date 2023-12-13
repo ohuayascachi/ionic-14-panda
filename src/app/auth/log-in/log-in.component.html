@@ -5,12 +5,25 @@
 
   <section class="text-1">
     <h2>Bienvenido a la Tienda vitual de</h2>
-    <h1 class="name-tienda">CINTAS PANDA</h1>
+    <h1 class="name-tienda">GARDE STORE</h1>
   </section>
 
   <section class="text-2">
-    <a href="/products"> <h3 class="button-1">Ir a Tienda</h3></a>
+    <!-- <a href="/products"> <h3 class="button-1">Ir a Tienda</h3></a> -->
+    <a href="/products">
+      <ion-button color="danger" shape="round">
+        <strong>Ir a Tienda</strong>
+      </ion-button></a
+    >
   </section>
+
+  <!-- <ion-button color="primary">Primary</ion-button>
+<ion-button color="secondary">Secondary</ion-button>
+<ion-button color="tertiary">Tertiary</ion-button>
+
+<ion-button color="warning">Warning</ion-button>
+<ion-button color="danger">Danger</ion-button>
+<ion-button color="light">Light</ion-button> -->
 
   <section id="formInput">
     <form (ngSubmit)="onSubmit()" [formGroup]="formLogin">
@@ -26,11 +39,13 @@
           <ion-col>
             <ion-list>
               <ion-item>
-                <ion-label>Celular</ion-label>
+                <ion-label id="telefono">Celular</ion-label>
                 <ion-input
                   formControlName="phone"
-                  name="email"
-                  type="email"
+                  placeholder="9"
+                  type="tel"
+                  maxlength="9"
+                  name="telefono"
                   required
                 ></ion-input>
               </ion-item>

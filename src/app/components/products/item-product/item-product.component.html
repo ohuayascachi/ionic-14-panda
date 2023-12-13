@@ -37,7 +37,7 @@
           <img
             *ngIf="!product.image1.imgLarge"
             alt="Product"
-            src="https://cintaspanda.s3.sa-east-1.amazonaws.com/products/cintas/medium.jpg"
+            src="../../../../assets/img/products/noproduct-large.png"
           />
         </ion-thumbnail>
       </ng-template>
@@ -52,7 +52,7 @@
           <img
             *ngIf="!product.image2.imgLarge"
             alt="Product"
-            src="https://cintaspanda.s3.sa-east-1.amazonaws.com/products/cintas/medium.jpg"
+            src="../../../../assets/img/products/noproduct-large.png"
           />
         </ion-thumbnail>
       </ng-template>
@@ -67,7 +67,7 @@
           <img
             *ngIf="!product.image3.imgLarge"
             alt="Product"
-            src="https://cintaspanda.s3.sa-east-1.amazonaws.com/products/cintas/medium.jpg"
+            src="../../../../assets/img/products/noproduct-large.png"
           />
         </ion-thumbnail>
       </ng-template>
@@ -115,16 +115,16 @@
         <div class="ion-padding" slot="content">
           <ion-item lines="none" *ngFor="let item of product.precios">
             <ion-label
-              >De {{ item.range.start }} a {{ item.range.end }} Unidades
+              >De {{ item["range"].start }} a {{ item.range.end }} Unidades
             </ion-label>
             <div>
               <h5>
-                <strong>{{ item.unidadMoneda }} </strong>
+                <strong>{{ item["unidadMoneda"] }} </strong>
               </h5>
             </div>
             <div>
               <h5>
-                <strong>{{ item.price }}</strong>
+                <strong>{{ item["price"] }}</strong>
               </h5>
             </div>
           </ion-item>
@@ -133,7 +133,8 @@
             Para el despacho tener en cuenta que {{ product.nota | lowercase }}
           </p> -->
           <p>
-            NOTA: Una caja contiene
+            NOTA:Precios indicados al por unidad.<br />
+            Una caja contiene
             <strong>{{ product.countByBox }}</strong> unidades.
           </p>
         </div>
@@ -163,7 +164,9 @@
               {{ product.location || "cintas - panda" | uppercase }}
             </div>
           </ion-item>
-          <ion-item lines="none">
+
+          <!-- pendiente para agregar - NOmbre del vendedor -->
+          <!-- <ion-item lines="none">
             <ion-label>Producto de </ion-label>
             <div>
               <h5>
@@ -172,7 +175,7 @@
                 </strong>
               </h5>
             </div>
-          </ion-item>
+          </ion-item> -->
         </div>
       </ion-accordion>
     </ion-accordion-group>

@@ -3,19 +3,22 @@
     <ion-label class="header-text">
       <h2>{{ item.sequence }}</h2>
       <h3 *ngIf="item.client !== null" class="text-client">
-        {{ item.client.name }} {{ item.client.lastName1 }}
-        <strong> - </strong> Cod.:<strong> P12345</strong>
-        <!-- <span class="text-cant">[{{ item.order.length }}]</span> -->
+        {{ item.client["name"] }} {{ item.client["lastName1"] }}
       </h3>
+      <p *ngIf="item.client !== null" class="text-fecha">
+        <strong> CÓDIGO: cli</strong>
+      </p>
+
       <h3 *ngIf="item.client === null" class="text-client">
-        {{ item.userRegister.nameFull }}<strong> - </strong> Cod.:<strong>
-          P12345</strong
-        >
+        {{ item.userRegister.nameFull }}
       </h3>
+      <p *ngIf="item.client === null" class="text-fecha">
+        <strong> CÓDIGO: own</strong>
+      </p>
 
-      <br />
-
-      <p class="text-fecha">Fecha de pedido : {{ item.createdAt | date }}</p>
+      <p class="text-fecha">
+        Fecha de pedido: {{ item.createdAt | date : "dd/mm/yyyy" }}
+      </p>
     </ion-label>
 
     <ion-badge
@@ -26,6 +29,7 @@
       slot="end"
       >{{ item.statusOrder }}</ion-badge
     >
+
     <ion-alert
       class="popoverAlert"
       mode="md"
@@ -46,8 +50,6 @@
         <div class="text-feuter">{{ lis.count }}</div>
         <div class="text-sub">S/ {{ lis.precioSelect }}</div>
       </div>
-
-      <!-- <ion-progress-bar [value]="progress"></ion-progress-bar> -->
     </div>
 
     <div class="item-orden-1">

@@ -1,6 +1,24 @@
-<ion-content fullscreen>
-  <div *ngIf="(userRole$ | async) !== 'root'" class="busqueda"></div>
+<ion-content fullscreen class="productos">
+  <div class="card-products">
+    <app-list-products
+      [productsList]="products$ | async"
+      (filterByCategoria)="filterCategoria($event)"
+    >
+    </app-list-products>
+  </div>
 
+  <!-- </div>  [productsList]="prodByRoot$ | async" -->
+</ion-content>
+
+<!--
+  <div *ngIf="(userRole$ | async) === 'root'" class="busqueda">sffd</div>
+    <app-list-products
+      *ngIf="(userRole$ | async) === 'root'"
+      (filterByCategoria)="filterCategoria($event)"
+      [productsList]="products$ | async"
+    >
+    </app-list-products>
+  
   <div *ngIf="(userRole$ | async) === 'root'" class="select-rango">
     <div>Como desea ver</div>
 
@@ -13,21 +31,4 @@
       <option value="seller-4">Vendedor 4</option>
       <option value="seller-5">Vendedor 5</option>
     </select>
-  </div>
-
-  <div class="card-products">
-    <app-list-products
-      *ngIf="(userRole$ | async) !== 'root'"
-      [productsList]="products$ | async"
-      (filterByCategoria)="filterCategoria($event)"
-    >
-    </app-list-products>
-    <app-list-products
-      *ngIf="(userRole$ | async) === 'root'"
-      [productsList]="prodByRoot$ | async"
-    >
-    </app-list-products>
-  </div>
-
-  <!-- </div> -->
-</ion-content>
+  </div> -->

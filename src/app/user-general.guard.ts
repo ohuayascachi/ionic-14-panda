@@ -28,9 +28,9 @@ export class UserGeneralGuard implements CanActivate {
     //console.log(this.userRole);
     // console.log('GUAR DE EJECUTO+O');
     //console.log(route);
-    if (this.userRole !== 'root') {
+    if (this.userRole === 'general') {
       return false; // es true, si queremos q pase;
-    } else if (this.userRole === 'root') {
+    } else if ( this.userRole !== 'general') {
       return true; // es false, si no queremos q pase;
     }
   }

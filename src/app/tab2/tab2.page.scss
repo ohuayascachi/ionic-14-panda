@@ -1,0 +1,25 @@
+.search {
+  padding: 1rem 0.7rem 0.5rem;
+
+  // background: none;
+
+}
+
+.header-search {
+  //height: 4rem;
+  //background: linear-gradient(180deg, hsla(217, 83%, 50%, 1) 100%, hsla(186, 100%, 69%, 1) 96%);
+  //background: none;
+  box-shadow: none;
+  //border-bottom: 15px solid hsla(217, 83%, 50%, 1);
+  border-bottom: 1px solid hrgb(0, 0, 0);
+
+}
+
+ion-content {
+  border: none;
+  --background: linear-gradient(180deg, hsla(217, 83%, 50%, 1) 100%, hsla(186, 100%, 69%, 1) 96%);
+}
+
+app-products {
+  border: none;
+}

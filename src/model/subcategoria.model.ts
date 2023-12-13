@@ -13,6 +13,7 @@ export interface OrderProductGetc {
 export interface SubcategoriaGet {
   id: string;
   name: string;
+  categoria: string;
   slug: string;
   description: string;
   cantidadProduc: number;

@@ -10,10 +10,12 @@ import { AuthService } from '../service/auth.service';
 })
 export class SignInComponent implements OnInit {
   formRegister: FormGroup;
+  formRegisterSeller: FormGroup;
   valueText1 = 'password';
   valueText2 = 'password';
   messeger = null;
-
+  screemSeller = false;
+  tittleRegister = 'Registrarse';
   private passw1 = null;
 
   constructor(private fb: FormBuilder, private authSVS: AuthService) {
@@ -22,11 +24,10 @@ export class SignInComponent implements OnInit {
       lastName1: ['', Validators.required],
       lastName2: ['', Validators.required],
       dni: ['', Validators.required],
-      phone: [9, [Validators.required, Validators.minLength(9)]], //chanf
-
+      phone: ['', [Validators.required, Validators.minLength(9)]], //chanf
+      role: ['general', Validators.required],
       password: ['', Validators.required],
       confiPassword: ['', Validators.required], // cahnge
-      //genero: ['', Validators.required], // NO requerido
     });
   }
 
@@ -65,5 +66,11 @@ export class SignInComponent implements OnInit {
     } else {
       this.valueText2 = 'password';
     }
+  }
+
+  registerLikeSeller() {
+    this.screemSeller = true;
+    this.tittleRegister = 'Vendedor';
+    this.formRegister.get('role').setValue('seller-1');
   }
 }

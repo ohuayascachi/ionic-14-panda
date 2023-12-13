@@ -17,7 +17,17 @@
 </ion-header>
 
 <ion-content class="card" fullscreen="true" scroll-y="true">
-  <form [formGroup]="formCustomer" (ngSubmit)="postForm()">
+
+  <div *ngIf="statusNota"  class="nota">
+    <ion-nota>
+
+      Aquí puede editar o añadir información como direccion, número de cuenta, etc. <br/>
+      Solo el número de celular es un campo que no se puede modificar, si desea hacerlo debe eliminar al cliente.<br/>
+      Presione en boton <strong>"{{btnName}}"</strong> para almacenar los cambios.  <br/>
+    </ion-nota>
+  </div>
+
+  <form [formGroup]="formCustomer" (ngSubmit)="postForm(btnName)">
     <ion-item>
       <ion-label>Celular</ion-label>
       <ion-input
@@ -25,6 +35,7 @@
         maxlength="9"
         formControlName="phone"
         class="input input-number"
+        [disabled]="statuInput"
       >
       </ion-input>
       <ion-icon
@@ -37,10 +48,13 @@
       ></ion-icon>
 
       <span *ngIf="lenthPhone !== 9 && this.formCustomer.get('phone').dirty">
-        <small id="no-valid">No valido</small></span
-      >
+        <small id="no-valid">No valido</small>
+      </span >
+      <span *ngIf="existeNumero==='El usuario existe' && lenthPhone == 9 && this.formCustomer.get('phone').dirty">
+        <small id="no-valid">{{ existeNumero }}</small>
+      </span >
       <ion-icon
-        *ngIf="this.formCustomer.get('phone').valid || lenthPhone === 9"
+        *ngIf="existeNumero!=='El usuario existe' &&( this.formCustomer.get('phone').valid || lenthPhone === 9)"
         class="icon-check"
         name="checkmark-sharp"
       ></ion-icon>
@@ -136,16 +150,16 @@
 
         <div class="ion-padding" slot="content">
           <ion-item-group>
-            <ion-item>
+            <!-- <ion-item>
               <ion-label>Foto</ion-label>
               <ion-input
                 class="input"
                 formControlName="image"
                 type="file"
               ></ion-input>
-            </ion-item>
+            </ion-item> -->
             <ion-item>
-              <ion-label>DNI</ion-label>
+              <ion-label>DNI/Pasaporte</ion-label>
               <ion-input
                 formControlName="dni"
                 type="number"
@@ -160,14 +174,14 @@
                 step="1"
                 class="input input-datos"
               ></ion-input>
-            </ion-item>
+            </ion-item> 
+
             <ion-item>
-              <ion-label>Genero</ion-label>
               <ion-select
+                justify="space-between"
+                label="Género"
+                placeholder="Género"
                 formControlName="genero"
-                class="input input-datos"
-                interface="popover"
-                placeholder="Seleccione genero"
               >
                 <ion-select-option value="M">M</ion-select-option>
                 <ion-select-option value="F">F</ion-select-option>
@@ -181,14 +195,18 @@
                 class="input input-datos"
               ></ion-input>
             </ion-item>
-            <ion-item formGroupName="edad">
+            <!-- <ion-item formGroupName="edad">
               <ion-label>Edad</ion-label>
               <ion-input
                 formControlName="edad"
                 type="number"
                 class="input input-datos"
               ></ion-input>
-            </ion-item>
+            </ion-item> -->
+
+            <p class="nota">
+              NOTA: Si se deconoce el RUC, volver a colocar el número de DNI.
+            </p>
           </ion-item-group>
         </div>
       </ion-accordion>
@@ -283,12 +301,6 @@
             </ion-item>
           </div>
 
-          <!-- Buttones -->
-          <!-- <div class="button-add-direcc">
-            <button (click)="resetAdress()" class="button-delete">
-              <ion-icon class="button-icon" name="refresh-outline"></ion-icon>
-            </button>
-          </div> -->
         </div>
       </ion-accordion>
 
@@ -325,6 +337,23 @@
               class="input input-datos"
             ></ion-input>
           </ion-item>
+
+          <ion-item>
+            <ion-label>
+              Titular <small> <em> (De cuenta)</em> </small></ion-label
+            >
+            <ion-input
+              formControlName="titular"
+              type="text"
+              class="input input-datos"
+            ></ion-input>
+          </ion-item>
+          <p class="nota">
+            NOTA: Información referencial que se usaran en caso queramos
+            realizar deposito. Favor de verificar su informacón de manera
+            correcta. <br />
+            <strong>IMPORTATE</strong> : NO SOLICITAMOS NÚMERO DE TARJETA.
+          </p>
         </div>
       </ion-accordion>
     </ion-accordion-group>
@@ -334,13 +363,13 @@
       type="submit"
       class="color-button-registrar"
       [disabled]="!this.formCustomer.valid"
-      >Registrar
+      >{{btnName}}
 
       <ion-icon name="person-add" slot="end"></ion-icon>
     </ion-button>
   </form>
 
-  valid: <span> {{ this.formCustomer.valid }}</span>
+  <!-- valid: <span> {{ this.formCustomer.valid }}</span> -->
 </ion-content>
 
 <!-- 

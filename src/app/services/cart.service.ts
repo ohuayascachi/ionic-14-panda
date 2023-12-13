@@ -45,13 +45,13 @@ export class CartService {
         this.headers
       )
       .pipe(
-        //tap((x) => console.log(x)),
+         //tap((x) => console.log(x)),
         map((resp: { item: CartGet; msg: string; count: number }) => resp.item),
         shareReplay(),
         tap(() =>
           of(this.presentToast('Se ha agregado correctamente', 'success'))
         ),
-        catchError((err: HttpErrorResponse) =>
+        catchError((err: HttpErrorResponse) => 
           of(this.presentToast(err.error.message, 'warning'))
         )
       )

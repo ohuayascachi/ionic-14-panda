@@ -1,4 +1,11 @@
-
-
-<ion-searchbar showCancelButton="focus"></ion-searchbar>
-
+<ion-searchbar
+  (ionChange)="handleInput($event)"
+  class="busqueda"
+  show-cancel-button="focus"
+  placeholder="Buscar productos"
+></ion-searchbar>
+<!-- <ion-list>
+  <ion-item *ngFor="let result of results">
+    <ion-label>{{ result }}</ion-label>  [debounce]="1000"  [enterkeyhint]="'enter'"
+  </ion-item>
+</ion-list> -->

@@ -27,7 +27,7 @@
 
     <ion-item lines="none" [routerLink]="['/orders-list']">
       <ion-icon slot="start" name="reader-outline"></ion-icon>
-      <ion-label>Registro de pedidos</ion-label>
+      <ion-label>Mis compras</ion-label>
     </ion-item>
 
     <ion-item
@@ -46,20 +46,11 @@
       routerLinkActive="router-link-active"
     >
       <ion-icon slot="start" name="people-outline"></ion-icon>
-      <ion-label>Tus clientes</ion-label>
+      <ion-label>Mis clientes</ion-label>
     </ion-item>
 
     <ion-item
-      lines="none"
-      [routerLink]="['/customer-list']"
-      routerLinkActive="router-link-active"
-    >
-      <ion-icon slot="start" name="person-circle-outline"></ion-icon>
-      <ion-label>Actulizar mis datos personales</ion-label>
-    </ion-item>
-
-    <ion-item
-      *ngIf="role === 'root'"
+      *ngIf="role !== 'general'"
       [routerLink]="['/add-product']"
       lines="none"
     >
@@ -68,17 +59,32 @@
     </ion-item>
 
     <ion-item
+      *ngIf="role !== 'general'"
+      [routerLink]="['/uploand-img']"
+      lines="none"
+    >
+      <ion-icon slot="start" name="images"></ion-icon>
+
+      <ion-label>Imagenes a productos</ion-label>
+    </ion-item>
+
+    <!-- <ion-icon name="images"></ion-icon> -->
+    <ion-item
       *ngIf="role === 'root'"
       [routerLink]="['/list-products']"
       lines="none"
     >
-      <ion-icon slot="start" name="create-outline"></ion-icon>
+      <ion-icon slot="start" name="server-outline"></ion-icon>
       <!-- <ion-icon slot="start" name="reader-outline"></ion-icon> -->
-      <ion-label>Lista de productos</ion-label>
+      <ion-label>Todo los productos</ion-label>
     </ion-item>
 
-    <ion-item *ngIf="role === 'root'" [routerLink]="['/prices']" lines="none">
-      <ion-icon slot="start" name="cash-outline"></ion-icon>
+    <ion-item
+      *ngIf="role !== 'general'"
+      [routerLink]="['/prices']"
+      lines="none"
+    >
+      <ion-icon slot="start" name="calculator-outline"></ion-icon>
       <ion-label>Agregar precios</ion-label>
     </ion-item>
 
@@ -87,9 +93,35 @@
       [routerLink]="['/prices-list']"
       lines="none"
     >
-      <ion-icon slot="start" name="create-outline"></ion-icon>
+      <ion-icon slot="start" name="eye-outline"></ion-icon>
       <!-- <ion-icon slot="start" name="reader-outline"></ion-icon> -->
-      <ion-label>Lista precios</ion-label>
+      <ion-label>Revisar precios</ion-label>
+    </ion-item>
+
+    <ion-item
+      *ngIf="role !== 'general' "
+      [routerLink]="['/my-products']"
+      lines="none"
+    >
+      <ion-icon slot="start" name="server-outline"></ion-icon>
+      <!-- <ion-icon slot="start" name="reader-outline"></ion-icon> -->
+      <ion-label>Mis productos</ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="role === 'root'" [routerLink]="['/costos']" lines="none">
+      <ion-icon slot="start" name="cash-outline"></ion-icon>
+      <!-- <ion-icon slot="start" name="reader-outline"></ion-icon> -->
+      <ion-label>Costos</ion-label>
+    </ion-item>
+
+    <ion-item
+      *ngIf="role === 'root'"
+      [routerLink]="['/simulacion']"
+      lines="none"
+    >
+      <ion-icon slot="start" name="rocket-outline"></ion-icon>
+      <!-- <ion-icon slot="start" name="reader-outline"></ion-icon> -->
+      <ion-label>Simulación de precios</ion-label>
     </ion-item>
 
     <!-- esto esta pendiente --  [routerLink]="['/my-products-list']" -->
@@ -128,6 +160,15 @@
     <ion-list-header>
       <strong> Configuracion de cuenta </strong>
     </ion-list-header>
+
+    <ion-item
+      lines="none"
+      [routerLink]="['/customer-list']"
+      routerLinkActive="router-link-active"
+    >
+      <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+      <ion-label>Datos personales</ion-label>
+    </ion-item>
 
     <ion-item-group>
       <ion-item lines="none">

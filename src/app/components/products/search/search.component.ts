@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -6,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
+  @Output() busqueda = new EventEmitter<any>();
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {}
 
+  handleInput(event) {
+    const query = event.target.value.toLowerCase();
+    this.busqueda.emit(query);
+  }
 }

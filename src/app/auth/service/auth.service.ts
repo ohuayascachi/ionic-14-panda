@@ -102,7 +102,7 @@ export class AuthService {
           this._storage.set('user', resp.item);
         }),
         map((resp) => {
-          console.log(resp);
+          // console.log(resp);
           if (resp) {
             localStorage.setItem('token', resp.token);
             localStorage.setItem('name', resp.item.name);
@@ -114,9 +114,9 @@ export class AuthService {
         //   shareReplay(),
         catchError((err: HttpErrorResponse) =>
           of(this.presentToast(err.error.message, 'warning'), this.errorHandler)
-        ),
+        )
         //tap((resp) => console.log( t resp)),
-        tap((resp) => console.log(resp))
+        // tap((resp) => console.log(resp))
       )
       .subscribe(() => {});
   }

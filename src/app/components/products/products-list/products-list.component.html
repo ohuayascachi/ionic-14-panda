@@ -6,11 +6,10 @@
     <ion-title class="header__text">Lista de productos</ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content class="content ion-padding">
+<ion-content class="content">
   <div class="filtro-products">
     <section>
-      <p class="title-select">Filtre productos</p>
+      <p class="title-select">Filtrar productos</p>
     </section>
     <!--  seleccion por categoria -->
     <div class="label-option">
@@ -31,7 +30,6 @@
         </option>
       </select>
     </div>
-
     <!-- seleccione subcategoria -->
     <div class="label-option">
       <label for="subca">Seleccione subcategoria</label>
@@ -51,13 +49,10 @@
       </select>
     </div>
   </div>
-
-  <ion-list [inset]="true" class="card">
-    <ion-item-sliding *ngFor="let item of products$ | async" class="">
-      <ion-item [button]="true">
-        <p class="name-product">
-          {{ item.name }}
-        </p>
+  <ion-list [inset]="true" class="tarjeta">
+    <ion-item-sliding *ngFor="let item of products$ | async; let i = index">
+      <ion-item class="item" [button]="true">
+        <p class="name-product">{{ i + 1 }}- {{ item.name }}</p>
       </ion-item>
       <ion-item-options slot="end">
         <ion-item-option color="danger" expandable="true">
@@ -70,8 +65,8 @@
       </ion-item-options>
     </ion-item-sliding>
     <p class="nota-text">
-      <strong>NOTA: </strong>
-      Arrastra el nombre hacia la izquiera para eliminar el producto.
+      <strong>NOTA: </strong> Arrastra el nombre hacia la izquiera y click en
+      tacho para eliminar el producto.
     </p>
   </ion-list>
 </ion-content>

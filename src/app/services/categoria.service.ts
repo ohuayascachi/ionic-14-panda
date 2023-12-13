@@ -24,7 +24,9 @@ export class CategoriaService {
   constructor(private http: HttpClient) {}
 
   getCategorias(): Observable<CategoriaGet[]> {
+    // console.log('categorias');
     return this.http
+
       .get<{ item: CategoriaGet[]; msg: string; count: number }>(
         `${server}/categorias/all`
       )

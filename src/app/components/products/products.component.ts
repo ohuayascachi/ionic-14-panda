@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import { Component, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, OnChanges, OnInit, ViewChild, Input } from '@angular/core';
 
 import { map } from 'rxjs/operators';
 
@@ -9,15 +9,19 @@ import { ProductService } from 'src/app/services/product.service';
 import { ProductGet } from 'src/model/product.model';
 import { Observable, Subscription, of } from 'rxjs';
 import { Storage } from '@ionic/storage-angular';
+import { PriceGet } from 'src/model/precios.model';
+import { LoadingService } from '../shares/loading/loading.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
+  //providers: [LoadingService],
 })
 export class ProductsComponent implements OnInit, OnChanges {
   @ViewChild('popover') popover;
   isOpen = false;
+  @Input() busqueda: string;
 
   products: ProductGet[] = [];
   public products$: Observable<ProductGet[]>;
@@ -32,16 +36,23 @@ export class ProductsComponent implements OnInit, OnChanges {
   roleSelect = 'general';
 
   constructor(
-    private router: Router,
     private store: Storage,
-    private productsService: ProductService
+    private productsService: ProductService,
+    private loadingService: LoadingService
   ) {}
 
-  ngOnChanges() {}
+  ngOnChanges() {
+    const prods$ = this.productsService.getAllProducts(this.busqueda);
+    this.products$ =
+      this.loadingService.showLoaderUntilCompleted<ProductGet[]>(prods$);
+  }
 
   async ngOnInit() {
-    this.productsService.getAllProducts();
-    this.products$ = this.productsService.dataProds$;
+    const prods$ = this.productsService.getAllProducts();
+    this.products$ =
+      this.loadingService.showLoaderUntilCompleted<ProductGet[]>(prods$);
+
+    //this.products$ = this.productsService.dataProds$;
 
     setTimeout(() => {
       // console.log('ngOnInit tiempo');
@@ -55,9 +66,6 @@ export class ProductsComponent implements OnInit, OnChanges {
     }, 150);
   }
 
-  deleteProductList(eve) {
-    //console.log(eve);
-  }
   presentPopover(e: Event) {
     this.popover.event = e;
     //  console.log(e);
@@ -80,7 +88,7 @@ export class ProductsComponent implements OnInit, OnChanges {
     this.products.forEach((res) => {
       // console.log('antes', res);
       const valor = res.precios.filter((x: any) => x.toUser === role);
-      res.precios = [];
+      res.precios = [null];
       res.precios.push(...valor);
     });
     this.prodByRoot$ = of(this.products).pipe(
@@ -88,15 +96,12 @@ export class ProductsComponent implements OnInit, OnChanges {
       //  tap((x) => console.log('desdepues', x))
     );
     // });
-
-    // this.prodByRoot$.pipe(
-    //   map((resp) => resp.filter((x) => x.precios.length > 0)),
-    //   tap((x) => console.log('desdepues', x))
-    // );
-    //.subscribe((x) => console.log('desdepues', x));
   }
 
   filterCategoria(e: string) {
+    console.log('todos', e);
+
+    //this.productsService.getAllProducts();
     if (e === 'todos') {
       this.products$ = this.productsService.dataProds$;
     } else {

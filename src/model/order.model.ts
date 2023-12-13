@@ -1,4 +1,5 @@
 import { CartGet } from './cart.model';
+import { UserGet } from './user.model';
 
 // Revisar luego
 export interface OrderProductPost {
@@ -13,12 +14,12 @@ export interface OrderProductPost {
 export interface OrderGet {
   _id: string;
   cartSelected: CartGet[];
-  client: string;
+  client?: string;
   typeMoneda: string;
   costoEnvio: number;
   descuento: number;
   total: number;
-  userRegister: string;
+  userRegister: UserGet;
   metodoPago: string;
   statusOrder: string;
   statusPay: string;

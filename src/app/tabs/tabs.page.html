@@ -1,20 +1,21 @@
 <ion-tabs>
   <ion-tab-bar class="content" slot="bottom">
+    <!-- tab 1 -->
     <ion-tab-button tab="dashboard">
       <ion-icon name="tablet-landscape"></ion-icon>
       <ion-label>Nosostros</ion-label>
     </ion-tab-button>
-
+    <!-- tab 2 -->
     <ion-tab-button tab="products">
       <ion-icon name="cube"></ion-icon>
       <ion-label>Productos</ion-label>
     </ion-tab-button>
-
+    <!-- tab 3 -->
     <ion-tab-button *ngIf="(userRole$ | async) ==='root'" tab="inventario">
       <ion-icon name="logo-buffer"></ion-icon>
       <ion-label>Pedidos</ion-label>
     </ion-tab-button>
-
+    <!-- tab 4 -->
     <ion-tab-button tab="user">
       <ion-icon name="person-circle"></ion-icon>
       <ion-label>Usuario</ion-label>

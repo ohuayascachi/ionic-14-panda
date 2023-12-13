@@ -17,20 +17,21 @@ export class PreciosComponent implements OnInit {
   constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit() {
-    this.productService.getAllProducts();
-    this.productsAllWithPrecio$ = this.productService.dataPrAll$.pipe(
-      // tap((x) => console.log('COM PRECIO', x)),
-      map((resp) => resp.filter((x) => x.precios.length > 0))
+    // this.productService.getAllProducts();
+    const products$ = this.productService.getProductsByUser();
+    this.productsAllWithPrecio$ = products$ .pipe(
+       tap((x) => console.log('COM PRECIO', x)),
+      map((resp) => resp.filter((x: ProductGet) => x.precios.length > 0))
     );
 
-    this.productsAllWithoutPrecio$ = this.productService.dataPrAll$.pipe(
-      // tap((x) => console.log('SIN PRECIO', x)),
-      map((resp) => resp.filter((x) => x.precios.length === 0))
+    this.productsAllWithoutPrecio$ = products$ .pipe(
+      tap((x) => console.log('SIN PRECIO', x)),
+      map((resp) => resp.filter((x: ProductGet) => x.precios.length < 1))
     );
   }
 
-  segmentChange(event: CustomEvent) {
-    this.seletedSegment = event.detail.value;
+  segmentChange(e: any) {
+    this.seletedSegment = e.detail.value;
   }
 
   deletePrice(idProduct: string) {

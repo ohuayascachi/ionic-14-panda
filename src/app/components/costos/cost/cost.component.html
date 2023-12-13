@@ -1,0 +1,149 @@
+<ion-header translucent="true">
+  <ion-toolbar class="header">
+    <ion-buttons
+      slot="start"
+      class="header_btn"
+      (click)="funcionesService.returnUser()"
+    >
+      <ion-icon class="header__icon" name="chevron-back-sharp"></ion-icon>
+    </ion-buttons>
+    <ion-title class="header__text">Costos </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-content content">
+  <div class="filtro-products">
+    <!--  seleccion por categoria -->
+    <div class="filtro-products__item">
+      <label for="cate">Seleccione categoría</label>
+      <select
+        class="filtro-products__select"
+        name="cate"
+        id=""
+        (change)="selectProdByCategoria($event)"
+      >
+        <option class="filtro-products__option" value="">Seleccione</option>
+        <option
+          class="filtro-products__option"
+          *ngFor="let item of categorias$ | async"
+          value="{{ item.id }}"
+        >
+          {{ item.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- seleccione subcategoria -->
+    <div class="filtro-products__item">
+      <label for="subca">Seleccione subcategoría</label>
+      <select
+        class="filtro-products__select"
+        name="subca"
+        id=""
+        (change)="selectProdBySubCategoria($event)"
+      >
+        <option class="filtro-products__option" value="">Seleccione</option>
+        <option
+          class="filtro-products__option"
+          *ngFor="let item of subcategorias$ | async"
+          value="{{ item.id }}"
+        >
+          {{ item.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- seleccione producto -->
+    <div class="filtro-products__product">
+      <div>Seleccione <strong>producto</strong></div>
+      <div class="filtro-products__label-select">
+        <select
+          class="filtro-products__select filtro-products__select-product"
+          (change)="selectProduct($event)"
+        >
+          <option class="filtro-products__option" value="">Seleccione</option>
+          <option
+            class="filtro-products__option"
+            value="{{ item.id }}"
+            *ngFor="let item of productos$ | async"
+          >
+            {{ item.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <ion-list [inset]="true" class="list">
+      <p class="text-note justificado">
+        Costo mostrado por unidad y en soles, puede modificar escribiendo en
+        "nuevo costo" y luego "Guardar".
+      </p>
+      <section
+        class="todo"
+        *ngFor="let item of productos$ | async; let i = index"
+      >
+        <div class="information">
+          <!-- <div class="unread-indicator-wrapper" slot="start"></div> -->
+          <ion-label class="info-text">
+            <ion-text>{{ item.name }}</ion-text>
+            <br />
+
+            <ion-note *ngIf="item.cost.length === 0" class="text-note">
+              Aún no tiene costo registrado.
+            </ion-note>
+
+            <ion-note *ngIf="item.cost.length > 0" class="text-note">
+              última actualización:
+              {{ item.cost[0].fecha | date : "dd/MM/yyyy" }} <br />
+              Suele despacharse
+              {{ item.countByBox }} unidades.
+            </ion-note>
+          </ion-label>
+          <div class="pricing">
+            <ion-note *ngIf="item.cost.length === 0" color="danger">
+              <strong>None</strong>
+            </ion-note>
+            <ion-note *ngIf="item.cost.length > 0" color="black">
+              <strong class="pricing-number">
+                S/ {{ item.cost[0].costo }}
+              </strong>
+            </ion-note>
+          </div>
+        </div>
+
+        <div class="input">
+          <label for="cost-{{ i + 1 }}">Nuevo costo</label>
+
+          <input
+            *ngIf="item.cost.length > 0"
+            id="cost-{{ i + 1 }}"
+            class="i-number"
+            type="number"
+            #precio
+            [value]="item.cost[0].costo"
+          />
+
+          <input
+            *ngIf="item.cost.length === 0"
+            id="cost-{{ i + 1 }}"
+            class="i-number"
+            type="number"
+            #precio
+            [value]="0"
+          />
+
+          <ion-button
+            (click)="sentPrecio(item.id, i + 1)"
+            size="small"
+            class="button"
+            color="light"
+          >
+            Guardar
+          </ion-button>
+        </div>
+      </section>
+    </ion-list>
+  </div>
+</ion-content>

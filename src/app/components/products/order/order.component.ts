@@ -129,7 +129,8 @@ export class OrderComponent implements OnInit, OnDestroy {
     this.subtotal$ = this.orderService.dataSubtotal$.pipe(
       debounceTime(300),
       map((resp) => {
-        if (resp === undefined) {
+        //    console.log(resp);
+        if (resp === undefined || resp === null) {
           return 0;
         } else {
           return resp.total;
@@ -151,6 +152,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     // this.orderCompleted$
     this.orderCompleted$
       .pipe(
+        //  tap((x) => console.log('aqui si se ejucuta', x)),
         tap((resp: any) => {
           this.envio = resp.envio;
           this.descuento = resp.descuento;

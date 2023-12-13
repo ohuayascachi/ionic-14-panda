@@ -12,7 +12,7 @@ export class CustomerComponent implements OnInit {
 
   ngOnInit() {}
 
-  segmentChanged(ev: CustomEvent) {
+  segmentChanged(ev: any) {
     // console.log('Segment changed', ev);
     if (ev.detail.value === 'datos') {
       this.datosPersonales = true;

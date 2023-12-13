@@ -19,9 +19,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { SharesModule } from './components/shares/shares.module';
 import { Tab3PageModule } from './tab3/tab3.module';
 import { LoadingComponent } from './components/shares/loading/loading.component';
-import { InventoryModule } from './components/inventory/inventory.module';
 import { InventoryComponent } from './components/inventory/inventory.component';
-import { ShareModule } from './share/share.module';
 import { CardListOrdersComponent } from './share/card-list-orders/card-list-orders.component';
 import { Tab3Page } from './tab3/tab3.page';
 import { Tab4Page } from './tab4/tab4.page';
@@ -34,6 +32,10 @@ import { CardListProductComponent } from './components/products/card-list-produc
 import { ReactiveFormsModule } from '@angular/forms';
 import { CustomerListComponent } from './share/customer-list/customer-list.component';
 import { OrderListComponent } from './share/order-list/order-list.component';
+import { CostComponent } from './components/costos/cost/cost.component';
+import { UploadImgComponent } from './components/products/upload-img/upload-img.component';
+import { SearchComponent } from './components/products/search/search.component';
+import { MyProdListComponent } from './components/products/my-prod-list/my-prod-list.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,10 @@ import { OrderListComponent } from './share/order-list/order-list.component';
     CardListProductComponent,
     CustomerListComponent,
     OrderListComponent,
+    CostComponent,
+    UploadImgComponent,
+    SearchComponent,
+    MyProdListComponent
   ],
   imports: [
     BrowserModule,
@@ -85,4 +91,4 @@ import { OrderListComponent } from './share/order-list/order-list.component';
     Tab3Page,
   ],
 })
-export class AppModule {}
+export class AppModule { }

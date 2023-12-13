@@ -13,7 +13,10 @@ export class LogInComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.formLogin = this.fb.group({
-      phone: ['', Validators.required],
+      phone: [
+        '',
+        [Validators.maxLength(9), Validators.minLength(9), Validators.required],
+      ],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }

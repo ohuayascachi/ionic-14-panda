@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {
-  Router,
   Resolve,
   RouterStateSnapshot,
   ActivatedRouteSnapshot,
@@ -9,6 +8,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { ProductGet } from 'src/model/product.model';
 import { ProductService } from '../services/product.service';
+import {  HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +25,7 @@ export class ProductResolver implements Resolve<any> {
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<ProductGet[]> {
+  ): Observable<ProductGet[]| Promise<void> | ((er: HttpErrorResponse) => Observable<any>)> {
     const prodSlug = route.params.prod;
     // console.log(route);
 
@@ -35,17 +35,6 @@ export class ProductResolver implements Resolve<any> {
       this.productService.dataProducts$ ||
       this.productService.getProductSlug(prodSlug) ||
       this.productService.getProductSlugRoute(prodSlug);
-
-    //this.productService.dataProdu$.subscribe((x) => console.log(x));
-    //console.log(this.prod$.subscribe((x) => console.log(x)));
-    // console.log(this.product$.subscribe((x) => console.log(x)));
-    // this.productService
-    //   .getProductSlug(prodSlug)
-    //   .subscribe((x) => console.log('back', x));
-    // this.productService
-    //   .getProductSlugRoute(prodSlug)
-    //   .subscribe((x) => console.log('rote', x));
-    // product$.subscribe((x) => console.log('del reolver prod', x));
 
     return product$;
   }

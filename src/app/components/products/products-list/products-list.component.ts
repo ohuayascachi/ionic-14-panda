@@ -7,6 +7,7 @@ import { tap, map } from 'rxjs/operators';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { CategoriaGet } from 'src/model/categoria.model';
 import { SubcategoriaGet } from 'src/model/subcategoria.model';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-products-list',
@@ -18,16 +19,19 @@ export class ProductsListComponent implements OnInit {
   public categorias$: Observable<CategoriaGet[]>;
   public subcategorias$: Observable<Partial<SubcategoriaGet>[]>;
 
+  //Variables
+  categ: string;
+  
   constructor(
     private router: Router,
     private productService: ProductService,
-    private categoriaService: CategoriaService
-  ) {}
+    private categoriaService: CategoriaService, 
+  ) { }
 
   ngOnInit() {
-    this.productService.getAllProducts();
+    this.productService.getAllProducts().subscribe();
     this.products$ = this.productService.dataPrAll$.pipe(
-      tap((res) => console.log(res))
+      // tap((res) => console.log(res)) // Eliminar luego
     );
 
     this.categoriaService.getCategorias().subscribe();
@@ -41,10 +45,12 @@ export class ProductsListComponent implements OnInit {
   selectProdByCategoria(e: any) {
     //console.log(e);
     if (!e.target.value) {
-      console.log('No hay ID en la pedición');
+      this.products$ = this.productService.dataPrAll$;
+      this.subcategorias$ = null;
       return;
     }
 
+    this.categ = e.target.value;
     const cate$ = this.categorias$.pipe(
       map((resp) => resp.find((x) => x.id === e.target.value))
     );
@@ -55,21 +61,47 @@ export class ProductsListComponent implements OnInit {
         res.filter((x) => x.products.length > 0)
       )
     );
+    this.products$ = this.productService.dataPrAll$.pipe(
+      map((resp) => resp.filter(x => x.categoria === e.target.value))
+    );
+
   }
 
   selectProdBySubCategoria(e: any) {
-    const subca$ = this.subcategorias$.pipe(
-      map((resp) => resp.filter((x) => x.id === e.target.value))
-    );
+    if (
+      e.target.value === null ||
+      e.target.value === undefined ||
+      !e.target.value
+    ) {
+      this.products$ = this.productService.dataPrAll$.pipe(
+        map((resp) => resp.filter(x => x.categoria === this.categ))
+      );
+      console.log('No hay ID en la pedición' );
+      return;
+    } else {
+      const subca$ = this.subcategorias$.pipe(
+        map((resp) => resp.filter((x) => x.id === e.target.value)),
+        tap((x) => console.log(x))
+      );
 
-    this.products$ = subca$.pipe(
-      map((resp) => resp.map((x: any) => x.products)[0])
-    );
+      subca$.pipe(map((resp) => resp[0])).subscribe((res: SubcategoriaGet) => {
+        this.products$ = this.productService
+          .dataPrAll$
+          .pipe(
+            map((resp) =>
+              resp.filter(
+                (x) =>
+                  x.categoria === res.categoria && x.subcategoria === res.id
+              )
+            )
+          );
+      });
+    }
   }
 
   deleteProduct(idProduct: string) {
     // Esto elimina de la BD
-    //this.productService.deleteProductById(idProduct);
+    this.productService.deleteProductById(idProduct);
 
     // esto elimina localmente
     this.products$

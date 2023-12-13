@@ -5,10 +5,8 @@ import { map, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { OrderService } from 'src/app/services/order.service';
 import { UserGet } from 'src/model/user.model';
-import { Storage } from '@ionic/storage-angular';
-import { UserService } from 'src/app/services/user.service';
+
 import { LoadingService } from '../shares/loading/loading.service';
-import { CartGet } from 'src/model/cart.model';
 
 @Component({
   selector: 'app-user',
@@ -32,8 +30,6 @@ export class UserComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     public orderService: OrderService,
     private router: Router,
-    private userService: UserService,
-    private storage: Storage,
     public loading: LoadingService
   ) {}
 
@@ -73,12 +69,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   //Obtener los datos de usuario desde el servidor y por ID
   async datasOfUser() {
-    // const cart = this.usuario.carrito.filter(
-    //   (x: CartGet) => x.colocacion === 'cart'
-    // );
 
-    // this.carrito$ = of(cart.length);
-    //console.log(this.usuario.carrito);
     this.role = this.usuario.role;
     this.showContent = true;
     this.loading.loadingOff();

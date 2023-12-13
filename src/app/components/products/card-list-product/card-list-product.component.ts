@@ -29,7 +29,6 @@ export class CardListProductComponent implements OnInit {
   //Variables
   orders: CartGet[] = [];
   pricingOfTrue = false;
-  private idProductSelect = null;
 
   private numerosArray: number[] = [];
 
@@ -38,8 +37,7 @@ export class CardListProductComponent implements OnInit {
   //forms
 
   constructor(
-    private fb: FormBuilder,
-    public loadingService: LoadingService,
+    // public loadingService: LoadingService,
     private orderService: OrderService
   ) {}
 
@@ -49,7 +47,7 @@ export class CardListProductComponent implements OnInit {
     }
     setTimeout(() => {
       console.log(this.cart);
-    }, 250);
+    }, 150);
   }
 
   detectedId() {}

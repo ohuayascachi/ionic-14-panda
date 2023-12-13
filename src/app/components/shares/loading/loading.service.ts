@@ -15,6 +15,7 @@ export class LoadingService {
   }
 
   showLoaderUntilCompleted<T>(obs$: Observable<T>): Observable<T> {
+    //obs$.subscribe((y) => console.log(y));
     return of(null).pipe(
       tap(() => this.loadingOn()),
       concatMap(() => obs$),

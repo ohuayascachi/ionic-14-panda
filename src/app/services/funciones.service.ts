@@ -94,4 +94,9 @@ export class FuncionesService {
   }
 
   //para indicar alvertencia de eliminar
+
+  //Return de last page or user page
+  returnUser() {
+    this.router.navigate(['/user']);
+  }
 }

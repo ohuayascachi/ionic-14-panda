@@ -15,10 +15,6 @@ export class CardListOrdersComponent implements OnInit {
   orders: OrderGet[] = [];
   user: UserGet;
 
-  //  'created-order',
-  //     'en-reparto',
-  //     'completed',
-
   alertButtons = ['OK'];
   alertInputs = [
     {
@@ -47,6 +43,7 @@ export class CardListOrdersComponent implements OnInit {
   constructor(private storage: Storage, private orderService: OrderService) {}
 
   async ngOnInit() {
+    this.storage.create();
     this.user = await this.storage.get('user');
     setInterval(() => {
       this.progress += 0.01;
@@ -56,7 +53,7 @@ export class CardListOrdersComponent implements OnInit {
       if (this.progress > 1) {
         setTimeout(() => {
           this.progress = 0;
-        }, 1000);
+        }, 800);
       }
     }, 50);
   }
@@ -71,7 +68,7 @@ export class CardListOrdersComponent implements OnInit {
     }
   }
 
-  setOpen(isOpen: boolean, e: CustomEvent) {
+  setOpen(isOpen: boolean, e: any) {
     this.isAlertOpen = isOpen;
     if (e === null) {
       return;
@@ -81,7 +78,7 @@ export class CardListOrdersComponent implements OnInit {
       } else {
         // Aqui hacemos el codigo para cambio de estatus de order
         const form = { statusOrder: e.detail.data.values };
-        console.log(this.orderID, form);
+       // console.log(this.orderID, form);
         this.orderService.updatedOrderForRoot(this.orderID, form);
 
         this.orderID = null;

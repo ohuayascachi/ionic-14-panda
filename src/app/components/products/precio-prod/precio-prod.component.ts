@@ -107,12 +107,14 @@ export class PrecioProdComponent implements OnInit {
 
   async ngOnInit() {
     const result = this.route.snapshot.params.prod;
-    this.productServices.getAllProducts();
+    // this.productServices.getAllProducts();
+  // this.productServices.getProductsByUser().subscribe();
 
     this.productServices
-      .getProductSlugRoute(result)
+      .getProductSlug(result)
       .pipe(
         debounceTime(1000),
+       // tap(x => console.log(x)),
         map((resol) => resol[0]),
         tap((x) => {
           this.product = x;
@@ -123,14 +125,6 @@ export class PrecioProdComponent implements OnInit {
 
     fromEvent(document.getElementById('tpg1'), 'click')
       .pipe(
-        // map((x: any) => {
-        //   if (x.target === undefined) {
-        //     return;
-        //   }
-        //   if (x.target.id === null || undefined) {
-        //     return;
-        //   }
-        // })
         debounceTime(100),
         distinctUntilChanged((prev, curr) => prev.target === curr.target)
       )
@@ -146,11 +140,18 @@ export class PrecioProdComponent implements OnInit {
         const text = x.target.id;
         // console.log(text);
         const lugar = text.split('-')[2];
-        const usuario = text.split('-')[1];
+        //const usuario = text.split('-')[1];
 
         const item = this.listadoIDS.filter(
           (resp: any) => resp.id === x.target.id
         );
+
+        // fromEvent(document.getElementById(x.target.id), 'keyup').subscribe(
+        //   (r) => {
+        //     const target = r.target as HTMLButtonElement;
+        //     console.log(target.value);
+        //   }
+        // );
 
         fromEvent(document.getElementById(x.target.id), 'change')
           .pipe(pluck('target', 'value'))
@@ -164,9 +165,10 @@ export class PrecioProdComponent implements OnInit {
               item[0].price = res;
             } else if (lugar === 'e') {
               item[0].end = res;
-            } else if (lugar === 'd') {
-              item[0].discount = res;
             }
+            //  else if (lugar === 'd') {
+            //   item[0].discount = res;
+            // }
           });
       });
   }
@@ -207,7 +209,7 @@ export class PrecioProdComponent implements OnInit {
     this.isOk = true;
     this.showLoading();
     this.form.reset({ prices: [] });
-    console.log(this.numeroFilas);
+    // console.log(this.numeroFilas);
     if (this.numeroFilas * 1 === 1) {
       this.file1 = true;
       this.file2 = false;
@@ -264,7 +266,7 @@ export class PrecioProdComponent implements OnInit {
   postPrices() {
     const sellFilter = this.sellers.filter((x) => x.check === true);
     const seller = sellFilter.map((x) => x.name);
-
+    //console.log(seller);
     //Filtra los vendedores seleccionados y los añadde en semento
     const segmento = [];
     seller.forEach((x) => {
@@ -274,7 +276,7 @@ export class PrecioProdComponent implements OnInit {
       segmento.push(...xxx);
     });
 
-    console.log('segmento', segmento);
+    // console.log('segmento', segmento);
 
     segmento.forEach((x) => {
       // console.log(x);
@@ -309,14 +311,15 @@ export class PrecioProdComponent implements OnInit {
     });
 
     const precios = this.form.get('prices').value;
-    //console.log('precios', precios);
+    console.log('precios', precios);
     const result = precios.filter((x) => x !== null);
     //console.log('resultat', result);
-    if (!result) {
+    if (result.length === 0) {
       console.log('No hay ningun precio');
       return;
+    } else {
+      this.productServices.postPrecios(result);
     }
-    this.productServices.postPrecios(result);
   }
 
   routerRetro() {

@@ -1,17 +1,26 @@
  .name-product {
-   --color: black;
+   //  --color: black;
    font-size: 0.9rem;
-   font-weight: 600;
+   //  font-weight: 600;
 
 
  }
 
+ .item {
+   height: 2.1rem;
+ }
+
  .filtro-products {
-   margin-bottom: 1.7rem;
+   margin: 0.7rem 1rem 1.2rem 1rem;
  }
 
  .select {
    width: 10rem;
+ }
+
+ .tarjeta {
+   margin: 0 1rem;
+   border-radius: 10px;
  }
 
  .label-option {
@@ -19,6 +28,7 @@
    display: flex;
    justify-content: space-between;
    align-items: center;
+   font-size: 0.9rem;
  }
 
 
@@ -27,7 +37,7 @@
  }
 
  .title-select {
-   font-size: 1rem;
+   font-size: 0.9rem;
    font-weight: 600;
    margin-bottom: 0.4rem;
  }

@@ -1,6 +1,21 @@
+import { PriceGet } from './precios.model';
+
 interface Features {
   key: string;
   value: string;
+}
+
+export interface Costo {
+  product: string;
+  costo: number;
+  fecha: Date;
+  nota: string;
+}
+
+export interface Image {
+  imgLarge: string;
+  imgMediun: string;
+  imgSmall: string;
 }
 
 export interface ProductGet {
@@ -9,17 +24,18 @@ export interface ProductGet {
   name: string;
   codigo: string;
   categoria: string;
+  cost: [Costo];
   subcategoria: string;
   description: string;
   detail: string;
   features: [Features];
   shipping: number;
   unidadprice: string;
-  image1: object;
-  image2: object;
-  image3: object;
-  image4: object;
-  image5: object;
+  image1: Image;
+  image2: Image;
+  image3: Image;
+  image4: Image;
+  image5: Image;
   location: string;
   count: number;
   countByBox: number;
@@ -30,7 +46,7 @@ export interface ProductGet {
   ratingsQuantity: number;
   views: [];
   status: string;
-  precios: [];
+  precios: [PriceGet];
   nota: string;
 }
 

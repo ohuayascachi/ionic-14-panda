@@ -33,7 +33,7 @@ import { ProductsListComponent } from './products-list/products-list.component';
     // ProductsComponent,
     AddProductComponent,
     // OrderComponent,
-    SearchComponent,
+    //SearchComponent,
     CustomerComponent,
     //ListProductsComponent,
     PhoneNumberPipe,

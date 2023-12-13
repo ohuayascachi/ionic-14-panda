@@ -120,9 +120,10 @@ export class OrderService {
         this.headers
       )
       .pipe(
-        catchError(this.errorHandler), //this.subjecSubto.next(resp[0])
+       
         map((resp) => resp.item),
-        tap((resp) => this.subjectOrders.next(resp))
+        tap((resp) => this.subjectOrders.next(resp)),
+        catchError(this.errorHandler), //this.subjecSubto.next(resp[0])
       )
       .subscribe();
   }

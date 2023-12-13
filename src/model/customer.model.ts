@@ -14,10 +14,11 @@ interface Edad {
   verificado: boolean;
 }
 interface Banco {
-  banco: string;
+  nombreBanco: string;
   cuenta: string;
   cci: string;
   status: string;
+  titular: string;
 }
 
 export interface CustomerGet {
@@ -27,7 +28,7 @@ export interface CustomerGet {
   lastName1: string;
   lastName2: string;
   image: string;
-  user: string;
+  userRigister: string;
   dni: string;
   email: string;
   edad: Edad;
@@ -37,6 +38,11 @@ export interface CustomerGet {
   createdAt: Date;
   status: boolean;
   id: string;
+  informacionBanco: Banco;
+  createdUpdeted: Date;
+  __v: number;
+  nameFull: string;
+  order: any;
 }
 
 export interface CustomerPost {

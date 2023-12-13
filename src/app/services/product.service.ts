@@ -2,18 +2,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { ProductGet, ProductPost } from 'src/model/product.model';
+import { Costo, ProductGet, ProductPost } from 'src/model/product.model';
 import {
   BehaviorSubject,
   Observable,
   of,
   throwError as observableThrowError,
+  throwError,
 } from 'rxjs';
 import { catchError, map, shareReplay, tap } from 'rxjs/operators';
 
 import { FuncionesService } from './funciones.service';
 import { PriceGet, PricePost } from 'src/model/precios.model';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 const server = environment.serverDev;
 
@@ -39,7 +41,8 @@ export class ProductService {
   constructor(
     private http: HttpClient,
     private fncService: FuncionesService,
-    private router: Router
+    private router: Router,
+    private toastController: ToastController
   ) {}
 
   get token(): string {
@@ -98,7 +101,14 @@ export class ProductService {
         // tap(() => this.router.navigate(['/prices']))
         tap((resp) => console.log(resp)),
         // tap(() => this.getAllProducts()),
-        catchError(this.errorHandler)
+        // catchError(this.errorHandler),
+        catchError((err) =>
+        of(
+          this.errorHandler,
+          this.presentToast(err.error.message, 'danger', 2000),
+          loading.dismiss()
+        )
+      )
       )
       .subscribe(() => this.getAllProducts());
   }
@@ -106,24 +116,31 @@ export class ProductService {
   /*Esto reemplazara get ALL PRODUCTO
   - si no tiene los precios no se muestra */
 
-  getAllProducts() {
-    this.http
+  getAllProducts(palabra?: any) {
+    //console.log('getAllProducts');
+    let query: any;
+    if (palabra === undefined) {
+      query = null;
+    } else {
+      query = `text=${palabra}`;
+    }
+    //Ccambioamos el "return" si algo se afecta
+    return this.http
       .get<{ item: ProductGet[]; msg: string; count: number }>(
-        `${server}/products/all`,
-        this.headers
+        `${server}/products/all?${query}`
       )
       .pipe(
         shareReplay(),
         map((resp) => resp.item),
-        //  tap((res) => console.log('servicoo', res)),
+        // tap((res) => console.log('servicoo', res)),
         tap((x) => this.subjectPrAll.next(x)), // Muestra todo los products
         map((resp) => resp.filter((x) => x.precios.length > 0)),
         tap((x) => {
           this.subjectProds.next(x);
           // console.log(x);
         })
-      )
-      .subscribe();
+      );
+    //  .subscribe();
   }
 
   getPriciosByProductID(productID: string) {
@@ -139,6 +156,27 @@ export class ProductService {
       .subscribe();
   }
 
+  //Obtener productos by user ( solo para root y vendedores)
+
+  getProductsByUser(): Observable<ProductGet[]> {
+    return this.http
+      .get<{ item: ProductGet[]; msg: string; count: number }>(
+        `${server}/products/myProducts`,
+        this.headers
+      )
+      .pipe(
+        shareReplay(),
+        map((resp) => resp.item),
+        tap((x) => {
+          console.log(x);
+          this.subjectProds.next(x);
+        })
+        // tap( (x) => {
+        //   this.subjectPrAll.next(x);
+        // })
+      );
+    // .subscribe();
+  }
   //SE EJECUTAN DENTRO DEL FrontEnd
   getProductId(idProduct: string): Observable<ProductGet[]> {
     return this.subjectProds.pipe(
@@ -147,10 +185,23 @@ export class ProductService {
     );
   }
 
+  getProductIdFromServer(idProduct: string): Observable<ProductGet> {
+    return this.http
+      .get<{ item: ProductGet; msg: string; count: number }>(
+        `${server}/product/${idProduct}`
+      )
+      .pipe(
+        shareReplay(),
+        map((resp) => resp.item),
+        catchError(this.errorHandler)
+      );
+  }
+
   getProductSlugRoute(slugProd: string): Observable<ProductGet[]> {
     // console.log(slugProd);
     return this.subjectPrAll.pipe(
       map((resp) => resp.filter((x) => x.slug === slugProd)),
+      //  tap((x) => console.log(x)),
       tap((x) => {
         this.subjectProd.next(x);
       })
@@ -158,17 +209,26 @@ export class ProductService {
     );
   }
 
-  //Solicitud par ael backed
-  getProductSlug(slugProd: string): Observable<ProductGet[]> {
+  //Solicitud product by slug backed
+  getProductSlug(slugProd: string): Observable<ProductGet[] >   {
     return this.http
       .get<{ item: ProductGet; msg: string; count: number }>(
         `${server}/product/slug/${slugProd}`,
         this.headers
       )
       .pipe(
-        catchError(this.errorHandler),
         shareReplay(),
-        map((resp) => [resp.item])
+        //  tap((x) => console.log(x)),
+        map((resp) => [resp.item]),
+
+        catchError(this.errorHandler)
+        // catchError((err) =>
+        //   of(
+        //     this.errorHandler,
+        //     this.presentToast(err.error.message, 'danger', 2000)
+        //   )
+        // ),
+  
       );
   }
 
@@ -188,10 +248,10 @@ export class ProductService {
         this.headers
       )
       .pipe(
-        catchError(this.errorHandler),
         tap((x) => console.log('nuemro de eliminados', x.count)),
         tap(() => alert.present()),
-        tap((x) => loading.dismiss(x))
+        tap((x) => loading.dismiss(x)),
+        catchError(this.errorHandler)
       )
       .subscribe();
   }
@@ -204,7 +264,7 @@ export class ProductService {
     const alert = await this.fncService.presentAlertWhenDelete();
     // http://localhost:2001/api/product/651995689aceffad47fd7e6f
     this.http
-      .get<{ item: any; msg: string; count: number }>(
+      .delete<{ item: any; msg: string; count: number }>(
         `${server}/product/${productID}`,
         this.headers
       )
@@ -217,10 +277,100 @@ export class ProductService {
       .subscribe();
   }
 
+  patchCosto(form: Partial<Costo>) {
+    this.http
+      .post<{ item: Costo; msg: string; count: number }>(
+        `${server}/cost`,
+        form,
+        this.headers
+      )
+      .pipe(
+        map((resp) => resp.item),
+
+        catchError(this.errorHandler)
+        //  tap((resp) => this.subjectPric.next(resp))
+      )
+      .subscribe();
+  }
+
+  //Subir iamgen de producto
+  uploadImgProduct(
+    idProduct: string,
+    file: File,
+    lugar: string
+  ): Observable<ProductGet> {
+    const formData = new FormData();
+    formData.append('imgproduct', file);
+    formData.append('lugar', lugar);
+
+    return this.http
+      .patch<{ item: ProductGet; msg: string; count: number }>(
+        `${server}/product/${idProduct}`,
+        formData,
+        this.headers
+      )
+      .pipe(
+        map((resp) => resp.item)
+        // tap((x) => {
+        //   this.dataProds$
+        //     .pipe(
+        //       map((resp) => {
+        //         const index = resp.findIndex((z) => z.id === x.id);
+        //         resp[index] = x;
+        //       })
+        //     )
+        //     .subscribe();
+        // }),
+        // catchError(this.errorHandler)
+      );
+    // .subscribe();
+  }
+
+  //DELETE IMAGE
+  patchDelteImage(idProduct: string, lugar: string): Observable<ProductGet> {
+    return this.http
+      .patch<{ item: ProductGet; msg: string; count: number }>(
+        `${server}/product/img/${idProduct}`,
+        { item: lugar },
+        this.headers
+      )
+      .pipe(
+        map((resp) => resp.item)
+        // tap((x) => {
+        //   this.dataProds$
+        //     .pipe(
+        //       map((resp) => {
+        //         const index = resp.findIndex((z) => z.id === x.id);
+        //         resp[index] = x;
+        //       })
+        //     )
+        //     .subscribe();
+        // }),
+        //catchError(this.errorHandler)
+      );
+  }
+
+  //Manejo de error
   errorHandler(er: HttpErrorResponse) {
-    // console.log(er);
-    // this.islogingMsg$ = of(er.error.message);
-    alert(er.error.message);
+    //return;
     return of(er.error.message);
   }
+
+  //Esta dos funciones se aplicaron en todas . col: color
+  async presentToast(mensaje: string, col: string, tiempo?: number) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: tiempo | 1200,
+      position: 'top',
+      color: col,
+    });
+
+    await toast.present();
+  }
 }
+
+// console.log(er);
+// this.islogingMsg$ = of(er.error.message);
+// alert(er.error.message);
+
+// return of(er.error.message);

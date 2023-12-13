@@ -1,13 +1,16 @@
-<ion-header>
-  <ion-toolbar class="header">
-    <button slot="start" class="header_btn">
+<ion-header class="header-search">
+  <!-- <ion-toolbar class="header-1"> -->
+  <!-- <button slot="start" class="header_btn">
       <ion-icon class="header__icon" name="cube"></ion-icon>
     </button>
 
-    <ion-title class="header__text"> Productos </ion-title>
-  </ion-toolbar>
+    <ion-title class="header__text"> Productos </ion-title> -->
+  <div class="search">
+    <app-search (busqueda)="busquedaPorText($event)"></app-search>
+  </div>
+  <!-- </ion-toolbar> -->
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-products name="Tab 2 page"></app-products>
+  <app-products [busqueda]="buscar" name="Tab 2 page"></app-products>
 </ion-content>
