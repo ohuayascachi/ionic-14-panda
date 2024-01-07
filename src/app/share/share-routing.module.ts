@@ -19,6 +19,7 @@ import { CostComponent } from '../components/costos/cost/cost.component';
 import { SimulacionComponent } from '../components/costos/simulacion/simulacion.component';
 import { UploadImgComponent } from '../components/products/upload-img/upload-img.component';
 import { MyProdListComponent } from '../components/products/my-prod-list/my-prod-list.component';
+import { MydatosComponent } from './mydatos/mydatos.component';
 
 const routes: Routes = [
   {
@@ -95,8 +96,12 @@ const routes: Routes = [
     path: 'my-products',
     component: MyProdListComponent,
   },
+  {
+    path: 'mydatos',
+    component: MydatosComponent,
+  },
   // {
-  //   path: 'historico',
+  //   path: 'historico', mydatos
   //   component: HistoricoVentaComponent,
   // },
 ];

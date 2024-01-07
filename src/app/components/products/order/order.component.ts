@@ -70,6 +70,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   userID: string;
   preciosSub: number[] = [];
   userRole$: Observable<string>;
+  arrayTempCarts = [];
 
   // Subcrition
   orderSelectSubc: Subscription;
@@ -84,16 +85,16 @@ export class OrderComponent implements OnInit, OnDestroy {
     private storage: Storage,
     private userService: UserService
   ) {
-    this.formClient = this.fb.group({
-      phone: [
-        '987654322',
-        [
-          Validators.maxLength(11),
-          Validators.minLength(11),
-          Validators.required,
-        ],
-      ],
-    });
+    // this.formClient = this.fb.group({
+    //   phone: [
+    //     '987654322',
+    //     [
+    //       Validators.maxLength(11),
+    //       Validators.minLength(11),
+    //       Validators.required,
+    //     ],
+    //   ],
+    // });
 
     this.formOrder = this.fb.group({
       cartSelected: this.fb.array([], Validators.required),
@@ -144,6 +145,8 @@ export class OrderComponent implements OnInit, OnDestroy {
         }
       })
     );
+
+    this.productsArray.reset()
   }
 
   orderUploaded(userOrders$: Observable<any>) {
@@ -315,19 +318,34 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   // Aqui tambien de add array de product de order
+
   getCarritoByUser() {
-    this.orderService.conseguirCarritoByUser();
-    this.orderService.dataCart$
+   this.orderService.conseguirCarritoByUser();
+     this.orderService.dataCart$
       .pipe(
         tap((y) => (this.carrito$ = of(y))),
+
         tap((x) => {
           if (x === null) {
             return;
           }
+          this.arrayTempCarts = []
           x.forEach((y) => {
-            this.productsArray.push(this.fb.control(y._id));
+ 
+            this.arrayTempCarts.push(y._id);
+
           });
+
+          this.productsArray.clear();
+
+          this.arrayTempCarts.forEach(x => {
+
+            this.productsArray.push(this.fb.control(x));
+          });
+
+
         })
+
       )
       .subscribe(() => {
         this.carList = true;
@@ -361,73 +379,8 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.getCarritoByUser();
+
+    console.log(this.arrayTempCarts);
     this.orderCompleted$ = null;
   }
 }
-
-//this.orderService.getOrderByUser();
-// const userOrders$ = this.orderService.getOrderUpdatedCompletedListener();
-// Retorna la orden con todo los campos de pedido completo: client, comment, direccion, etc
-
-// userOrders$
-//   .pipe(
-//     tap((resp) => {
-//       if (resp === null) {
-//         this.existOrder = false;
-//         this.totalPricing = 0;
-//         this.subtotal = 0;
-//         this.envio = 0;
-//         this.descuento = 0;
-//         this.tipoMoneda = 's/';
-//       } else if (resp !== null) {
-//         //this.orderCompleted$.subscribe();
-//         this.orderUploaded(of(resp));
-//         this.existOrder = true;
-//       }
-//     })
-//   )
-//   .subscribe((xx) => console.log('ddd', xx));
-//Para ver el numero de celular del cliente y verificar si existe
-// this.formClient
-//   .get('phone')
-//   .valueChanges.pipe(distinctUntilChanged(), debounceTime(1000))
-//   .subscribe((val) => {
-//     // console.log('cambio un valor, logitud' + ' ' + val, val.length); // Lineas abajo se ejecuta si es valido el form
-//     const numeroCel = val.replace(/ /g, '');
-
-//     if (numeroCel.length === 9 && this.formClient.get('phone').dirty) {
-//       this.messegeFormNumber = '';
-
-//       // Simulamos que tomara un tiempo de busqueda en BD 2Seg
-//       this.customerService
-//         .getCustomerNumber(numeroCel)
-//         .subscribe((respData) => {
-//           this.timeBusqueda = false;
-//           if (respData.ok === false) {
-//             this.classInputNumber1 = false;
-//             this.classInputNumber2 = true;
-//           } else {
-//             this.classInputNumber1 = true;
-//             this.classInputNumber2 = false;
-//             this.customer = respData.item;
-
-//             this.formOrderProducts
-//               .get('client')
-//               .setValue(this.customer._id);
-//             this.formOrderProducts
-//               .get('direccion')
-//               .setValue(this.customer.adress);
-//           }
-//         });
-
-//       this.timeBusqueda = true;
-//       this.classInputNumber2 = false;
-//       this.classInputNumber1 = false;
-//       // };
-//     } else {
-//       this.classInputNumber2 = false;
-//       this.classInputNumber1 = false;
-//       this.messegeFormNumber = 'Número no valido';
-//     }
-//   });

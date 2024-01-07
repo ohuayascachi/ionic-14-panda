@@ -6,9 +6,7 @@ import {
   map,
   tap,
   catchError,
-  shareReplay,
-  debounceTime,
-  take,
+  shareReplay, 
 } from 'rxjs/operators';
 import { CartGet } from 'src/model/cart.model';
 import { ToastController } from '@ionic/angular';
@@ -37,6 +35,8 @@ export class CartService {
   }
 
   postCart(cartForm: { producto: string; count: number; status: boolean }) {
+   
+    //console.log(cartForm);
     //cartForm.producto = 'dsdsdfsdfsdfs';
     this.http
       .post<{ item: CartGet; msg: string; count: number }>(
@@ -45,7 +45,7 @@ export class CartService {
         this.headers
       )
       .pipe(
-         //tap((x) => console.log(x)),
+        tap((x) => console.log(x)),
         map((resp: { item: CartGet; msg: string; count: number }) => resp.item),
         shareReplay(),
         tap(() =>

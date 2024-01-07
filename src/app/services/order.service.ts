@@ -11,8 +11,7 @@ import {
   distinctUntilChanged,
   map,
   shareReplay,
-  tap,
-  timeout,
+  tap, 
 } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { CartGet } from 'src/model/cart.model';
@@ -65,7 +64,9 @@ export class OrderService {
   postOrderProduct(post: OrderPost) {
     this.http
       .post<{ ok: boolean; item: OrderGet }>(`${server}/order`, post)
-      .subscribe((respData) => console.log('respData:', respData));
+      .subscribe((respData) =>
+       console.log('respData:', respData)
+       );
   }
 
   // Obeter order by use listener
@@ -87,6 +88,8 @@ export class OrderService {
 
   //Es necesario actualizar
   postOrder(form: Partial<OrderPost>) {
+
+    console.log(form);
     this.http
       .post<{ item: OrderGet; msg: string; count: number }>(
         `${server}/order`,
@@ -94,7 +97,7 @@ export class OrderService {
         this.headers
       )
       .pipe(
-        // tap((x) => console.log(x)),
+          tap((x) => console.log(x)),
         catchError((err: HttpErrorResponse) =>
           of(this.presentToast(err.error.message, 'warning'))
         ),
@@ -180,8 +183,7 @@ export class OrderService {
         `${server}/cart`,
         this.headers
       )
-      .pipe(
-        timeout(500),
+      .pipe( 
         // tap((resp) => console.log(resp)),
         catchError(this.errorHandler), //this.subjecSubto.next(resp[0])
         tap((resp) => this.subjecSubto.next(resp.msg[0])),

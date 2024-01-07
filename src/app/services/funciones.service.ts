@@ -34,8 +34,26 @@ export class FuncionesService {
       ],
     });
 
-    //await alert.present(); this.router.navigate(['/auth/log-in']);
+   
   }
+
+    //Solo es valido para Usuario
+    async presentAlertUser() {
+      return this.alertController.create({
+        header: 'Exitoso!',
+        message: 'Se ha modificado correctamente.',
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {
+              this.router.navigate(['/user']);
+            },
+          },
+        ],
+      });
+  
+     
+    }
 
   async presentAlertWhenDelete() {
     return this.alertController.create({

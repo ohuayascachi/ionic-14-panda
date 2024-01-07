@@ -6,14 +6,14 @@
         {{ item.client["name"] }} {{ item.client["lastName1"] }}
       </h3>
       <p *ngIf="item.client !== null" class="text-fecha">
-        <strong> CÓDIGO: cli</strong>
+        <strong> CÓDIGO: {{ item.codigo || 'P'}}</strong>
       </p>
 
       <h3 *ngIf="item.client === null" class="text-client">
         {{ item.userRegister.nameFull }}
       </h3>
       <p *ngIf="item.client === null" class="text-fecha">
-        <strong> CÓDIGO: own</strong>
+        <strong> CÓDIGO:  {{ item.codigo || 'P'}}</strong>
       </p>
 
       <p class="text-fecha">
@@ -44,11 +44,20 @@
   <ion-list lines="none" class="card-body">
     <div *ngFor="let lis of item.cartSelected" class="item-orden">
       <div class="produc-name">
-        <div>
+        <div class="name-list-product">
           {{ lis.producto.name }}
         </div>
         <div class="text-feuter">{{ lis.count }}</div>
         <div class="text-sub">S/ {{ lis.precioSelect }}</div>
+      </div>
+    </div>
+    <div class="item-orden">
+      <div class="produc-name">
+        <div>
+          Envio
+        </div>
+        <div class="text-feuter"> </div>
+        <div class="text-sub">S/ {{item.costoEnvio}}</div>
       </div>
     </div>
 
@@ -63,3 +72,4 @@
     </div>
   </ion-list>
 </ion-card>
+

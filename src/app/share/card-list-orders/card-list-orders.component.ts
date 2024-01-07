@@ -45,17 +45,15 @@ export class CardListOrdersComponent implements OnInit {
   async ngOnInit() {
     this.storage.create();
     this.user = await this.storage.get('user');
-    setInterval(() => {
-      this.progress += 0.01;
+    // setInterval(() => {
+    //   this.progress += 0.01;
 
-      // Reset the progress bar when it reaches 100%
-      // to continuously show the demo
-      if (this.progress > 1) {
-        setTimeout(() => {
-          this.progress = 0;
-        }, 800);
-      }
-    }, 50);
+    //   if (this.progress > 1) {
+    //     setTimeout(() => {
+    //       this.progress = 0;
+    //     }, 800);
+    //   }
+    // }, 50);
   }
   // Permite como botton el ion-badge para root
   changeStatusOrder(e: any) {

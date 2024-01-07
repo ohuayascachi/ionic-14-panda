@@ -27,7 +27,7 @@ export class OrderListComponent implements OnInit {
   ngOnInit() {
     this.orderService.getOrdersByUser();
     const orders$ = this.orderService.dataOrders$;
-    orders$.subscribe( x => console.log('aqui debe venir lo del carrito',x))
+   // orders$.subscribe((x) => console.log('aqui debe venir lo del carrito', x));
 
     const ordersAll$ =
       this.loandingService.showLoaderUntilCompleted<OrderGet[]>(orders$);
@@ -35,16 +35,23 @@ export class OrderListComponent implements OnInit {
     this.ordersNoEnd$ = ordersAll$.pipe(
       // tap(() => (this.segment = 'no-completed')),
       tap((x) => console.log(x)),
-      debounceTime(300),
-      map((resp) => resp.filter((x) => x.statusOrder !== 'completed')),
-      tap(() => this.loandingService.loadingOff())
+      debounceTime(350),
+     
+      map((resp) => {
+        if( !resp) return;
+        if( resp ) {
+          this.loandingService.loadingOff()
+          return resp.filter((x) => x.statusOrder !== 'completed')
+        }
+        
+      }),
+    //  map(() => this.loandingService.loadingOff())
     );
- 
   }
 
   cambioSegment(e: any) {
     const busqueda = e.detail.value;
-   console.log(e.detail.value);
+    //console.log(e.detail.value);
     this.segment = busqueda;
 
     const orders$ = this.orderService.dataOrders$;

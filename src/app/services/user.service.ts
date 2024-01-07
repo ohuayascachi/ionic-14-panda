@@ -4,8 +4,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map, tap, catchError } from 'rxjs/operators';
+import { map, tap, catchError, delay } from 'rxjs/operators';
 import { UserGet, UserPost } from 'src/model/user.model';
+import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+import { FuncionesService } from './funciones.service';
 
 const server = environment.serverDev;
 
@@ -20,7 +23,8 @@ export class UserService {
 
   dataUser$: Observable<UserGet> = this.subjectUser.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(    private fncService: FuncionesService, 
+                  private http: HttpClient,    private router: Router,     private toastController: ToastController) {}
   get token(): string {
     return localStorage.getItem('token') || '';
   }
@@ -47,11 +51,44 @@ export class UserService {
         this.headers
       )
       .pipe(
-        catchError(this.errorHandler),
-        tap((x) => this.subjectUser.next(x.item))
-        //  tap((x) => console.log(x))
+        tap((x) => this.subjectUser.next(x.item)),
+        //  tap((x) => console.log(x)),
+         catchError(this.errorHandler),
       )
       .subscribe();
+  }
+
+  async patchUser(form: UserPost){
+    if (!form) {
+      console.log('no hay nada');
+      return;
+    }
+    const loading = await this.fncService.showLoading(); //Esto se muestra para indicar q esta cargando
+    await loading.present();
+    const alert = await this.fncService.presentAlertUser(); //Respuesta del servidor
+    this.http
+    .patch<{ item: UserGet; msg: string; }>(
+      `${server}/user/updateMe`,
+      form,
+      this.headers
+    )
+    .pipe(
+      tap(() => {
+        alert.present();
+      }),
+      tap((x) => loading.dismiss(x)),
+      tap((x) => this.subjectUser.next(x.item)),
+      // delay( 500),
+      // tap( ()=> this.router.navigate(['/user'])),
+      catchError((err) =>
+      of(
+        this.errorHandler,
+        this.presentToast(err.error.message, 'danger', 1500),
+        loading.dismiss()
+      )
+    )
+    )
+    .subscribe();
   }
   //  To pass date
 
@@ -65,4 +102,16 @@ export class UserService {
     alert(er.error.message);
     return of(er.error.message);
   }
+
+    //Esta dos funciones se aplicaron en todas . col: color
+    async presentToast(mensaje: string, col: string, tiempo?: number) {
+      const toast = await this.toastController.create({
+        message: mensaje,
+        duration: tiempo | 1200,
+        position: 'top',
+        color: col,
+      });
+  
+      await toast.present();
+    }
 }

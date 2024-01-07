@@ -100,7 +100,7 @@ export class CustomerService {
             .pipe(map((x) => {
               const index = x.findIndex((y) => y.id === resp.item.id);
               x.splice( index, 1, resp.item);
-              console.log(x);
+              // console.log(x);
               this.subjectClientbyUser.next(x);
            
               }));

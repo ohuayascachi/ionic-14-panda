@@ -29,12 +29,14 @@
       <ng-template swiperSlide>
         <ion-thumbnail>
           <img
+          class="img-prod"
             *ngIf="product.image1.imgLarge"
             alt="Product"
             [src]="product.image1.imgLarge"
           />
 
           <img
+          class="img-prod"
             *ngIf="!product.image1.imgLarge"
             alt="Product"
             src="../../../../assets/img/products/noproduct-large.png"
@@ -44,12 +46,14 @@
       <ng-template swiperSlide>
         <ion-thumbnail>
           <img
+          class="img-prod"
             *ngIf="product.image2.imgLarge"
             alt="Product-aws"
             [src]="product.image1.imgLarge"
           />
 
           <img
+          class="img-prod"
             *ngIf="!product.image2.imgLarge"
             alt="Product"
             src="../../../../assets/img/products/noproduct-large.png"
@@ -59,12 +63,14 @@
       <ng-template swiperSlide>
         <ion-thumbnail>
           <img
+          class="img-prod"
             *ngIf="product.image3.imgLarge"
             alt="Product aws"
             [src]="product.image3.imgLarge"
           />
 
           <img
+          class="img-prod"
             *ngIf="!product.image3.imgLarge"
             alt="Product"
             src="../../../../assets/img/products/noproduct-large.png"
@@ -207,7 +213,7 @@
 
     <ion-fab vertical="bottom" slot="fixed" style="width: 23rem">
       <ion-button
-        expand="full"
+        expand="block"
         class="my-popover-product"
         shape="round"
         color="danger"

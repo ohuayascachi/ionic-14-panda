@@ -12,9 +12,7 @@
   gap: 1rem;
 }
 
-// .grid-items div {
-
-// }
+ 
 .card-item {
 
   border-radius: 5px;
@@ -112,4 +110,22 @@ div:nth-child(2) .card-item::after {
 ion-label {
   font-weight: 600;
   font-size: 0.9rem;
+}
+
+@media screen and (min-width: 768px) {
+  .grid-items {
+ 
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .grid-items {
+ 
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+  }
 }

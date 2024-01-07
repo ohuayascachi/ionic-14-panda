@@ -75,9 +75,7 @@ ion-accordion-group {
   align-items: center;
   justify-content: center;
   position: relative;
-
-
-
+ 
 }
 
 .btn-flotante {
@@ -94,5 +92,22 @@ ion-accordion-group {
 
   div {
     justify-content: justify;
+  }
+}
+
+
+ion-fab  {
+
+  display: flex;
+  width: 100% !important;
+  align-items: center;
+  justify-content: center;
+   
+}
+
+@media screen and (min-width: 768px) {
+  .img-prod{
+ 
+    width: 25rem !important;
   }
 }

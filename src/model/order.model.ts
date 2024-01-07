@@ -18,6 +18,7 @@ export interface OrderGet {
   typeMoneda: string;
   costoEnvio: number;
   descuento: number;
+  codigo: string;
   total: number;
   userRegister: UserGet;
   metodoPago: string;

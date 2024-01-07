@@ -33,3 +33,22 @@ ion-toolbar {
   margin: 0.4rem 1.1rem;
   text-align: justify;
 }
+
+@media screen and (min-width: 768px) {
+  .content-ordes{
+    display: flex;
+
+ 
+  }
+  app-card-list-orders{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .content-ordes > app-card-list-orders{
+    width: 100%;
+  }
+}

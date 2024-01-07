@@ -36,6 +36,7 @@ import { CostComponent } from './components/costos/cost/cost.component';
 import { UploadImgComponent } from './components/products/upload-img/upload-img.component';
 import { SearchComponent } from './components/products/search/search.component';
 import { MyProdListComponent } from './components/products/my-prod-list/my-prod-list.component';
+import { MydatosComponent } from './share/mydatos/mydatos.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { MyProdListComponent } from './components/products/my-prod-list/my-prod-
     CostComponent,
     UploadImgComponent,
     SearchComponent,
-    MyProdListComponent
+    MyProdListComponent,
+    MydatosComponent
   ],
   imports: [
     BrowserModule,

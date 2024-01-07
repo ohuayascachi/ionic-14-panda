@@ -32,7 +32,8 @@
 
   <app-loading></app-loading>
 
-  <app-card-list-orders
+  <div class="content-ordes">
+    <app-card-list-orders
     *ngIf="segment === 'no-completed'"
     [orders]="ordersNoEnd$ | async"
   >
@@ -42,4 +43,7 @@
     [orders]="ordersEnd$ | async"
   >
   </app-card-list-orders>
+  </div>
+
+
 </ion-content>

@@ -4,6 +4,8 @@
   <ion-list>
     <ion-list-header>
       <a href="/products" class="button-pedido">
+        <!-- <a [routerLink]="['/products']" class="button-pedido"> -->
+    
         <ion-card class="cinta-venta"> Hacer pedido </ion-card>
       </a>
     </ion-list-header>
@@ -17,7 +19,8 @@
 
     <!-- <ion-item [routerLink]="['/order']" lines="none" class="item"> -->
 
-    <a href="/order" class="cart-list">
+    <!-- <a href="/order" class="cart-list"> -->
+      <a [routerLink]="['/order']" class="cart-list">
       <ion-item lines="none" class="item">
         <ion-icon slot="start" name="cart-outline"></ion-icon>
         <ion-label>Carrito de compras</ion-label>
@@ -163,7 +166,7 @@
 
     <ion-item
       lines="none"
-      [routerLink]="['/customer-list']"
+      [routerLink]="['/mydatos']"
       routerLinkActive="router-link-active"
     >
       <ion-icon slot="start" name="person-circle-outline"></ion-icon>

@@ -9,8 +9,10 @@
   </section>
 
   <section class="text-2">
-    <!-- <a href="/products"> <h3 class="button-1">Ir a Tienda</h3></a> -->
-    <a href="/products">
+ 
+    <!-- <a href="/products"> -->
+    <a [routerLink]="['/products']">
+ 
       <ion-button color="danger" shape="round">
         <strong>Ir a Tienda</strong>
       </ion-button></a
@@ -18,11 +20,7 @@
   </section>
 
   <!-- <ion-button color="primary">Primary</ion-button>
-<ion-button color="secondary">Secondary</ion-button>
-<ion-button color="tertiary">Tertiary</ion-button>
-
-<ion-button color="warning">Warning</ion-button>
-<ion-button color="danger">Danger</ion-button>
+ 
 <ion-button color="light">Light</ion-button> -->
 
   <section id="formInput">
@@ -63,15 +61,7 @@
           </ion-col>
         </ion-row>
         <!-- <div>
-          {{ this.authService.islogingMsg || async }}
-        </div> -->
-
-        <!-- <ion-row>
-          <ion-col *ngIf="formLogin.invalid && formLogin.get('password').dirty">
-            <ion-list>
-              <strong id="alertaPass"> Contraseña o usuario incorrecto</strong>
-            </ion-list>
-          </ion-col>
+       
         </ion-row> -->
 
         <ion-row>
@@ -91,6 +81,11 @@
   </section>
 
   <div class="navigation-text">
-    <a href="/auth/sign-in" class="navigation-text__text"> Registrarse </a>
+    <a [routerLink]="['/auth/sign-in']" class="navigation-text__text"> Registrarse </a>
+ 
+ 
+ 
+  
+ 
   </div>
 </ion-content>

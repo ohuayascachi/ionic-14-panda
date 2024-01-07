@@ -49,6 +49,15 @@
   top: 35%;
   right: 1%;
   font-size: 12px;
+  padding: 7px;
+  border-radius: 5px;
+  box-shadow:  3px 3px 2px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all;
+}
+
+.info-badge-2:hover{
+  transform: translate(-2px, -2px);
 }
 
 .text-cant {
@@ -71,14 +80,16 @@
 
 .item-orden {
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   flex-direction: column;
 
   gap: 0.2rem;
   width: 100%;
-  margin-top: 10px;
-  margin-bottom: 1.2rem;
+  margin-top: 0px;
+  margin-bottom: 0px;
   padding-top: 0px;
+  padding-bottom: 0px;
+
 
 }
 
@@ -114,12 +125,14 @@ ion-progress-bar {
 
 .text-feuter {
   font-size: 14px;
+  width: 2rem;
   // background-color: rgb(51, 0, 255);
 }
 
 .text-sub {
   // background-color: rgb(51, 255, 0);
   align-self: flex-end;
+  width: 3.2rem;
 }
 
 .text-total {
@@ -141,3 +154,27 @@ ion-progress-bar {
 .md button.alert-button.alert-button-confirm {
   border-radius: 10px;
 }
+
+.name-list-product{
+      width: 11.125rem;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+}
+
+
+@media screen and (max-width: 370px) {
+  .name-list-product{
+    width: 175px;
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  .card{
+    width: 21.43rem;
+ 
+  }
+}
+
+ 

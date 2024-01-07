@@ -46,7 +46,7 @@ export class CardListProductComponent implements OnInit {
       this.numerosArray.push(i);
     }
     setTimeout(() => {
-      console.log(this.cart);
+    //  console.log(this.cart);
     }, 150);
   }
 

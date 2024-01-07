@@ -1,0 +1,75 @@
+ion-label {
+  font-size: 16px;
+  font-family: sans-serif;
+
+}
+.nota {
+  padding: 0 1rem;
+  margin-top: 0.8rem;
+  text-align: justify;
+  background-color: azure;
+}
+
+
+ion-item .input {
+  text-align: end;
+  margin-right: 1rem;
+  color: #454545;
+}
+
+.input-number {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: end;
+}
+
+.input-datos {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.card-direccion {
+  margin-bottom: 1rem;
+}
+
+.color-button-registrar {
+  --background: #0015f6;
+  --border-radius: 30px;
+}
+
+#no-valid {
+  color: red;
+  font-weight: bold;
+}
+
+ion-item {
+  .icon-alerta {
+      color: orange;
+      width: 2rem;
+      font-weight: bold;
+  }
+
+  ion-input {
+      text-align: center;
+
+
+  }
+
+  span {
+      color: red;
+      font-weight: bold;
+  }
+
+  ion-icon {
+      color: rgb(46, 163, 7);
+
+  }
+}
+
+.in-role{
+ 
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+
+}
