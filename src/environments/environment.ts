@@ -4,8 +4,8 @@
 
 export const environment = {
   production: true,
- // serverDev: 'https://app-garde-f8b21f7e7211.herokuapp.com/api',
- serverDev: 'http://localhost:2001/api',
+ serverDev: 'https://app-garde-f8b21f7e7211.herokuapp.com/api',
+ //serverDev: 'http://localhost:2001/api',
 };
 
 /*
