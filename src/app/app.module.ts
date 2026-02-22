@@ -7,7 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 
 import { CommonModule } from '@angular/common';
@@ -38,59 +38,50 @@ import { SearchComponent } from './components/products/search/search.component';
 import { MyProdListComponent } from './components/products/my-prod-list/my-prod-list.component';
 import { MydatosComponent } from './share/mydatos/mydatos.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    CardListOrdersComponent,
-    LoadingComponent,
-    InventoryComponent,
-    Tab2Page,
-    Tab3Page,
-    Tab4Page,
-    UserComponent,
-    ListProductsComponent,
-    ProductsComponent,
-    OrderComponent,
-    HeaderComponent,
-    CardListProductComponent,
-    CustomerListComponent,
-    OrderListComponent,
-    CostComponent,
-    UploadImgComponent,
-    SearchComponent,
-    MyProdListComponent,
-    MydatosComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    CommonModule,
-    ReactiveFormsModule,
-
-    SwiperModule,
-    IonicModule.forRoot(),
-    AppRoutingModule,
-    IonicStorageModule.forRoot(),
-    SharesModule,
-
-    //ShareModule,
-    Tab3PageModule,
-    // InventoryModule,
-  ],
-  providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    CookieService,
-    LoadingService,
-  ],
-  bootstrap: [AppComponent],
-  // exports: [
-  //   ...fromPipes.pipes
-  // ]
-  exports: [
-    CardListOrdersComponent,
-    LoadingComponent,
-   //InventoryComponent,
-    Tab3Page,
-  ],
-})
+@NgModule({ declarations: [
+        AppComponent,
+        CardListOrdersComponent,
+        LoadingComponent,
+        InventoryComponent,
+        Tab2Page,
+        Tab3Page,
+        Tab4Page,
+        UserComponent,
+        ListProductsComponent,
+        ProductsComponent,
+        OrderComponent,
+        HeaderComponent,
+        CardListProductComponent,
+        CustomerListComponent,
+        OrderListComponent,
+        CostComponent,
+        UploadImgComponent,
+        SearchComponent,
+        MyProdListComponent,
+        MydatosComponent
+    ],
+    bootstrap: [AppComponent],
+    // exports: [
+    //   ...fromPipes.pipes
+    // ]
+    exports: [
+        CardListOrdersComponent,
+        LoadingComponent,
+        //InventoryComponent,
+        Tab3Page,
+    ], imports: [BrowserModule,
+        CommonModule,
+        ReactiveFormsModule,
+        SwiperModule,
+        IonicModule.forRoot(),
+        AppRoutingModule,
+        IonicStorageModule.forRoot(),
+        SharesModule,
+        //ShareModule,
+        Tab3PageModule], providers: [
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        CookieService,
+        LoadingService,
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule { }

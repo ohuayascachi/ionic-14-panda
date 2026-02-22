@@ -3,7 +3,7 @@ import { RouterStateSnapshot, ActivatedRouteSnapshot, ActivatedRoute } from '@an
 import { Observable, of } from 'rxjs';
 import { ProductGet } from 'src/model/product.model';
 import { ProductService } from '../services/product.service';
-import {  HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',

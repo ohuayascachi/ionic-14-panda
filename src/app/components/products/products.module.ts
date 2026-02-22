@@ -8,7 +8,7 @@ import { CustomerComponent } from './customer/customer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PhoneNumberPipe } from 'src/app/pipes';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ItemProductModule } from './item-product/item-product.module';
 
 import { AddProductComponent } from './add-product/add-product.component';
@@ -28,44 +28,34 @@ import { ProductsListComponent } from './products-list/products-list.component';
 
 //shared
 
-@NgModule({
-  declarations: [
-    // ProductsComponent,
-    AddProductComponent,
-    // OrderComponent,
-    //SearchComponent,
-    CustomerComponent,
-    //ListProductsComponent,
-    PhoneNumberPipe,
-    //CardListProductComponent,
-    PreciosComponent,
-    PrecioProdComponent,
-    PrecioListComponent,
-    //CardListProductComponent,
-    //HeaderComponent,
-    //LoadingComponent,
-    //PrecioProdListComponent,
-    ProductsListComponent,
-
-    // LoadingComponent,
-  ],
-  imports: [
-    CommonModule,
-    IonicModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    ItemProductModule,
-    HttpClientModule,
-    SharesModule,
-    NgxStarRatingModule,
-  ],
-
-  exports: [
+@NgModule({ declarations: [
+        // ProductsComponent,
+        AddProductComponent,
+        // OrderComponent,
+        //SearchComponent,
+        CustomerComponent,
+        //ListProductsComponent,
+        PhoneNumberPipe,
+        //CardListProductComponent,
+        PreciosComponent,
+        PrecioProdComponent,
+        PrecioListComponent,
+        //CardListProductComponent,
+        //HeaderComponent,
+        //LoadingComponent,
+        //PrecioProdListComponent,
+        ProductsListComponent,
+        // LoadingComponent,
+    ],
+    exports: [
     //ProductsComponent,
     // HeaderComponent,
-  ],
-
-  providers: [],
-})
+    ], imports: [CommonModule,
+        IonicModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
+        ItemProductModule,
+        SharesModule,
+        NgxStarRatingModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class ProductsModule {}
