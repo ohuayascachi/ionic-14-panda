@@ -5,9 +5,10 @@ import { ProductGet } from 'src/model/product.model';
 import { elementAt, map, shareReplay, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-precios',
-  templateUrl: './precios.component.html',
-  styleUrls: ['./precios.component.scss'],
+    selector: 'app-precios',
+    templateUrl: './precios.component.html',
+    styleUrls: ['./precios.component.scss'],
+    standalone: false
 })
 export class PreciosComponent implements OnInit {
   public productsAllWithPrecio$: Observable<ProductGet[]>;

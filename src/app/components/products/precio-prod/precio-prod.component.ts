@@ -15,9 +15,10 @@ import { PrecioProdListComponent } from './precio-prod-list.component';
 import { LoadingController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-precio-prod',
-  templateUrl: './precio-prod.component.html',
-  styleUrls: ['./precio-prod.component.scss'],
+    selector: 'app-precio-prod',
+    templateUrl: './precio-prod.component.html',
+    styleUrls: ['./precio-prod.component.scss'],
+    standalone: false
 })
 export class PrecioProdComponent implements OnInit {
   public tpreciosG = [

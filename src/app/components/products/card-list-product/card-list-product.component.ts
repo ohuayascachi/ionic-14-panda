@@ -9,9 +9,10 @@ import { LoadingService } from '../../shares/loading/loading.service';
 import { CartGet } from 'src/model/cart.model';
 
 @Component({
-  selector: 'app-card-list-product',
-  templateUrl: './card-list-product.component.html',
-  styleUrls: ['./card-list-product.component.scss'],
+    selector: 'app-card-list-product',
+    templateUrl: './card-list-product.component.html',
+    styleUrls: ['./card-list-product.component.scss'],
+    standalone: false
 })
 export class CardListProductComponent implements OnInit {
   @Input()

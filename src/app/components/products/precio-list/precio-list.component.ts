@@ -10,9 +10,10 @@ import { ProductGet } from 'src/model/product.model';
 import { SubcategoriaGet } from 'src/model/subcategoria.model';
 
 @Component({
-  selector: 'app-precio-list',
-  templateUrl: './precio-list.component.html',
-  styleUrls: ['./precio-list.component.scss'],
+    selector: 'app-precio-list',
+    templateUrl: './precio-list.component.html',
+    styleUrls: ['./precio-list.component.scss'],
+    standalone: false
 })
 export class PrecioListComponent implements OnInit {
   //Observables

@@ -6,10 +6,10 @@ import { LoadingService } from 'src/app/components/shares/loading/loading.servic
 import { OrderService } from 'src/app/services/order.service';
 import { OrderGet } from 'src/model/order.model';
 @Component({
-  selector: 'app-order-list',
-  templateUrl: './order-list.component.html',
-  styleUrls: ['./order-list.component.scss'],
-  // providers: [LoadingService],
+    selector: 'app-order-list',
+    templateUrl: './order-list.component.html',
+    styleUrls: ['./order-list.component.scss'],
+    standalone: false
 })
 export class OrderListComponent implements OnInit {
   //ordersCompleted$: Observable<OrderGet[]>;

@@ -10,9 +10,10 @@ import { CategoriaGet } from 'src/model/categoria.model';
 import { SubcategoriaGet } from 'src/model/subcategoria.model';
 
 @Component({
-  selector: 'app-add-product',
-  templateUrl: './add-product.component.html',
-  styleUrls: ['./add-product.component.scss'],
+    selector: 'app-add-product',
+    templateUrl: './add-product.component.html',
+    styleUrls: ['./add-product.component.scss'],
+    standalone: false
 })
 export class AddProductComponent implements OnInit {
   public formFeature: FormGroup;

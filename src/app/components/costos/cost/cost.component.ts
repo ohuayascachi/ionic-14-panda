@@ -9,9 +9,10 @@ import { ProductGet } from 'src/model/product.model';
 import { SubcategoriaGet } from 'src/model/subcategoria.model';
 
 @Component({
-  selector: 'app-cost',
-  templateUrl: './cost.component.html',
-  styleUrls: ['./cost.component.scss'],
+    selector: 'app-cost',
+    templateUrl: './cost.component.html',
+    styleUrls: ['./cost.component.scss'],
+    standalone: false
 })
 export class CostComponent implements OnInit {
   public categorias$: Observable<CategoriaGet[]>;

@@ -11,9 +11,10 @@ import { AlertController } from '@ionic/angular';
 // import type { Animation } from '@ionic/angular';
 
 @Component({
-  selector: 'app-upload-img',
-  templateUrl: './upload-img.component.html',
-  styleUrls: ['./upload-img.component.scss'],
+    selector: 'app-upload-img',
+    templateUrl: './upload-img.component.html',
+    styleUrls: ['./upload-img.component.scss'],
+    standalone: false
 })
 export class UploadImgComponent implements OnInit {
   //OBSERVABLES

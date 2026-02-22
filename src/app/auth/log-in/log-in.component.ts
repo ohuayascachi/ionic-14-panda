@@ -4,9 +4,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../service/auth.service';
 
 @Component({
-  selector: 'app-log-in',
-  templateUrl: './log-in.component.html',
-  styleUrls: ['./log-in.component.scss'],
+    selector: 'app-log-in',
+    templateUrl: './log-in.component.html',
+    styleUrls: ['./log-in.component.scss'],
+    standalone: false
 })
 export class LogInComponent implements OnInit {
   formLogin: FormGroup;

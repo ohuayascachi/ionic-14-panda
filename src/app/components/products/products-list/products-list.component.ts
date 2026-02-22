@@ -10,9 +10,10 @@ import { SubcategoriaGet } from 'src/model/subcategoria.model';
 
 
 @Component({
-  selector: 'app-products-list',
-  templateUrl: './products-list.component.html',
-  styleUrls: ['./products-list.component.scss'],
+    selector: 'app-products-list',
+    templateUrl: './products-list.component.html',
+    styleUrls: ['./products-list.component.scss'],
+    standalone: false
 })
 export class ProductsListComponent implements OnInit {
   public products$: Observable<Partial<ProductGet[]>>;

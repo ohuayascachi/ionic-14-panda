@@ -7,9 +7,10 @@ import { CustomerService } from 'src/app/services/customer.service';
 import { CustomerGet } from 'src/model/customer.model';
 
 @Component({
-  selector: 'app-customer-list',
-  templateUrl: './customer-list.component.html',
-  styleUrls: ['./customer-list.component.scss'],
+    selector: 'app-customer-list',
+    templateUrl: './customer-list.component.html',
+    styleUrls: ['./customer-list.component.scss'],
+    standalone: false
 })
 export class CustomerListComponent implements OnInit {
   public clientes$: Observable<CustomerGet[]>;

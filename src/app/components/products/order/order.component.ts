@@ -17,9 +17,10 @@ import { UserService } from 'src/app/services/user.service';
 import { CartGet } from 'src/model/cart.model';
 
 @Component({
-  selector: 'app-order',
-  templateUrl: './order.component.html',
-  styleUrls: ['./order.component.scss'],
+    selector: 'app-order',
+    templateUrl: './order.component.html',
+    styleUrls: ['./order.component.scss'],
+    standalone: false
 })
 export class OrderComponent implements OnInit, OnDestroy {
   @ViewChild('popover') popover;

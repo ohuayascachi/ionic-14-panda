@@ -10,9 +10,10 @@ import { SubcategoriaGet } from 'src/model/subcategoria.model';
 import { Storage } from '@ionic/storage-angular';
 
 @Component({
-  selector: 'app-my-prod-list',
-  templateUrl: './my-prod-list.component.html',
-  styleUrls: ['./my-prod-list.component.scss'],
+    selector: 'app-my-prod-list',
+    templateUrl: './my-prod-list.component.html',
+    styleUrls: ['./my-prod-list.component.scss'],
+    standalone: false
 })
 export class MyProdListComponent implements OnInit {
 

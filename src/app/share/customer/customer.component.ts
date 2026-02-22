@@ -8,9 +8,10 @@ import { CustomerService } from 'src/app/services/customer.service';
 import { CustomerGet } from 'src/model/customer.model';
 
 @Component({
-  selector: 'app-customer',
-  templateUrl: './customer.component.html',
-  styleUrls: ['./customer.component.scss'],
+    selector: 'app-customer',
+    templateUrl: './customer.component.html',
+    styleUrls: ['./customer.component.scss'],
+    standalone: false
 })
 export class CustomerComponent implements OnInit, OnDestroy {
   public formCustomer: FormGroup;

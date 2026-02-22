@@ -6,9 +6,10 @@ import { OrderGet } from 'src/model/order.model';
 import { UserGet } from 'src/model/user.model';
 
 @Component({
-  selector: 'app-card-list-orders',
-  templateUrl: './card-list-orders.component.html',
-  styleUrls: ['./card-list-orders.component.scss'],
+    selector: 'app-card-list-orders',
+    templateUrl: './card-list-orders.component.html',
+    styleUrls: ['./card-list-orders.component.scss'],
+    standalone: false
 })
 export class CardListOrdersComponent implements OnInit {
   @Input()

@@ -11,9 +11,10 @@ import { CartService } from 'src/app/services/cart.service';
 
 //
 @Component({
-  selector: 'app-item-product',
-  templateUrl: './item-product.component.html',
-  styleUrls: ['./item-product.component.scss'],
+    selector: 'app-item-product',
+    templateUrl: './item-product.component.html',
+    styleUrls: ['./item-product.component.scss'],
+    standalone: false
 })
 export class ItemProductComponent implements OnInit {
   @ViewChild('userInput') userInputViewChild: ElementRef;

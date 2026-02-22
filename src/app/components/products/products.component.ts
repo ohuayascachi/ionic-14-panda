@@ -13,10 +13,10 @@ import { PriceGet } from 'src/model/precios.model';
 import { LoadingService } from '../shares/loading/loading.service';
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss'],
-  //providers: [LoadingService],
+    selector: 'app-products',
+    templateUrl: './products.component.html',
+    styleUrls: ['./products.component.scss'],
+    standalone: false
 })
 export class ProductsComponent implements OnInit, OnChanges {
   @ViewChild('popover') popover;

@@ -14,9 +14,10 @@ import { CategoriaGet } from 'src/model/categoria.model';
 import { ProductGet } from 'src/model/product.model';
 
 @Component({
-  selector: 'app-list-products',
-  templateUrl: './list-products.component.html',
-  styleUrls: ['./list-products.component.scss'],
+    selector: 'app-list-products',
+    templateUrl: './list-products.component.html',
+    styleUrls: ['./list-products.component.scss'],
+    standalone: false
 })
 export class ListProductsComponent implements OnInit, OnChanges {
   @Input() productsList: ProductGet[] = [];

@@ -9,9 +9,10 @@ import { UserGet } from 'src/model/user.model';
 import { LoadingService } from '../shares/loading/loading.service';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss'],
+    selector: 'app-user',
+    templateUrl: './user.component.html',
+    styleUrls: ['./user.component.scss'],
+    standalone: false
 })
 export class UserComponent implements OnInit, OnDestroy {
   @Input() usuario: UserGet;

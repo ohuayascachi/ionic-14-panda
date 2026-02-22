@@ -6,9 +6,10 @@ import { UserService } from 'src/app/services/user.service';
 import { UserGet } from 'src/model/user.model';
 
 @Component({
-  selector: 'app-mydatos',
-  templateUrl: './mydatos.component.html',
-  styleUrls: ['./mydatos.component.scss'],
+    selector: 'app-mydatos',
+    templateUrl: './mydatos.component.html',
+    styleUrls: ['./mydatos.component.scss'],
+    standalone: false
 })
 export class MydatosComponent implements OnInit, OnDestroy  {
   //Form
