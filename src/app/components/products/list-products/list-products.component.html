@@ -6,57 +6,60 @@
   value="todos"
   mode="ios"
   class="segment"
-> 
+  >
   <ion-segment-button value="todos">
     <ion-label>Todos</ion-label>
   </ion-segment-button>
   <!-- EL VALUE ESTA PENDIENTE CAMBIAR POR CATEOGIRAS DESDE EL BACKEND -->
-  <ion-segment-button
-    *ngFor="let item of categorias$ | async"
-    value="{{ item.id }}"
-  >
-    <ion-label>{{ item.name }}</ion-label>
-  </ion-segment-button>
+  @for (item of categorias$ | async; track item) {
+    <ion-segment-button
+      value="{{ item.id }}"
+      >
+      <ion-label>{{ item.name }}</ion-label>
+    </ion-segment-button>
+  }
 </ion-segment>
 
 <ion-grid class="grid-items">
-  <div *ngFor="let item of products">
-    <ion-card
-      class="card-item"
-      [routerLink]="['/products', item.slug]"
-      (click)="pasarDataService(item)"
-      lines="none"
-    >
-      <ion-card-content class="content-img">
-        <img
-          *ngIf="!item.image1.imgMediun"
-          alt="product #"
-          class="img-product"
-          src="../../../../assets/img/products/noproduct-large.png"
-        />
-
-        <img
-          *ngIf="item.image1.imgMediun"
-          alt="product #"
-          class="img-product"
-          [src]="item.image1.imgMediun"
-        />
-      </ion-card-content>
-      <p class="text-prices-1">
-        {{ item.name }}
-      </p>
-
-      <p class="text-prices">
-        <span>
-          <span> RANGO </span>
-          {{ item.unidadprice }}
-          {{ item.precios[item.precios.length - 1].price
-          }}<span class="ceros-price"></span> - {{ item.precios[0].price
-          }}<span class="ceros-price"></span>
-        </span>
-      </p>
-    </ion-card>
-  </div>
+  @for (item of products; track item) {
+    <div>
+      <ion-card
+        class="card-item"
+        [routerLink]="['/products', item.slug]"
+        (click)="pasarDataService(item)"
+        lines="none"
+        >
+        <ion-card-content class="content-img">
+          @if (!item.image1.imgMediun) {
+            <img
+              alt="product #"
+              class="img-product"
+              src="../../../../assets/img/products/noproduct-large.png"
+              />
+          }
+          @if (item.image1.imgMediun) {
+            <img
+              alt="product #"
+              class="img-product"
+              [src]="item.image1.imgMediun"
+              />
+          }
+        </ion-card-content>
+        <p class="text-prices-1">
+          {{ item.name }}
+        </p>
+        <p class="text-prices">
+          <span>
+            <span> RANGO </span>
+            {{ item.unidadprice }}
+            {{ item.precios[item.precios.length - 1].price
+            }}<span class="ceros-price"></span> - {{ item.precios[0].price
+            }}<span class="ceros-price"></span>
+          </span>
+        </p>
+      </ion-card>
+    </div>
+  }
 
   <div>
     <div style="margin-top: 1rem;">
@@ -66,12 +69,12 @@
             <!-- DISABLED -->
             <a class="page-link" (click)="pagina($event)" value="pre">Previous</a>
           </li>
-          <li class="page-item" [ngClass]="PAGI===1? 'active':''"><a class="page-link" value="1" 
-              (click)="pagina($event)">1</a></li>
+          <li class="page-item" [ngClass]="PAGI===1? 'active':''"><a class="page-link" value="1"
+          (click)="pagina($event)">1</a></li>
           <li class="page-item" [ngClass]="PAGI===2? 'active':''"><a class="page-link" value="2"
-              (click)="pagina($event)">2</a></li>
+          (click)="pagina($event)">2</a></li>
           <li class="page-item" [ngClass]="PAGI===3? 'active':''"><a class="page-link" value="3"
-              (click)="pagina($event)">3</a></li>
+          (click)="pagina($event)">3</a></li>
           <li class="page-item" [ngClass]="BTNSiguiente">
             <a class="page-link" (click)="pagina($event)" value="nex">Next</a>
           </li>

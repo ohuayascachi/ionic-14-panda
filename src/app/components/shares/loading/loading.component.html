@@ -1,5 +1,7 @@
 <!-- <ion-spinner color="danger"></ion-spinner> -->
 
-<div class="spinner-container" *ngIf="loadingSvc.loading$ | async">
-  <ion-spinner color="danger"></ion-spinner>
-</div>
+@if (loadingSvc.loading$ | async) {
+  <div class="spinner-container">
+    <ion-spinner color="danger"></ion-spinner>
+  </div>
+}

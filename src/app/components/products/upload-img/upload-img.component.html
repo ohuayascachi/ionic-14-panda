@@ -4,7 +4,7 @@
       slot="start"
       class="header_btn"
       (click)="funcionesService.returnUser()"
-    >
+      >
       <ion-icon class="header__icon" name="chevron-back-sharp"></ion-icon>
     </ion-buttons>
     <ion-title class="header__text">Imagnes de producto</ion-title>
@@ -15,213 +15,236 @@
   <div class="filtro-products">
     <!--  seleccion por categoria --   -->
 
-    <div class="msg" *ngIf="this.msg === true">
-      <ng-container
-      class="msg-1"
-        *ngIf="(this.productos$ | async).length > 0; else noProducts"
-      >
-        <span>
-       
-           Categoría :{{ (this.productos$ | async).length }} productos registrados
-          </span
-        >
-      </ng-container>
+    @if (this.msg === true) {
+      <div class="msg">
+        @if ((this.productos$ | async).length > 0) {
+          <ng-container
+            class="msg-1"
+            >
+            <span>
+              Categoría :{{ (this.productos$ | async).length }} productos registrados
+              </span
+              >
+            </ng-container>
+          } @else {
+            <span>Categoría : 0 productos registrados</span>
+          }
+          <!--
+          <ion-note *ngIf="(this.productos$ | async).length === 0">
+            Usted no tiene productos registrados
+          </ion-note>
+          <ion-note *ngIf="(this.productos$ | async).length > 0">
+            Usted tiene {{ (this.productos$ | async).length }} productos reistrados
+          </ion-note> -->
+        </div>
+      }
 
-      <ng-template #noProducts       class="msg-2">
-        <span>Categoría : 0 productos registrados</span>
-      </ng-template>
-<!-- 
-      <ion-note *ngIf="(this.productos$ | async).length === 0">
-        Usted no tiene productos registrados
-      </ion-note>
-      <ion-note *ngIf="(this.productos$ | async).length > 0">
-        Usted tiene {{ (this.productos$ | async).length }} productos reistrados
-      </ion-note> -->
-    </div>
-
-    <div class="filtro-products__item">
-      <label for="cate">Seleccione categoría</label>
-      <select
-        class="filtro-products__select"
-        name="cate"
-        (change)="selectProdByCategoria($event)"
-      >
-        <option class="filtro-products__option" selected value="none" disabled>
-          Seleccione
-        </option>
-        <option
-          class="filtro-products__option"
-          *ngFor="let item of categorias$ | async"
-          value="{{ item.id }}"
-        >
-          {{ item.name }}
-        </option>
-      </select>
-    </div>
-
-    <!-- seleccione subcategoria --          -->
-    <div class="filtro-products__item">
-      <label for="subca">Seleccione subcategoría</label>
-      <select
-        class="filtro-products__select"
-        name="subca"
-        (change)="selectProdBySubCategoria($event)"
-        value="none"
-      >
-        <option class="filtro-products__option" selected value="none" disabled>
-          Seleccione
-        </option>
-        <option
-          class="filtro-products__option"
-          *ngFor="let item of subcategorias$ | async"
-          value="{{ item.id }}"
-        >
-          {{ item.name }}
-        </option>
-      </select>
-    </div>
-
-    <!-- seleccione producto --           -->
-    <div class="filtro-products__product">
-      <div>Seleccione <strong>producto</strong></div>
-      <div class="filtro-products__label-select">
+      <div class="filtro-products__item">
+        <label for="cate">Seleccione categoría</label>
         <select
-          class="filtro-products__select filtro-products__select-product"
-          (change)="selectProduct($event)"
-        >
-          <option class="filtro-products__option" value="none">
+          class="filtro-products__select"
+          name="cate"
+          (change)="selectProdByCategoria($event)"
+          >
+          <option class="filtro-products__option" selected value="none" disabled>
             Seleccione
           </option>
-          <option
-            class="filtro-products__option"
-            value="{{ item.id }}"
-            *ngFor="let item of productos$ | async"
-          >
-            {{ item.name }}
-          </option>
+          @for (item of categorias$ | async; track item) {
+            <option
+              class="filtro-products__option"
+              value="{{ item.id }}"
+              >
+              {{ item.name }}
+            </option>
+          }
         </select>
       </div>
+
+      <!-- seleccione subcategoria --          -->
+      <div class="filtro-products__item">
+        <label for="subca">Seleccione subcategoría</label>
+        <select
+          class="filtro-products__select"
+          name="subca"
+          (change)="selectProdBySubCategoria($event)"
+          value="none"
+          >
+          <option class="filtro-products__option" selected value="none" disabled>
+            Seleccione
+          </option>
+          @for (item of subcategorias$ | async; track item) {
+            <option
+              class="filtro-products__option"
+              value="{{ item.id }}"
+              >
+              {{ item.name }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <!-- seleccione producto --           -->
+      <div class="filtro-products__product">
+        <div>Seleccione <strong>producto</strong></div>
+        <div class="filtro-products__label-select">
+          <select
+            class="filtro-products__select filtro-products__select-product"
+            (change)="selectProduct($event)"
+            >
+            <option class="filtro-products__option" value="none">
+              Seleccione
+            </option>
+            @for (item of productos$ | async; track item) {
+              <option
+                class="filtro-products__option"
+                value="{{ item.id }}"
+                >
+                {{ item.name }}
+              </option>
+            }
+          </select>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="body">
-    <div class="text-nota">
-      <p>
-        Click sobre la caja vacia para agregar imagen. <br />
-        La imagen debe ser cuadrada, recomendable 1000px x 1000px.
-      </p>
-    </div>
+    <div class="body">
+      <div class="text-nota">
+        <p>
+          Click sobre la caja vacia para agregar imagen. <br />
+          La imagen debe ser cuadrada, recomendable 1000px x 1000px.
+        </p>
+      </div>
 
-    <ion-card class="card-img img-1">
-      <img
-        *ngIf="!this.ima1"
-        class="img"
-        (click)="imagen1.click()"
-        alt="Princiapl"
-        src="../../../../assets/img/products/noproduct-large.png"
-      />
-      <!-- ddd  (click)="imagen.click()"-->
-      <img
-        *ngIf="this.ima1"
-        class="img img-uno-1"
-        alt="Princiapal"
-        [src]="this.ima1"
-      />
-      <input
-        type="file"
-        hidden
-        #imagen1
-        (change)="uploadImg($event, 'image1')"
-      />
+      <ion-card class="card-img img-1">
+        @if (!this.ima1) {
+          <img
+            class="img"
+            (click)="imagen1.click()"
+            alt="Princiapl"
+            src="../../../../assets/img/products/noproduct-large.png"
+            />
+        }
+        <!-- ddd  (click)="imagen.click()"-->
+        @if (this.ima1) {
+          <img
+            class="img img-uno-1"
+            alt="Princiapal"
+            [src]="this.ima1"
+            />
+        }
+        <input
+          type="file"
+          hidden
+          #imagen1
+          (change)="uploadImg($event, 'image1')"
+          />
 
-      <ion-fab *ngIf="this.ima1" vertical="bottom" horizontal="end">
-        <ion-fab-button color="danger" (click)="deleteImg('image1')">
-          <ion-icon name="trash"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
+        @if (this.ima1) {
+          <ion-fab vertical="bottom" horizontal="end">
+            <ion-fab-button color="danger" (click)="deleteImg('image1')">
+              <ion-icon name="trash"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
+        }
 
-      <ion-item class="card-title">
-        <p class="text">Imgen principal</p>
-      </ion-item>
-      <ion-item *ngIf="loading1" class="card-title">
-        <ion-progress-bar type="indeterminate"></ion-progress-bar>
-      </ion-item>
-    </ion-card>
+        <ion-item class="card-title">
+          <p class="text">Imgen principal</p>
+        </ion-item>
+        @if (loading1) {
+          <ion-item class="card-title">
+            <ion-progress-bar type="indeterminate"></ion-progress-bar>
+          </ion-item>
+        }
+      </ion-card>
 
-    <!-- Segunda imgane -->
-    <ion-card class="card-img img-2">
-      <img
-        *ngIf="!this.ima2"
-        class="img"
-        (click)="imagen2.click()"
-        alt="Imagen2"
-        src="../../../../assets/img/products/noproduct-large.png"
-      />
-      <input
-        type="file"
-        id="imagen2"
-        hidden
-        #imagen2
-        (change)="uploadImg($event, 'image2')"
-      />
+      <!-- Segunda imgane -->
+      <ion-card class="card-img img-2">
+        @if (!this.ima2) {
+          <img
+            class="img"
+            (click)="imagen2.click()"
+            alt="Imagen2"
+            src="../../../../assets/img/products/noproduct-large.png"
+            />
+        }
+        <input
+          type="file"
+          id="imagen2"
+          hidden
+          #imagen2
+          (change)="uploadImg($event, 'image2')"
+          />
 
-      <!-- (click)="imagen2.click()" -->
-      <img *ngIf="this.ima2" class="img" alt="imagen2" [src]="this.ima2" />
+        <!-- (click)="imagen2.click()" -->
+        @if (this.ima2) {
+          <img class="img" alt="imagen2" [src]="this.ima2" />
+        }
 
-      <ion-fab *ngIf="this.ima2" vertical="bottom" horizontal="end">
-        <ion-fab-button color="danger" (click)="deleteImg('image2')">
-          <ion-icon name="trash"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
+        @if (this.ima2) {
+          <ion-fab vertical="bottom" horizontal="end">
+            <ion-fab-button color="danger" (click)="deleteImg('image2')">
+              <ion-icon name="trash"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
+        }
 
-      <ion-item class="card-title">
-        <p class="text">Segunda imagen</p>
-      </ion-item>
-      <ion-item *ngIf="loading2" class="card-title">
-        <ion-progress-bar type="indeterminate"></ion-progress-bar>
-      </ion-item>
-    </ion-card>
+        <ion-item class="card-title">
+          <p class="text">Segunda imagen</p>
+        </ion-item>
+        @if (loading2) {
+          <ion-item class="card-title">
+            <ion-progress-bar type="indeterminate"></ion-progress-bar>
+          </ion-item>
+        }
+      </ion-card>
 
-     <ion-card class="card-img img-3">
-      <img
-        *ngIf="!this.ima3"
-        class="img"
-        (click)="imagen3.click()"
-        alt="Princiapl"
-        src="../../../../assets/img/products/noproduct-large.png"
-      />
-  
-      <img *ngIf="this.ima3" class="img" alt="Princiapal" [src]="this.ima3" />
-      <input
-        type="file"
-        hidden
-        #imagen3
-        (change)="uploadImg($event, 'image3')"
-      />
+      <ion-card class="card-img img-3">
+        @if (!this.ima3) {
+          <img
+            class="img"
+            (click)="imagen3.click()"
+            alt="Princiapl"
+            src="../../../../assets/img/products/noproduct-large.png"
+            />
+        }
 
-      <ion-fab *ngIf="this.ima3" vertical="bottom" horizontal="end">
-        <ion-fab-button color="danger" (click)="deleteImg('image3')">
-          <ion-icon name="trash"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
+        @if (this.ima3) {
+          <img class="img" alt="Princiapal" [src]="this.ima3" />
+        }
+        <input
+          type="file"
+          hidden
+          #imagen3
+          (change)="uploadImg($event, 'image3')"
+          />
 
-      <ion-item class="card-title">
-        <p class="text">Tercera imagen</p>
-      </ion-item>
-      <ion-item *ngIf="loading3" class="card-title">
-        <ion-progress-bar type="indeterminate"></ion-progress-bar>
-      </ion-item>
-    </ion-card>
+        @if (this.ima3) {
+          <ion-fab vertical="bottom" horizontal="end">
+            <ion-fab-button color="danger" (click)="deleteImg('image3')">
+              <ion-icon name="trash"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
+        }
 
-    <!--  <ion-card class="card-img img-4">
+        <ion-item class="card-title">
+          <p class="text">Tercera imagen</p>
+        </ion-item>
+        @if (loading3) {
+          <ion-item class="card-title">
+            <ion-progress-bar type="indeterminate"></ion-progress-bar>
+          </ion-item>
+        }
+      </ion-card>
+
+      <!--  <ion-card class="card-img img-4">
       <img
         *ngIf="!this.ima4"
         class="img"
         (click)="imagen4.click()"
         alt="Princiapl"
         src="../../../../assets/img/products/noproduct-large.png"
-      />
-      (click)="imagen4.click()"  
+        />
+      (click)="imagen4.click()"
       <img *ngIf="this.ima4" class="img" alt="Princiapal" [src]="this.ima4" />
 
       <input
@@ -229,7 +252,7 @@
         hidden
         #imagen4
         (change)="uploadImg($event, 'image4')"
-      />
+        />
       <ion-fab *ngIf="this.ima4" vertical="bottom" horizontal="end">
         <ion-fab-button color="danger" (click)="deleteImg('image4')">
           <ion-icon name="trash"></ion-icon>
@@ -251,9 +274,9 @@
         (click)="imagen5.click()"
         alt="img"
         src="../../../../assets/img/products/noproduct-large.png"
-      />
+        />
 
-       (click)="imagen5.click()"  
+      (click)="imagen5.click()"
       <img *ngIf="this.ima5" class="img" alt="Princiapal" [src]="this.ima5" />
       <input
         type="file"
@@ -262,7 +285,7 @@
         hidden
         #imagen5
         (change)="uploadImg($event, 'image5')"
-      />
+        />
 
       <ion-fab *ngIf="this.ima5" vertical="bottom" horizontal="end">
         <ion-fab-button color="danger" (click)="deleteImg('image5')">

@@ -15,16 +15,20 @@
 
 <ion-content [fullscreen]="true">
   <app-loading></app-loading>
-  <app-user *ngIf="showuser" [usuario]="userDB" name="Tab 4 page"></app-user>
+  @if (showuser) {
+    <app-user [usuario]="userDB" name="Tab 4 page"></app-user>
+  }
 
-  <div *ngIf="!showuser" class="sesion">
-    <ion-button
-      class="btn"
-      fill="outline"
-      [routerLink]="['/auth/log-in']"
-      routerLinkActive="router-link-active"
-    >
-      <strong>Ir a INICIAR SESSION</strong>
-    </ion-button>
-  </div>
+  @if (!showuser) {
+    <div class="sesion">
+      <ion-button
+        class="btn"
+        fill="outline"
+        [routerLink]="['/auth/log-in']"
+        routerLinkActive="router-link-active"
+        >
+        <strong>Ir a INICIAR SESSION</strong>
+      </ion-button>
+    </div>
+  }
 </ion-content>

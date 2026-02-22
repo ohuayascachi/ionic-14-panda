@@ -7,25 +7,26 @@
         slot="start"
         (click)="routerLinkRetro()"
         name="chevron-back-sharp"
-      >
+        >
       </ion-icon>
     </button>
 
     <ion-title class="header__text"> Registro nuevo cliente </ion-title>
-    <!-- </div> -->
-  </ion-toolbar>
+  <!-- </div> -->
+</ion-toolbar>
 </ion-header>
 
 <ion-content class="card" fullscreen="true" scroll-y="true">
 
-  <div *ngIf="statusNota"  class="nota">
-    <ion-nota>
-
-      Aquí puede editar o añadir información como direccion, número de cuenta, etc. <br/>
-      Solo el número de celular es un campo que no se puede modificar, si desea hacerlo debe eliminar al cliente.<br/>
-      Presione en boton <strong>"{{btnName}}"</strong> para almacenar los cambios.  <br/>
-    </ion-nota>
-  </div>
+  @if (statusNota) {
+    <div  class="nota">
+      <ion-nota>
+        Aquí puede editar o añadir información como direccion, número de cuenta, etc. <br/>
+        Solo el número de celular es un campo que no se puede modificar, si desea hacerlo debe eliminar al cliente.<br/>
+        Presione en boton <strong>"{{btnName}}"</strong> para almacenar los cambios.  <br/>
+      </ion-nota>
+    </div>
+  }
 
   <form [formGroup]="formCustomer" (ngSubmit)="postForm(btnName)">
     <ion-item>
@@ -36,28 +37,34 @@
         formControlName="phone"
         class="input input-number"
         [disabled]="statuInput"
-      >
+        >
       </ion-input>
-      <ion-icon
-        *ngIf="
-          this.formCustomer.get('phone').value.length === 0 &&
-          !this.formCustomer.get('phone').dirty
-        "
-        class="icon-alerta"
-        name="alert"
-      ></ion-icon>
+      @if (
+        this.formCustomer.get('phone').value.length === 0 &&
+        !this.formCustomer.get('phone').dirty
+        ) {
+        <ion-icon
+          class="icon-alerta"
+          name="alert"
+        ></ion-icon>
+      }
 
-      <span *ngIf="lenthPhone !== 9 && this.formCustomer.get('phone').dirty">
-        <small id="no-valid">No valido</small>
-      </span >
-      <span *ngIf="existeNumero==='El usuario existe' && lenthPhone == 9 && this.formCustomer.get('phone').dirty">
-        <small id="no-valid">{{ existeNumero }}</small>
-      </span >
-      <ion-icon
-        *ngIf="existeNumero!=='El usuario existe' &&( this.formCustomer.get('phone').valid || lenthPhone === 9)"
-        class="icon-check"
-        name="checkmark-sharp"
-      ></ion-icon>
+      @if (lenthPhone !== 9 && this.formCustomer.get('phone').dirty) {
+        <span>
+          <small id="no-valid">No valido</small>
+        </span >
+      }
+      @if (existeNumero==='El usuario existe' && lenthPhone == 9 && this.formCustomer.get('phone').dirty) {
+        <span>
+          <small id="no-valid">{{ existeNumero }}</small>
+        </span >
+      }
+      @if (existeNumero!=='El usuario existe' &&( this.formCustomer.get('phone').valid || lenthPhone === 9)) {
+        <ion-icon
+          class="icon-check"
+          name="checkmark-sharp"
+        ></ion-icon>
+      }
     </ion-item>
 
     <ion-item>
@@ -67,143 +74,150 @@
         value="{{ this.formCustomer.get('name').value | titlecase }}"
         maxlength="15"
         class="input input-datos"
-      >
+        >
       </ion-input>
-      <ion-icon
-        *ngIf="
-          this.formCustomer.get('name').value.length === 0 &&
-          !this.formCustomer.get('name').dirty
-        "
-        class="icon-alerta"
-        name="alert"
-      ></ion-icon>
-      <span
-        *ngIf="
-          this.formCustomer.get('name').invalid &&
-          this.formCustomer.get('name').dirty
-        "
-      >
-        <small id="no-valid">No valido</small></span
-      >
-      <ion-icon
-        *ngIf="this.formCustomer.get('name').valid"
-        class="icon-check"
-        name="checkmark-sharp"
-      ></ion-icon>
-    </ion-item>
+      @if (
+        this.formCustomer.get('name').value.length === 0 &&
+        !this.formCustomer.get('name').dirty
+        ) {
+        <ion-icon
+          class="icon-alerta"
+          name="alert"
+        ></ion-icon>
+      }
+      @if (
+        this.formCustomer.get('name').invalid &&
+        this.formCustomer.get('name').dirty
+        ) {
+        <span
+          >
+          <small id="no-valid">No valido</small></span
+          >
+        }
+        @if (this.formCustomer.get('name').valid) {
+          <ion-icon
+            class="icon-check"
+            name="checkmark-sharp"
+          ></ion-icon>
+        }
+      </ion-item>
 
-    <ion-item>
-      <ion-label>Primer apellido</ion-label>
-      <ion-input
-        formControlName="lastName1"
-        maxlength="15"
-        value="{{ this.formCustomer.get('lastName1').value | titlecase }}"
-        class="input input-datos"
-      ></ion-input>
-      <ion-icon
-        *ngIf="
+      <ion-item>
+        <ion-label>Primer apellido</ion-label>
+        <ion-input
+          formControlName="lastName1"
+          maxlength="15"
+          value="{{ this.formCustomer.get('lastName1').value | titlecase }}"
+          class="input input-datos"
+        ></ion-input>
+        @if (
           this.formCustomer.get('lastName1').value.length === 0 &&
           !this.formCustomer.get('lastName1').dirty
-        "
-        class="icon-alerta"
-        name="alert"
-      ></ion-icon>
+          ) {
+          <ion-icon
+            class="icon-alerta"
+            name="alert"
+          ></ion-icon>
+        }
 
-      <span
-        *ngIf="
+        @if (
           this.formCustomer.get('lastName1').invalid &&
           this.formCustomer.get('lastName1').dirty
-        "
-      >
-        <small id="no-valid">No valido</small></span
-      >
-      <ion-icon
-        *ngIf="this.formCustomer.get('lastName1').valid"
-        class="icon-check"
-        name="checkmark-sharp"
-      ></ion-icon>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Segundo apellido</ion-label>
-      <ion-input
-        formControlName="lastName2"
-        value="{{ this.formCustomer.get('lastName2').value | titlecase }}"
-        class="input input-datos"
-      ></ion-input>
-      <!-- <span *ngIf="this.formCustomer.get('lastName2').invalid && 
-                   this.formCustomer.get('lastName2').dirty" > 
-                  <small id="no-valid">No valido</small></span> -->
-      <ion-icon
-        *ngIf="this.formCustomer.get('lastName2').value.length > 2"
-        class="icon-check"
-        name="checkmark-sharp"
-      >
-      </ion-icon>
-    </ion-item>
-
-    <ion-accordion-group>
-      <ion-accordion value="first">
-        <ion-item slot="header" color="light">
-          <ion-label>Datos basicos</ion-label>
+          ) {
+          <span
+            >
+            <small id="no-valid">No valido</small></span
+            >
+          }
+          @if (this.formCustomer.get('lastName1').valid) {
+            <ion-icon
+              class="icon-check"
+              name="checkmark-sharp"
+            ></ion-icon>
+          }
         </ion-item>
 
-        <div class="ion-padding" slot="content">
-          <ion-item-group>
-            <!-- <ion-item>
-              <ion-label>Foto</ion-label>
-              <ion-input
-                class="input"
-                formControlName="image"
-                type="file"
-              ></ion-input>
-            </ion-item> -->
-            <ion-item>
-              <ion-label>DNI/Pasaporte</ion-label>
-              <ion-input
-                formControlName="dni"
-                type="number"
-                class="input input-datos"
-              ></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label>Nombre de empresa</ion-label>
-              <ion-input
-                formControlName="empresa"
-                type="text"
-                class="input input-datos"
-              ></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label>RUC</ion-label>
-              <ion-input
-                formControlName="ruc"
-                type="number"
-                step="1"
-                class="input input-datos"
-              ></ion-input>
-            </ion-item> 
-
-            <ion-item>
-              <ion-select
-                justify="space-between"
-                label="Género"
-                placeholder="Género"
-                formControlName="genero"
+        <ion-item>
+          <ion-label>Segundo apellido</ion-label>
+          <ion-input
+            formControlName="lastName2"
+            value="{{ this.formCustomer.get('lastName2').value | titlecase }}"
+            class="input input-datos"
+          ></ion-input>
+      <!-- <span *ngIf="this.formCustomer.get('lastName2').invalid && 
+                   this.formCustomer.get('lastName2').dirty" > 
+          <small id="no-valid">No valido</small></span> -->
+          @if (this.formCustomer.get('lastName2').value.length > 2) {
+            <ion-icon
+              class="icon-check"
+              name="checkmark-sharp"
               >
-                <ion-select-option value="M">M</ion-select-option>
-                <ion-select-option value="F">F</ion-select-option>
-                <ion-select-option value="0">0</ion-select-option>
-              </ion-select>
+            </ion-icon>
+          }
+        </ion-item>
+
+        <ion-accordion-group>
+          <ion-accordion value="first">
+            <ion-item slot="header" color="light">
+              <ion-label>Datos basicos</ion-label>
             </ion-item>
-            <ion-item>
-              <ion-label>Email</ion-label>
-              <ion-input
-                formControlName="email"
-                class="input input-datos"
-              ></ion-input>
-            </ion-item>
-            <!-- <ion-item formGroupName="edad">
+
+            <div class="ion-padding" slot="content">
+              <ion-item-group>
+                <!-- <ion-item>
+                <ion-label>Foto</ion-label>
+                <ion-input
+                  class="input"
+                  formControlName="image"
+                  type="file"
+                ></ion-input>
+              </ion-item> -->
+              <ion-item>
+                <ion-label>DNI/Pasaporte</ion-label>
+                <ion-input
+                  formControlName="dni"
+                  type="number"
+                  class="input input-datos"
+                ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>Nombre de empresa</ion-label>
+                <ion-input
+                  formControlName="empresa"
+                  type="text"
+                  class="input input-datos"
+                ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>RUC</ion-label>
+                <ion-input
+                  formControlName="ruc"
+                  type="number"
+                  step="1"
+                  class="input input-datos"
+                ></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-select
+                  justify="space-between"
+                  label="Género"
+                  placeholder="Género"
+                  formControlName="genero"
+                  >
+                  <ion-select-option value="M">M</ion-select-option>
+                  <ion-select-option value="F">F</ion-select-option>
+                  <ion-select-option value="0">0</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label>Email</ion-label>
+                <ion-input
+                  formControlName="email"
+                  class="input input-datos"
+                ></ion-input>
+              </ion-item>
+              <!-- <ion-item formGroupName="edad">
               <ion-label>Edad</ion-label>
               <ion-input
                 formControlName="edad"
@@ -234,7 +248,7 @@
               formControlName="pais"
               class="input input-datos"
               value="Perú"
-            >
+              >
             </ion-input>
           </ion-item>
 
@@ -321,7 +335,7 @@
           class="ion-padding"
           slot="content"
           formGroupName="informacionBanco"
-        >
+          >
           <ion-item>
             <ion-label>Banco</ion-label>
             <ion-input
@@ -349,70 +363,70 @@
           <ion-item>
             <ion-label>
               Titular <small> <em> (De cuenta)</em> </small></ion-label
-            >
-            <ion-input
-              formControlName="titular"
-              type="text"
-              class="input input-datos"
-            ></ion-input>
-          </ion-item>
-          <p class="nota">
-            NOTA: Información referencial que se usaran en caso queramos
-            realizar deposito. Favor de verificar su informacón de manera
-            correcta. <br />
-            <strong>IMPORTATE</strong> : NO SOLICITAMOS NÚMERO DE TARJETA.
-          </p>
-        </div>
-      </ion-accordion>
-    </ion-accordion-group>
-    <p class="nota">
-      NOTA: Solo los 3 primeros campos son requeridos ( Número, Nombre y Primer apellido), los demás campos son opcionales <br />
-       
-    </p>
-    <ion-button
-      expand="block"
-      type="submit"
-      class="color-button-registrar"
-      [disabled]="!this.formCustomer.valid"
-      >{{btnName}}
+              >
+              <ion-input
+                formControlName="titular"
+                type="text"
+                class="input input-datos"
+              ></ion-input>
+            </ion-item>
+            <p class="nota">
+              NOTA: Información referencial que se usaran en caso queramos
+              realizar deposito. Favor de verificar su informacón de manera
+              correcta. <br />
+              <strong>IMPORTATE</strong> : NO SOLICITAMOS NÚMERO DE TARJETA.
+            </p>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+      <p class="nota">
+        NOTA: Solo los 3 primeros campos son requeridos ( Número, Nombre y Primer apellido), los demás campos son opcionales <br />
 
-      <ion-icon name="person-add" slot="end"></ion-icon>
-    </ion-button>
-  </form>
+      </p>
+      <ion-button
+        expand="block"
+        type="submit"
+        class="color-button-registrar"
+        [disabled]="!this.formCustomer.valid"
+        >{{btnName}}
 
-  <!-- valid: <span> {{ this.formCustomer.valid }}</span> -->
-</ion-content>
+        <ion-icon name="person-add" slot="end"></ion-icon>
+      </ion-button>
+    </form>
 
-<!-- 
-Direcciones array
-<ion-item-group [formGroup]="newDireccion">
-  Pais 
-  <ion-item>
-    <ion-label>País</ion-label>
-    <ion-input
-      type="text"
-      formControlName="pais"
-      class="input input-datos"
-      value="Perú"
-    >
-    </ion-input>
-  </ion-item>
+    <!-- valid: <span> {{ this.formCustomer.valid }}</span> -->
+  </ion-content>
 
-  <  Departamento - 
-  <ion-item>
-    <ion-label>
-      <h3>Departamento</h3>
-    </ion-label>
+  <!--
+  Direcciones array
+  <ion-item-group [formGroup]="newDireccion">
+    Pais
+    <ion-item>
+      <ion-label>País</ion-label>
+      <ion-input
+        type="text"
+        formControlName="pais"
+        class="input input-datos"
+        value="Perú"
+        >
+      </ion-input>
+    </ion-item>
 
-    <ion-input
-      type="text"
-      formControlName="estado"
-      value="Lima"
-      class="input input-datos"
-    ></ion-input>
-  </ion-item>
+    <  Departamento -
+    <ion-item>
+      <ion-label>
+        <h3>Departamento</h3>
+      </ion-label>
 
-  <  provincia  
+      <ion-input
+        type="text"
+        formControlName="estado"
+        value="Lima"
+        class="input input-datos"
+      ></ion-input>
+    </ion-item>
+
+    <  provincia
     <ion-label>
       <h3>Provincia</h3>
     </ion-label>
@@ -425,7 +439,7 @@ Direcciones array
     ></ion-input>
   </ion-item>
 
-  Distrito  
+  Distrito
   <ion-item>
     <ion-label>
       <h3>Distrito</h3>
@@ -439,7 +453,7 @@ Direcciones array
     ></ion-input>
   </ion-item>
 
- direccion  
+  direccion
   <div formGroupName="adress">
     <ion-item>
       <ion-label>
@@ -468,108 +482,108 @@ Direcciones array
     </ion-item>
   </div>
 
-  Buttones 
+  Buttones
   <div class="button-add-direcc">
     <button (click)="resetAdress()" class="button-delete">
       <ion-icon class="button-icon" name="refresh-outline"></ion-icon>
     </button>
   </div>
-</ion-item-group> 
+</ion-item-group>
 
 
-INFORMACION 
-DE 
+INFORMACION
+DE
 BANCO
-        
-        <div
-          class="ion-padding"
-          formArrayName="informacionBanco"
-          slot="content"
-        >
-          <ion-item-group
-            *ngFor="let item of cuentaBancaria.controls; let i = index"
-          >
-            <ng-container [formGroup]="newCuenta">
-              <ion-item-divider>
-                <ion-label>
-                  <strong> Numero de cuenta {{ i + 1 }} </strong>
-                </ion-label>
-              </ion-item-divider>
 
-              <ion-item-sliding>
+<div
+  class="ion-padding"
+  formArrayName="informacionBanco"
+  slot="content"
+  >
+  <ion-item-group
+    *ngFor="let item of cuentaBancaria.controls; let i = index"
+    >
+    <ng-container [formGroup]="newCuenta">
+      <ion-item-divider>
+        <ion-label>
+          <strong> Numero de cuenta {{ i + 1 }} </strong>
+        </ion-label>
+      </ion-item-divider>
 
-                <ion-item>
-                  <ion-label>Banco</ion-label>
-                  <ion-input
-                    formControlName="nombreBanco"
-                    class="input input-datos"
-                  ></ion-input>
-                </ion-item>
-                <ion-item>
-                  <ion-label>Cuenta</ion-label>
-                  <ion-input
-                    type="number"
-                    formControlName="cuenta"
-                    class="input input-datos"
-                  ></ion-input>
-                </ion-item>
-                <ion-item>
-                  <ion-label>CCI</ion-label>
-                  <ion-input
-                    formControlName="cci"
-                    type="number"
-                    class="input input-datos"
-                  ></ion-input>
-                </ion-item>
-                <ion-item>
-                  <ion-label> Estado</ion-label>
+      <ion-item-sliding>
 
-                  <ion-select
-                    class="input input-datos"
-                    formControlName="status"
-                    interface="popover"
-                    placeholder="Seleccione "
-                  >
-                    <ion-select-option value="activo">Activo</ion-select-option>
-                    <ion-select-option value="desactivado"
-                      >Desactivado</ion-select-option
-                    >
-                  </ion-select>
-                </ion-item>
-              </ion-item-sliding>
+        <ion-item>
+          <ion-label>Banco</ion-label>
+          <ion-input
+            formControlName="nombreBanco"
+            class="input input-datos"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Cuenta</ion-label>
+          <ion-input
+            type="number"
+            formControlName="cuenta"
+            class="input input-datos"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>CCI</ion-label>
+          <ion-input
+            formControlName="cci"
+            type="number"
+            class="input input-datos"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label> Estado</ion-label>
 
-              <ion-item-divider style="margin-top: 0.5rem; margin-top: 0.5rem">
-                <ion-item style="width: 40rem">
-                  <ion-col size="4" class="button-delete">
-                    <ion-icon
-                      color="danger"
-                      class="button-icon"
-                      (click)="deleteCuenta(i)"
-                      name="trash"
-                    ></ion-icon>
-                  </ion-col>
+          <ion-select
+            class="input input-datos"
+            formControlName="status"
+            interface="popover"
+            placeholder="Seleccione "
+            >
+            <ion-select-option value="activo">Activo</ion-select-option>
+            <ion-select-option value="desactivado"
+              >Desactivado</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+        </ion-item-sliding>
 
-                  <ion-col size="5.2" class="button-text">
-                    Elegir como principal
-                  </ion-col>
+        <ion-item-divider style="margin-top: 0.5rem; margin-top: 0.5rem">
+          <ion-item style="width: 40rem">
+            <ion-col size="4" class="button-delete">
+              <ion-icon
+                color="danger"
+                class="button-icon"
+                (click)="deleteCuenta(i)"
+                name="trash"
+              ></ion-icon>
+            </ion-col>
 
-                  <ion-col size="2.5" class="button-seleted">
-                    <ion-checkbox
-                      class="button-icon-check"
-                      formControlName="seleted"
-                      checked="true"
-                      color="success"
-                    >
-                    </ion-checkbox>
-                  </ion-col>
-                </ion-item>
-              </ion-item-divider>
-            </ng-container>
-          </ion-item-group>
-          <ion-button expand="block" (click)="addCuentaBanco()" fill="outline"
-            >Agregar cuenta</ion-button
-          >
-        </div>
+            <ion-col size="5.2" class="button-text">
+              Elegir como principal
+            </ion-col>
+
+            <ion-col size="2.5" class="button-seleted">
+              <ion-checkbox
+                class="button-icon-check"
+                formControlName="seleted"
+                checked="true"
+                color="success"
+                >
+              </ion-checkbox>
+            </ion-col>
+          </ion-item>
+        </ion-item-divider>
+      </ng-container>
+    </ion-item-group>
+    <ion-button expand="block" (click)="addCuentaBanco()" fill="outline"
+      >Agregar cuenta</ion-button
+      >
+    </div>
 
 
--->
+    -->

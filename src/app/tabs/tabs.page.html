@@ -11,10 +11,12 @@
       <ion-label>Productos</ion-label>
     </ion-tab-button>
     <!-- tab 3 -->
-    <ion-tab-button *ngIf="(userRole$ | async) ==='root'" tab="inventario">
-      <ion-icon name="logo-buffer"></ion-icon>
-      <ion-label>Pedidos</ion-label>
-    </ion-tab-button>
+    @if ((userRole$ | async) ==='root') {
+      <ion-tab-button tab="inventario">
+        <ion-icon name="logo-buffer"></ion-icon>
+        <ion-label>Pedidos</ion-label>
+      </ion-tab-button>
+    }
     <!-- tab 4 -->
     <ion-tab-button tab="user">
       <ion-icon name="person-circle"></ion-icon>

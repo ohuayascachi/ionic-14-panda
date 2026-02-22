@@ -4,7 +4,7 @@
     (ionChange)="cambioSegment($event)"
     value="no-completed"
     mode="ios"
-  >
+    >
     <ion-segment-button class="segment-1" value="no-completed">
       <ion-label class="segment-label">En proceso</ion-label>
     </ion-segment-button>
@@ -16,14 +16,16 @@
 
   <app-loading></app-loading>
 
-  <app-card-list-orders
-    *ngIf="segment === 'no-completed'"
-    [orders]="ordersNoEnd$ | async"
-  >
-  </app-card-list-orders>
-  <app-card-list-orders
-    *ngIf="segment === 'completed'"
-    [orders]="ordersEnd$ | async"
-  >
-  </app-card-list-orders>
+  @if (segment === 'no-completed') {
+    <app-card-list-orders
+      [orders]="ordersNoEnd$ | async"
+      >
+    </app-card-list-orders>
+  }
+  @if (segment === 'completed') {
+    <app-card-list-orders
+      [orders]="ordersEnd$ | async"
+      >
+    </app-card-list-orders>
+  }
 </ion-content>

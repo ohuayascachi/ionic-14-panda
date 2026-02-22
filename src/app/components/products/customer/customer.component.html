@@ -11,55 +11,48 @@
 
 </ion-segment>
 
-<div *ngIf="datosPersonales">
-  <ion-list>
-    <ion-item lines="none">
-      <ion-label color="tertiary">Nombre</ion-label>
-      <ion-input placeholder="Text Input"></ion-input>
-    </ion-item>
+@if (datosPersonales) {
+  <div>
+    <ion-list>
+      <ion-item lines="none">
+        <ion-label color="tertiary">Nombre</ion-label>
+        <ion-input placeholder="Text Input"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="tertiary" fixed>Apellidos</ion-label>
+        <ion-input type="tel" placeholder="Tel Input"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="tertiary" stacked>Dirección</ion-label>
+        <ion-input type="email" placeholder="Email Input"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="tertiary" stacked>Número</ion-label>
+        <ion-input type="password" placeholder="Password Input"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="tertiary" stacked>DNI</ion-label>
+        <ion-input type="password" placeholder="Password Input"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="tertiary" stacked>S</ion-label>
+        <ion-input type="password" placeholder="Password Input"></ion-input>
+      </ion-item>
+    </ion-list>
+  </div>
+}
 
-    <ion-item lines="none">
-      <ion-label color="tertiary" fixed>Apellidos</ion-label>
-      <ion-input type="tel" placeholder="Tel Input"></ion-input>
-    </ion-item>
-
-
-    <ion-item lines="none">
-      <ion-label color="tertiary" stacked>Dirección</ion-label>
-      <ion-input type="email" placeholder="Email Input"></ion-input>
-    </ion-item>
-
-    <ion-item lines="none">
-      <ion-label color="tertiary" stacked>Número</ion-label>
-      <ion-input type="password" placeholder="Password Input"></ion-input>
-    </ion-item>
-    <ion-item lines="none">
-      <ion-label color="tertiary" stacked>DNI</ion-label>
-      <ion-input type="password" placeholder="Password Input"></ion-input>
-    </ion-item>
-
-    <ion-item lines="none">
-      <ion-label color="tertiary" stacked>S</ion-label>
-      <ion-input type="password" placeholder="Password Input"></ion-input>
-    </ion-item>
-
-
-  </ion-list>
-</div>
-
-<div *ngIf="datosPedidos ">
-  <ion-list>
-
-    <ion-item>
-      <ion-label color="tertiary" stacked>Stacked Label</ion-label>
-      <ion-input type="email" placeholder="Email Input"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label color="tertiary" stacked>Stacked Label</ion-label>
-      <ion-input type="password" placeholder="Password Input"></ion-input>
-    </ion-item>
-
-
-  </ion-list>
-</div>
+@if (datosPedidos ) {
+  <div>
+    <ion-list>
+      <ion-item>
+        <ion-label color="tertiary" stacked>Stacked Label</ion-label>
+        <ion-input type="email" placeholder="Email Input"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="tertiary" stacked>Stacked Label</ion-label>
+        <ion-input type="password" placeholder="Password Input"></ion-input>
+      </ion-item>
+    </ion-list>
+  </div>
+}

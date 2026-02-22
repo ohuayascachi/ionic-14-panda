@@ -7,8 +7,8 @@
       </ion-icon>
     </button>
     <ion-title class="header__text"> Datos Personales </ion-title>
-    <!-- </div> -->
-  </ion-toolbar>
+  <!-- </div> -->
+</ion-toolbar>
 </ion-header>
 <ion-content class="card" fullscreen="true" scroll-y="true">
   <div   class="nota">
@@ -20,82 +20,97 @@
     </ion-nota>
   </div>
 
-  <div *ngIf="this.show"  >
-    <form [formGroup]="formMyDato" (ngSubmit)="postForm()">
-  
-      <ion-item>
-        <ion-label>Celular</ion-label>
-        <ion-input type="tel" maxlength="9" formControlName="phone"
-          class="input input-number" [disabled]="statuInput">
-        </ion-input>
-        <ion-icon *ngIf="
+  @if (this.show) {
+    <div  >
+      <form [formGroup]="formMyDato" (ngSubmit)="postForm()">
+        <ion-item>
+          <ion-label>Celular</ion-label>
+          <ion-input type="tel" maxlength="9" formControlName="phone"
+            class="input input-number" [disabled]="statuInput">
+          </ion-input>
+          @if (
             this.formMyDato.get('phone').value.length === 0 &&
             !this.formMyDato.get('phone').dirty
-          " class="icon-alerta" name="alert"></ion-icon>
-        <span *ngIf="lenthPhone !== 9 && this.formMyDato.get('phone').dirty">
-          <small id="no-valid">No valido</small>
-        </span>
-        <span
-          *ngIf="existeNumero==='El usuario existe' && lenthPhone == 9 && this.formMyDato.get('phone').dirty">
-          <small id="no-valid">{{ existeNumero }}</small>
-        </span>
-        <ion-icon
-          *ngIf="existeNumero!=='El usuario existe' &&( this.formMyDato.get('phone').valid || lenthPhone === 9)"
-          class="icon-check" name="checkmark-sharp"></ion-icon>
-      </ion-item>
-      <ion-item>
-        <ion-label>Primer nombre</ion-label>
-        <ion-input formControlName="name"
-          value="{{ this.formMyDato.get('name').value | titlecase }}" maxlength="15"
-          class="input input-datos">
-        </ion-input>
-        <ion-icon *ngIf="
+            ) {
+            <ion-icon class="icon-alerta" name="alert"></ion-icon>
+          }
+          @if (lenthPhone !== 9 && this.formMyDato.get('phone').dirty) {
+            <span>
+              <small id="no-valid">No valido</small>
+            </span>
+          }
+          @if (existeNumero==='El usuario existe' && lenthPhone == 9 && this.formMyDato.get('phone').dirty) {
+            <span
+              >
+              <small id="no-valid">{{ existeNumero }}</small>
+            </span>
+          }
+          @if (existeNumero!=='El usuario existe' &&( this.formMyDato.get('phone').valid || lenthPhone === 9)) {
+            <ion-icon
+            class="icon-check" name="checkmark-sharp"></ion-icon>
+          }
+        </ion-item>
+        <ion-item>
+          <ion-label>Primer nombre</ion-label>
+          <ion-input formControlName="name"
+            value="{{ this.formMyDato.get('name').value | titlecase }}" maxlength="15"
+            class="input input-datos">
+          </ion-input>
+          @if (
             this.formMyDato.get('name').value.length === 0 &&
             !this.formMyDato.get('name').dirty
-          " class="icon-alerta" name="alert"></ion-icon>
-        <span *ngIf="
+            ) {
+            <ion-icon class="icon-alerta" name="alert"></ion-icon>
+          }
+          @if (
             this.formMyDato.get('name').invalid &&
             this.formMyDato.get('name').dirty
-          ">
-          <small id="no-valid">No valido</small></span>
-        <ion-icon *ngIf="this.formMyDato.get('name').valid" class="icon-check"
-          name="checkmark-sharp"></ion-icon>
-      </ion-item>
-      <!-- SEGUNDO NOMBRE -->
-      <ion-item>
-        <ion-label>Segundo nombre</ion-label>
-        <ion-input 
-          
-        formControlName="name2"
-          value="{{ this.formMyDato.get('name2').value | titlecase }}" maxlength="15"
-          class="input input-datos">
-        </ion-input>
-        <span *ngIf="
-        this.formMyDato.get('name2').value">
-        <ion-icon *ngIf="
-        this.formMyDato.get('name2').value.length === 0 &&
-        !this.formMyDato.get('name2').dirty
-      " class="icon-alerta" name="alert"></ion-icon>
-        </span>
-    
-        <!-- <span
+            ) {
+            <span>
+              <small id="no-valid">No valido</small></span>
+            }
+            @if (this.formMyDato.get('name').valid) {
+              <ion-icon class="icon-check"
+              name="checkmark-sharp"></ion-icon>
+            }
+          </ion-item>
+          <!-- SEGUNDO NOMBRE -->
+          <ion-item>
+            <ion-label>Segundo nombre</ion-label>
+            <ion-input
+              formControlName="name2"
+              value="{{ this.formMyDato.get('name2').value | titlecase }}" maxlength="15"
+              class="input input-datos">
+            </ion-input>
+            @if (
+              this.formMyDato.get('name2').value) {
+              <span>
+                @if (
+                  this.formMyDato.get('name2').value.length === 0 &&
+                  !this.formMyDato.get('name2').dirty
+                  ) {
+                  <ion-icon class="icon-alerta" name="alert"></ion-icon>
+                }
+              </span>
+            }
+            <!-- <span
           *ngIf="
             this.formMyDato.get('name2').invalid &&
             this.formMyDato.get('name2').dirty
           " >
-          <small id="no-valid">No valido</small></span  > -->
-        <!-- <ion-icon
-          *ngIf="this.formMyDato.get('name2').valid"
-          class="icon-check"
-          name="checkmark-sharp"
-        ></ion-icon> -->
-      </ion-item>
-      <!-- Apellido  value="{{ this.formMyDato.get('lastName1').value | titlecase }}"    -->
-      <ion-item>
-        <ion-label>Primer apellido</ion-label>
-        <ion-input formControlName="lastName1" maxlength="15"
+            <small id="no-valid">No valido</small></span  > -->
+            <!-- <ion-icon
+            *ngIf="this.formMyDato.get('name2').valid"
+            class="icon-check"
+            name="checkmark-sharp"
+          ></ion-icon> -->
+        </ion-item>
+        <!-- Apellido  value="{{ this.formMyDato.get('lastName1').value | titlecase }}"    -->
+        <ion-item>
+          <ion-label>Primer apellido</ion-label>
+          <ion-input formControlName="lastName1" maxlength="15"
           class="input input-datos"></ion-input>
-        <!-- <ion-icon
+          <!-- <ion-icon
           *ngIf="
             this.formMyDato.get('lastName1').value.length === 0 &&
             !this.formMyDato.get('lastName1').dirty
@@ -109,189 +124,186 @@
             this.formMyDato.get('lastName1').dirty
           "
         >
-          <small id="no-valid">No valido</small></span
+        <small id="no-valid">No valido</small></span
         > -->
         <!-- <ion-icon
-          *ngIf="this.formMyDato.get('lastName1').valid"
-          class="icon-check"
-          name="checkmark-sharp"
-        ></ion-icon> -->
-      </ion-item>
-      <!-- segundo apellido value="{{ this.formMyDato.get('lastName2').value | titlecase }}" -->
-      <ion-item>
-        <ion-label>Segundo apellido</ion-label>
-        <ion-input formControlName="lastName2" class="input input-datos"></ion-input>
-        <!--   
-        <ion-icon
-          *ngIf="this.formMyDato.get('lastName2').value.length > 2"
-          class="icon-check"
-          name="checkmark-sharp"
+        *ngIf="this.formMyDato.get('lastName1').valid"
+        class="icon-check"
+        name="checkmark-sharp"
+      ></ion-icon> -->
+    </ion-item>
+    <!-- segundo apellido value="{{ this.formMyDato.get('lastName2').value | titlecase }}" -->
+    <ion-item>
+      <ion-label>Segundo apellido</ion-label>
+      <ion-input formControlName="lastName2" class="input input-datos"></ion-input>
+      <!--
+      <ion-icon
+        *ngIf="this.formMyDato.get('lastName2').value.length > 2"
+        class="icon-check"
+        name="checkmark-sharp"
         >
-        </ion-icon> -->
+      </ion-icon> -->
+    </ion-item>
+    <ion-item>
+      <!-- e -->
+      <ion-label> <strong>Rol</strong> </ion-label>
+      <ion-input
+        [disabled]="true"
+      formControlName="role" class="in-role input input-datos"></ion-input>
+    </ion-item>
+    <!-- <ion-item>
+    <ion-toggle   [checked]="true"
+    formControlName="status">Status</ion-toggle>
+  </ion-item> -->
+  <ion-accordion-group>
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+        <ion-label>Datos básicos</ion-label>
       </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-item-group>
+          <ion-item>
+            <ion-label>DNI/Pasaporte</ion-label>
+            <ion-input formControlName="dni" type="number"
+            class="input input-datos"></ion-input>
+          </ion-item>
+          <!-- <ion-item>
+          <ion-label>RUC</ion-label>
+          <ion-input
+            formControlName="ruc"
+            type="number"
+            step="1"
+            class="input input-datos"
+          ></ion-input>
+        </ion-item>  -->
+        <ion-item>
+          <ion-select justify="space-between" label="Género"
+            placeholder="Género" formControlName="gender">
+            <ion-select-option value="M">M</ion-select-option>
+            <ion-select-option value="F">F</ion-select-option>
+            <ion-select-option value="0">0</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Email</ion-label>
+          <ion-input formControlName="email"
+          class="input input-datos"></ion-input>
+        </ion-item>
+      </ion-item-group>
+    </div>
+  </ion-accordion>
+  <!-- dirección -->
+  <ion-accordion value="second">
+    <ion-item slot="header" color="light">
+      <ion-label>Dirección</ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content" formGroupName="adress">
+      <!-- Pais -->
       <ion-item>
-        <!-- e -->
-        <ion-label> <strong>Rol</strong> </ion-label>
-        <ion-input  
-         [disabled]="true"
-          formControlName="role" class="in-role input input-datos"></ion-input>
+        <ion-label>País</ion-label>
+        <ion-input type="text" formControlName="pais" class="input input-datos"
+          value="Perú">
+        </ion-input>
       </ion-item>
-      <!-- <ion-item>
-        <ion-toggle   [checked]="true"
-          formControlName="status">Status</ion-toggle>
-      </ion-item> -->
-      <ion-accordion-group>
-        <ion-accordion value="first">
-          <ion-item slot="header" color="light">
-            <ion-label>Datos básicos</ion-label>
-          </ion-item>
-          <div class="ion-padding" slot="content">
-            <ion-item-group>
-              <ion-item>
-                <ion-label>DNI/Pasaporte</ion-label>
-                <ion-input formControlName="dni" type="number"
-                  class="input input-datos"></ion-input>
-              </ion-item>
-              <!-- <ion-item>
-                <ion-label>RUC</ion-label>
-                <ion-input
-                  formControlName="ruc"
-                  type="number"
-                  step="1"
-                  class="input input-datos"
-                ></ion-input>
-              </ion-item>  -->
-              <ion-item>
-                <ion-select justify="space-between" label="Género"
-                  placeholder="Género" formControlName="gender">
-                  <ion-select-option value="M">M</ion-select-option>
-                  <ion-select-option value="F">F</ion-select-option>
-                  <ion-select-option value="0">0</ion-select-option>
-                </ion-select>
-              </ion-item>
-              <ion-item>
-                <ion-label>Email</ion-label>
-                <ion-input formControlName="email"
-                  class="input input-datos"></ion-input>
-              </ion-item>
-          
-            </ion-item-group>
-          </div>
-        </ion-accordion>
-        <!-- dirección -->
-        <ion-accordion value="second">
-          <ion-item slot="header" color="light">
-            <ion-label>Dirección</ion-label>
-          </ion-item>
-          <div class="ion-padding" slot="content" formGroupName="adress">
-            <!-- Pais -->
-            <ion-item>
-              <ion-label>País</ion-label>
-              <ion-input type="text" formControlName="pais" class="input input-datos"
-                value="Perú">
-              </ion-input>
-            </ion-item>
-            <!-- Departamento -->
-            <ion-item>
-              <ion-label>
-                <h3>Departamento</h3>
-              </ion-label>
-              <ion-input type="text" formControlName="estado" value="Lima"
-                class="input input-datos"></ion-input>
-            </ion-item>
-            <!-- provincia -->
-            <ion-item>
-              <ion-label>
-                <h3>Provincia</h3>
-              </ion-label>
-              <ion-input type="text" formControlName="provincia" value="Lima"
-                class="input input-datos"></ion-input>
-            </ion-item>
-            <!-- Distrito -->
-            <ion-item>
-              <ion-label>
-                <h3>Distrito</h3>
-              </ion-label>
-              <ion-input type="text" formControlName="distrito"
-                class="input input-datos"></ion-input>
-            </ion-item>
-            <!-- direccion -->
-            <div formGroupName="adress">
-              <ion-item>
-                <ion-label>
-                  <h3>Dirección</h3>
-                </ion-label>
-                <ion-textarea type="text" formControlName="location"
-                  class="input-datos"></ion-textarea>
-              </ion-item>
-              <ion-item>
-                <ion-label>
-                  <h3>Referencia</h3>
-                </ion-label>
-                <ion-textarea type="text" formControlName="reference"
-                  class="input-datos"></ion-textarea>
-              </ion-item>
-            </div>
-          </div>
-        </ion-accordion>
-        <!-- <ion-accordion value="third">
-          <ion-item slot="header" color="light">
-            <ion-label>Informaciòn de venta</ion-label>
-          </ion-item>
-  
-          <div
-            class="ion-padding"
-            slot="content"
-            formGroupName="informacionBanco"
-          >
-            <ion-item>
-              <ion-label>Banco</ion-label>
-              <ion-input
-                formControlName="nombreBanco"
-                class="input input-datos"
-              ></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label>Cuenta</ion-label>
-              <ion-input
-                type="number"
-                formControlName="cuenta"
-                class="input input-datos"
-              ></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label>CCI</ion-label>
-              <ion-input
-                formControlName="cci"
-                type="number"
-                class="input input-datos"
-              ></ion-input>
-            </ion-item>
-  
-            <ion-item>
-              <ion-label>
-                Titular <small> <em> (De cuenta)</em> </small></ion-label
-              >
-              <ion-input
-                formControlName="titular"
-                type="text"
-                class="input input-datos"
-              ></ion-input>
-            </ion-item>
-            <p class="nota">
-              NOTA: Información referencial que se usaran en caso queramos
-              realizar deposito. Favor de verificar su informacón de manera
-              correcta. <br />
-              <strong>IMPORTATE</strong> : NO SOLICITAMOS NÚMERO DE TARJETA.
-            </p>
-          </div>
-        </ion-accordion> -->
-      </ion-accordion-group>
-      <ion-button expand="block" type="submit" class="color-button-registrar"
-        [disabled]="!this.formMyDato.valid">Actualizar <ion-icon name="person-add"
-          slot="end"></ion-icon>
-      </ion-button>
-
-    </form>
-  </div>  
+      <!-- Departamento -->
+      <ion-item>
+        <ion-label>
+          <h3>Departamento</h3>
+        </ion-label>
+        <ion-input type="text" formControlName="estado" value="Lima"
+        class="input input-datos"></ion-input>
+      </ion-item>
+      <!-- provincia -->
+      <ion-item>
+        <ion-label>
+          <h3>Provincia</h3>
+        </ion-label>
+        <ion-input type="text" formControlName="provincia" value="Lima"
+        class="input input-datos"></ion-input>
+      </ion-item>
+      <!-- Distrito -->
+      <ion-item>
+        <ion-label>
+          <h3>Distrito</h3>
+        </ion-label>
+        <ion-input type="text" formControlName="distrito"
+        class="input input-datos"></ion-input>
+      </ion-item>
+      <!-- direccion -->
+      <div formGroupName="adress">
+        <ion-item>
+          <ion-label>
+            <h3>Dirección</h3>
+          </ion-label>
+          <ion-textarea type="text" formControlName="location"
+          class="input-datos"></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h3>Referencia</h3>
+          </ion-label>
+          <ion-textarea type="text" formControlName="reference"
+          class="input-datos"></ion-textarea>
+        </ion-item>
+      </div>
+    </div>
+  </ion-accordion>
+  <!-- <ion-accordion value="third">
+  <ion-item slot="header" color="light">
+    <ion-label>Informaciòn de venta</ion-label>
+  </ion-item>
+  <div
+    class="ion-padding"
+    slot="content"
+    formGroupName="informacionBanco"
+    >
+    <ion-item>
+      <ion-label>Banco</ion-label>
+      <ion-input
+        formControlName="nombreBanco"
+        class="input input-datos"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Cuenta</ion-label>
+      <ion-input
+        type="number"
+        formControlName="cuenta"
+        class="input input-datos"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>CCI</ion-label>
+      <ion-input
+        formControlName="cci"
+        type="number"
+        class="input input-datos"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Titular <small> <em> (De cuenta)</em> </small></ion-label
+        >
+        <ion-input
+          formControlName="titular"
+          type="text"
+          class="input input-datos"
+        ></ion-input>
+      </ion-item>
+      <p class="nota">
+        NOTA: Información referencial que se usaran en caso queramos
+        realizar deposito. Favor de verificar su informacón de manera
+        correcta. <br />
+        <strong>IMPORTATE</strong> : NO SOLICITAMOS NÚMERO DE TARJETA.
+      </p>
+    </div>
+  </ion-accordion> -->
+</ion-accordion-group>
+<ion-button expand="block" type="submit" class="color-button-registrar"
+  [disabled]="!this.formMyDato.valid">Actualizar <ion-icon name="person-add"
+slot="end"></ion-icon>
+</ion-button>
+</form>
+</div>
+}
 </ion-content>

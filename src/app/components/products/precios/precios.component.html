@@ -1,7 +1,7 @@
 <!-- <app-header
-  [title]="'Agregar precios'"
-  [iconName]="'chevron-back-sharp'"
-  (pathRetro)="routerRetro()"
+[title]="'Agregar precios'"
+[iconName]="'chevron-back-sharp'"
+(pathRetro)="routerRetro()"
 ></app-header> -->
 <ion-header translucent="true">
   <ion-toolbar class="header">
@@ -23,7 +23,7 @@
       class="segment-block"
       color="light"
       value="none"
-    >
+      >
       <ion-segment-button mode="ios" class="segment-header" value="none">
         Sin precios
       </ion-segment-button>
@@ -32,41 +32,46 @@
       </ion-segment-button>
     </ion-segment>
 
-    <ion-list [inset]="true" *ngIf="seletedSegment === 'none'">
-      <ion-item
-        *ngFor="let item of productsAllWithoutPrecio$ | async"
-        [button]="true"
-        [routerLink]="['/prices', item.slug]"
-      >
-        <ion-label class="label">{{ item.name }}</ion-label>
-      </ion-item>
+    @if (seletedSegment === 'none') {
+      <ion-list [inset]="true">
+        @for (item of productsAllWithoutPrecio$ | async; track item) {
+          <ion-item
+            [button]="true"
+            [routerLink]="['/prices', item.slug]"
+            >
+            <ion-label class="label">{{ item.name }}</ion-label>
+          </ion-item>
+        }
+        <p class="nota-text">
+          <strong>NOTA: </strong> Click sobre el producto para añadir el precio
+        </p>
+      </ion-list>
+    }
 
-      <p class="nota-text">
-        <strong>NOTA: </strong> Click sobre el producto para añadir el precio
-      </p>
-    </ion-list>
-
-    <ion-list [inset]="true" *ngIf="seletedSegment === 'something'">
-      <ion-item-sliding *ngFor="let item of productsAllWithPrecio$ | async">
-        <ion-item [button]="true">
-          <!-- <ion-thumbnail slot="start">
-            <img
-              alt="IMAGE"
-              src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
-            />
-          </ion-thumbnail> -->
-          <ion-label class="label">{{ item.name }}</ion-label>
-        </ion-item>
-        <ion-item-options slot="end">
-          <ion-item-option color="danger" expandable="true">
-            <ion-icon
-              (click)="deletePrice(item.id)"
-              class="icon-delete"
-              name="trash-outline"
-            ></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
+    @if (seletedSegment === 'something') {
+      <ion-list [inset]="true">
+        @for (item of productsAllWithPrecio$ | async; track item) {
+          <ion-item-sliding>
+            <ion-item [button]="true">
+              <!-- <ion-thumbnail slot="start">
+              <img
+                alt="IMAGE"
+                src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
+                />
+            </ion-thumbnail> -->
+            <ion-label class="label">{{ item.name }}</ion-label>
+          </ion-item>
+          <ion-item-options slot="end">
+            <ion-item-option color="danger" expandable="true">
+              <ion-icon
+                (click)="deletePrice(item.id)"
+                class="icon-delete"
+                name="trash-outline"
+              ></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      }
       <p class="nota-text">
         <strong>NOTA: </strong>
         Arrastra el nombre hacia la izquiera para eliminar el precio y poder
@@ -76,5 +81,6 @@
         <a href="/prices-list" class="btn"> REVISAR PRECIOS </a>
       </div>
     </ion-list>
-  </div>
+  }
+</div>
 </ion-content>

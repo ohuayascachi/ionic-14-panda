@@ -1,75 +1,81 @@
-<ion-card *ngFor="let item of orders" class="card">
-  <ion-item lines="none" class="card-header">
-    <ion-label class="header-text">
-      <h2>{{ item.sequence }}</h2>
-      <h3 *ngIf="item.client !== null" class="text-client">
-        {{ item.client["name"] }} {{ item.client["lastName1"] }}
-      </h3>
-      <p *ngIf="item.client !== null" class="text-fecha">
-        <strong> CÓDIGO: {{ item.codigo || 'P'}}</strong>
-      </p>
-
-      <h3 *ngIf="item.client === null" class="text-client">
-        {{ item.userRegister.nameFull }}
-      </h3>
-      <p *ngIf="item.client === null" class="text-fecha">
-        <strong> CÓDIGO:  {{ item.codigo || 'P'}}</strong>
-      </p>
-
-      <p class="text-fecha">
-        Fecha de pedido: {{ item.createdAt | date : "dd/MM/yyyy" }}
-      </p>
-    </ion-label>
- 
-    <ion-badge
-      (click)="changeStatusOrder(item.id)"
-      class="info-badge-2"
-      color="success"
-      id="present-alert"
-      slot="end"
-      >{{ item.statusOrder }}</ion-badge
-    >
-
-    <ion-alert
-      class="popoverAlert"
-      mode="md"
-      [isOpen]="isAlertOpen"
-      header="Estado de pedido"
-      [buttons]="alertButtons"
-      [inputs]="alertInputs"
-      (didDismiss)="setOpen(false, $event)"
-    ></ion-alert>
-  </ion-item>
-
-  <ion-list lines="none" class="card-body">
-    <div *ngFor="let lis of item.cartSelected" class="item-orden">
-      <div class="produc-name">
-        <div class="name-list-product">
-          {{ lis.producto.name }}
+@for (item of orders; track item) {
+  <ion-card class="card">
+    <ion-item lines="none" class="card-header">
+      <ion-label class="header-text">
+        <h2>{{ item.sequence }}</h2>
+        @if (item.client !== null) {
+          <h3 class="text-client">
+            {{ item.client["name"] }} {{ item.client["lastName1"] }}
+          </h3>
+        }
+        @if (item.client !== null) {
+          <p class="text-fecha">
+            <strong> CÓDIGO: {{ item.codigo || 'P'}}</strong>
+          </p>
+        }
+        @if (item.client === null) {
+          <h3 class="text-client">
+            {{ item.userRegister.nameFull }}
+          </h3>
+        }
+        @if (item.client === null) {
+          <p class="text-fecha">
+            <strong> CÓDIGO:  {{ item.codigo || 'P'}}</strong>
+          </p>
+        }
+        <p class="text-fecha">
+          Fecha de pedido: {{ item.createdAt | date : "dd/MM/yyyy" }}
+        </p>
+      </ion-label>
+      <ion-badge
+        (click)="changeStatusOrder(item.id)"
+        class="info-badge-2"
+        color="success"
+        id="present-alert"
+        slot="end"
+        >{{ item.statusOrder }}</ion-badge
+        >
+        <ion-alert
+          class="popoverAlert"
+          mode="md"
+          [isOpen]="isAlertOpen"
+          header="Estado de pedido"
+          [buttons]="alertButtons"
+          [inputs]="alertInputs"
+          (didDismiss)="setOpen(false, $event)"
+        ></ion-alert>
+      </ion-item>
+      <ion-list lines="none" class="card-body">
+        @for (lis of item.cartSelected; track lis) {
+          <div class="item-orden">
+            <div class="produc-name">
+              <div class="name-list-product">
+                {{ lis.producto.name }}
+              </div>
+              <div class="text-feuter">{{ lis.count }}</div>
+              <div class="text-sub">S/ {{ lis.precioSelect }}</div>
+            </div>
+          </div>
+        }
+        <div class="item-orden">
+          <div class="produc-name">
+            <div>
+              Envio
+            </div>
+            <div class="text-feuter"> </div>
+            <div class="text-sub">S/ {{item.costoEnvio}}</div>
+          </div>
         </div>
-        <div class="text-feuter">{{ lis.count }}</div>
-        <div class="text-sub">S/ {{ lis.precioSelect }}</div>
-      </div>
-    </div>
-    <div class="item-orden">
-      <div class="produc-name">
-        <div>
-          Envio
-        </div>
-        <div class="text-feuter"> </div>
-        <div class="text-sub">S/ {{item.costoEnvio}}</div>
-      </div>
-    </div>
-
-    <div class="item-orden-1">
-      <div></div>
-      <div></div>
-      <div></div>
-      <ion-label class="label-total">Total</ion-label>
-      <strong class="text-total">
-        {{ item.typeMoneda }} {{ item.total }}</strong
-      >
-    </div>
-  </ion-list>
-</ion-card>
+        <div class="item-orden-1">
+          <div></div>
+          <div></div>
+          <div></div>
+          <ion-label class="label-total">Total</ion-label>
+          <strong class="text-total">
+            {{ item.typeMoneda }} {{ item.total }}</strong
+            >
+          </div>
+        </ion-list>
+      </ion-card>
+    }
 

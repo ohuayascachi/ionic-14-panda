@@ -1,224 +1,223 @@
 <app-loading></app-loading>
 
-<ion-content fullscreen *ngIf="showContent">
-  <ion-list>
-    <ion-list-header>
-      <a href="/products" class="button-pedido">
-        <!-- <a [routerLink]="['/products']" class="button-pedido"> -->
-    
-        <ion-card class="cinta-venta"> Hacer pedido </ion-card>
-      </a>
-    </ion-list-header>
-  </ion-list>
-
-  <ion-list *ngIf="isLoggedInd$ | async">
-    <ion-item [routerLink]="['/historico']" lines="none" *ngIf="false">
-      <ion-icon slot="start" name="reader-outline"></ion-icon>
-      <ion-label>Histórico de ventas </ion-label>
-    </ion-item>
-
-    <!-- <ion-item [routerLink]="['/order']" lines="none" class="item"> -->
-
-    <!-- <a href="/order" class="cart-list"> -->
-      <a [routerLink]="['/order']" class="cart-list">
-      <ion-item lines="none" class="item">
-        <ion-icon slot="start" name="cart-outline"></ion-icon>
-        <ion-label>Carrito de compras</ion-label>
-        <ion-badge slot="end">{{ carrito$ | async }}</ion-badge>
-      </ion-item>
-    </a>
-
-    <ion-item lines="none" [routerLink]="['/orders-list']">
-      <ion-icon slot="start" name="reader-outline"></ion-icon>
-      <ion-label>Mis compras</ion-label>
-    </ion-item>
-
-    <ion-item
-      *ngIf="role !== 'general'"
-      [routerLink]="['/customer']"
-      lines="none"
-    >
-      <ion-icon slot="start" name="person-add-outline"></ion-icon>
-      <ion-label>Agregar nuevo cliente</ion-label>
-    </ion-item>
-
-    <ion-item
-      *ngIf="role !== 'general'"
-      lines="none"
-      [routerLink]="['/customer-list']"
-      routerLinkActive="router-link-active"
-    >
-      <ion-icon slot="start" name="people-outline"></ion-icon>
-      <ion-label>Mis clientes</ion-label>
-    </ion-item>
-
-    <ion-item
-      *ngIf="role !== 'general'"
-      [routerLink]="['/add-product']"
-      lines="none"
-    >
-      <ion-icon slot="start" name="cube-outline"></ion-icon>
-      <ion-label>Agregar producto</ion-label>
-    </ion-item>
-
-    <ion-item
-      *ngIf="role !== 'general'"
-      [routerLink]="['/uploand-img']"
-      lines="none"
-    >
-      <ion-icon slot="start" name="images"></ion-icon>
-
-      <ion-label>Imagenes a productos</ion-label>
-    </ion-item>
-
-    <!-- <ion-icon name="images"></ion-icon> -->
-    <ion-item
-      *ngIf="role === 'root'"
-      [routerLink]="['/list-products']"
-      lines="none"
-    >
-      <ion-icon slot="start" name="server-outline"></ion-icon>
-      <!-- <ion-icon slot="start" name="reader-outline"></ion-icon> -->
-      <ion-label>Todo los productos</ion-label>
-    </ion-item>
-
-    <ion-item
-      *ngIf="role !== 'general'"
-      [routerLink]="['/prices']"
-      lines="none"
-    >
-      <ion-icon slot="start" name="calculator-outline"></ion-icon>
-      <ion-label>Agregar precios</ion-label>
-    </ion-item>
-
-    <ion-item
-      *ngIf="role === 'root'"
-      [routerLink]="['/prices-list']"
-      lines="none"
-    >
-      <ion-icon slot="start" name="eye-outline"></ion-icon>
-      <!-- <ion-icon slot="start" name="reader-outline"></ion-icon> -->
-      <ion-label>Revisar precios</ion-label>
-    </ion-item>
-
-    <ion-item
-      *ngIf="role !== 'general' "
-      [routerLink]="['/my-products']"
-      lines="none"
-    >
-      <ion-icon slot="start" name="server-outline"></ion-icon>
-      <!-- <ion-icon slot="start" name="reader-outline"></ion-icon> -->
-      <ion-label>Mis productos</ion-label>
-    </ion-item>
-
-    <ion-item *ngIf="role === 'root'" [routerLink]="['/costos']" lines="none">
-      <ion-icon slot="start" name="cash-outline"></ion-icon>
-      <!-- <ion-icon slot="start" name="reader-outline"></ion-icon> -->
-      <ion-label>Costos</ion-label>
-    </ion-item>
-
-    <ion-item
-      *ngIf="role === 'root'"
-      [routerLink]="['/simulacion']"
-      lines="none"
-    >
-      <ion-icon slot="start" name="rocket-outline"></ion-icon>
-      <!-- <ion-icon slot="start" name="reader-outline"></ion-icon> -->
-      <ion-label>Simulación de precios</ion-label>
-    </ion-item>
-
-    <!-- esto esta pendiente --  [routerLink]="['/my-products-list']" -->
-    <!-- <ion-item lines="none" routerLinkActive="router-link-active">
-      <ion-icon slot="start" name="layers-outline"></ion-icon>
-      <ion-label
-        >Tus productos <small class="text-temp"> pendiente</small>
-      </ion-label>
-    </ion-item> -->
-  </ion-list>
-
-  <ion-list *ngIf="isLoggedInd$ | async">
-    <ion-list-header>
-      <strong> Estadisticas </strong>
-    </ion-list-header>
-
-    <ion-item-group>
-      <ion-item lines="none">
-        <ion-icon slot="start" name="cart-outline"></ion-icon>
+@if (showContent) {
+  <ion-content fullscreen>
+    <ion-list>
+      <ion-list-header>
+        <a href="/products" class="button-pedido">
+          <!-- <a [routerLink]="['/products']" class="button-pedido"> -->
+          <ion-card class="cinta-venta"> Hacer pedido </ion-card>
+        </a>
+      </ion-list-header>
+    </ion-list>
+    @if (isLoggedInd$ | async) {
+      <ion-list>
+        @if (false) {
+          <ion-item [routerLink]="['/historico']" lines="none">
+            <ion-icon slot="start" name="reader-outline"></ion-icon>
+            <ion-label>Histórico de ventas </ion-label>
+          </ion-item>
+        }
+        <!-- <ion-item [routerLink]="['/order']" lines="none" class="item"> -->
+        <!-- <a href="/order" class="cart-list"> -->
+        <a [routerLink]="['/order']" class="cart-list">
+          <ion-item lines="none" class="item">
+            <ion-icon slot="start" name="cart-outline"></ion-icon>
+            <ion-label>Carrito de compras</ion-label>
+            <ion-badge slot="end">{{ carrito$ | async }}</ion-badge>
+          </ion-item>
+        </a>
+        <ion-item lines="none" [routerLink]="['/orders-list']">
+          <ion-icon slot="start" name="reader-outline"></ion-icon>
+          <ion-label>Mis compras</ion-label>
+        </ion-item>
+        @if (role !== 'general') {
+          <ion-item
+            [routerLink]="['/customer']"
+            lines="none"
+            >
+            <ion-icon slot="start" name="person-add-outline"></ion-icon>
+            <ion-label>Agregar nuevo cliente</ion-label>
+          </ion-item>
+        }
+        @if (role !== 'general') {
+          <ion-item
+            lines="none"
+            [routerLink]="['/customer-list']"
+            routerLinkActive="router-link-active"
+            >
+            <ion-icon slot="start" name="people-outline"></ion-icon>
+            <ion-label>Mis clientes</ion-label>
+          </ion-item>
+        }
+        @if (role !== 'general') {
+          <ion-item
+            [routerLink]="['/add-product']"
+            lines="none"
+            >
+            <ion-icon slot="start" name="cube-outline"></ion-icon>
+            <ion-label>Agregar producto</ion-label>
+          </ion-item>
+        }
+        @if (role !== 'general') {
+          <ion-item
+            [routerLink]="['/uploand-img']"
+            lines="none"
+            >
+            <ion-icon slot="start" name="images"></ion-icon>
+            <ion-label>Imagenes a productos</ion-label>
+          </ion-item>
+        }
+        <!-- <ion-icon name="images"></ion-icon> -->
+        @if (role === 'root') {
+          <ion-item
+            [routerLink]="['/list-products']"
+            lines="none"
+            >
+            <ion-icon slot="start" name="server-outline"></ion-icon>
+            <!-- <ion-icon slot="start" name="reader-outline"></ion-icon> -->
+            <ion-label>Todo los productos</ion-label>
+          </ion-item>
+        }
+        @if (role !== 'general') {
+          <ion-item
+            [routerLink]="['/prices']"
+            lines="none"
+            >
+            <ion-icon slot="start" name="calculator-outline"></ion-icon>
+            <ion-label>Agregar precios</ion-label>
+          </ion-item>
+        }
+        @if (role === 'root') {
+          <ion-item
+            [routerLink]="['/prices-list']"
+            lines="none"
+            >
+            <ion-icon slot="start" name="eye-outline"></ion-icon>
+            <!-- <ion-icon slot="start" name="reader-outline"></ion-icon> -->
+            <ion-label>Revisar precios</ion-label>
+          </ion-item>
+        }
+        @if (role !== 'general' ) {
+          <ion-item
+            [routerLink]="['/my-products']"
+            lines="none"
+            >
+            <ion-icon slot="start" name="server-outline"></ion-icon>
+            <!-- <ion-icon slot="start" name="reader-outline"></ion-icon> -->
+            <ion-label>Mis productos</ion-label>
+          </ion-item>
+        }
+        @if (role === 'root') {
+          <ion-item [routerLink]="['/costos']" lines="none">
+            <ion-icon slot="start" name="cash-outline"></ion-icon>
+            <!-- <ion-icon slot="start" name="reader-outline"></ion-icon> -->
+            <ion-label>Costos</ion-label>
+          </ion-item>
+        }
+        @if (role === 'root') {
+          <ion-item
+            [routerLink]="['/simulacion']"
+            lines="none"
+            >
+            <ion-icon slot="start" name="rocket-outline"></ion-icon>
+            <!-- <ion-icon slot="start" name="reader-outline"></ion-icon> -->
+            <ion-label>Simulación de precios</ion-label>
+          </ion-item>
+        }
+        <!-- esto esta pendiente --  [routerLink]="['/my-products-list']" -->
+        <!-- <ion-item lines="none" routerLinkActive="router-link-active">
+        <ion-icon slot="start" name="layers-outline"></ion-icon>
         <ion-label
-          >Ventas <small class="text-temp"> pendiente</small>
+          >Tus productos <small class="text-temp"> pendiente</small>
         </ion-label>
-      </ion-item>
-
-      <ion-item lines="none">
-        <ion-icon slot="start" name="briefcase-outline"></ion-icon>
-        <ion-label
-          >Pedidos pendientes
-          <small class="text-temp"> pendiente</small></ion-label
-        >
-      </ion-item>
-    </ion-item-group>
-  </ion-list>
-
-  <ion-list *ngIf="isLoggedInd$ | async">
-    <ion-list-header>
-      <strong> Configuracion de cuenta </strong>
-    </ion-list-header>
-
-    <ion-item
-      lines="none"
-      [routerLink]="['/mydatos']"
-      routerLinkActive="router-link-active"
-    >
-      <ion-icon slot="start" name="person-circle-outline"></ion-icon>
-      <ion-label>Datos personales</ion-label>
-    </ion-item>
-
-    <ion-item-group>
-      <ion-item lines="none">
-        <ion-label>Correo<small class="text-temp"> pendiente</small></ion-label>
-      </ion-item>
-
-      <ion-item lines="none">
-        <ion-label
-          >Contraseña<small class="text-temp"> pendiente</small></ion-label
-        >
-      </ion-item>
-      <ion-item lines="none">
-        <ion-label
-          >Numeros<small class="text-temp"> pendiente</small></ion-label
-        >
-      </ion-item>
-    </ion-item-group>
-  </ion-list>
-
-  <ion-list *ngIf="isLoggedInd$ | async">
-    <ion-list-header>
-      <strong> Notes </strong>
-    </ion-list-header>
-    <ion-item>
-      <ion-label>Notas <small class="text-temp"> pendiente</small></ion-label>
-
-      <!-- <ion-note slot="end" color="primary">99</ion-note> -->
-    </ion-item>
-  </ion-list>
-
-  <div class="content-button" *ngIf="isLoggedInd$ | async">
-    <ion-button
-      class="button-out"
-      (click)="logout()"
-      color="light"
-      expand="block"
-      >Cerrar sessión</ion-button
-    >
-  </div>
-
-  <div class="content-button" *ngIf="isLoggedOut$ | async">
-    <ion-button class="button-in" (click)="rediretToLoggIn()" expand="block"
-      >Iniciar sessión</ion-button
-    >
-  </div>
-  <!-- <span>loggin {{ authService.isLoggedIn$ | async }}</span>
-  <br />
-  <span>loggOut {{ authService.isLoggedOut$ | async }}</span>
-  <span> juntos:{{ isLoggedInd$ | async }}</span> -->
-</ion-content>
+      </ion-item> -->
+    </ion-list>
+  }
+  @if (isLoggedInd$ | async) {
+    <ion-list>
+      <ion-list-header>
+        <strong> Estadisticas </strong>
+      </ion-list-header>
+      <ion-item-group>
+        <ion-item lines="none">
+          <ion-icon slot="start" name="cart-outline"></ion-icon>
+          <ion-label
+            >Ventas <small class="text-temp"> pendiente</small>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon slot="start" name="briefcase-outline"></ion-icon>
+          <ion-label
+            >Pedidos pendientes
+            <small class="text-temp"> pendiente</small></ion-label
+            >
+          </ion-item>
+        </ion-item-group>
+      </ion-list>
+    }
+    @if (isLoggedInd$ | async) {
+      <ion-list>
+        <ion-list-header>
+          <strong> Configuracion de cuenta </strong>
+        </ion-list-header>
+        <ion-item
+          lines="none"
+          [routerLink]="['/mydatos']"
+          routerLinkActive="router-link-active"
+          >
+          <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+          <ion-label>Datos personales</ion-label>
+        </ion-item>
+        <ion-item-group>
+          <ion-item lines="none">
+            <ion-label>Correo<small class="text-temp"> pendiente</small></ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label
+              >Contraseña<small class="text-temp"> pendiente</small></ion-label
+              >
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label
+                >Numeros<small class="text-temp"> pendiente</small></ion-label
+                >
+              </ion-item>
+            </ion-item-group>
+          </ion-list>
+        }
+        @if (isLoggedInd$ | async) {
+          <ion-list>
+            <ion-list-header>
+              <strong> Notes </strong>
+            </ion-list-header>
+            <ion-item>
+              <ion-label>Notas <small class="text-temp"> pendiente</small></ion-label>
+              <!-- <ion-note slot="end" color="primary">99</ion-note> -->
+            </ion-item>
+          </ion-list>
+        }
+        @if (isLoggedInd$ | async) {
+          <div class="content-button">
+            <ion-button
+              class="button-out"
+              (click)="logout()"
+              color="light"
+              expand="block"
+              >Cerrar sessión</ion-button
+              >
+            </div>
+          }
+          @if (isLoggedOut$ | async) {
+            <div class="content-button">
+              <ion-button class="button-in" (click)="rediretToLoggIn()" expand="block"
+                >Iniciar sessión</ion-button
+                >
+              </div>
+            }
+            <!-- <span>loggin {{ authService.isLoggedIn$ | async }}</span>
+            <br />
+            <span>loggOut {{ authService.isLoggedOut$ | async }}</span>
+            <span> juntos:{{ isLoggedInd$ | async }}</span> -->
+          </ion-content>
+        }

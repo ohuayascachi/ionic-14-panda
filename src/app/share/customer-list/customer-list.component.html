@@ -6,7 +6,7 @@
         slot="start"
         class="icon-retro"
         name="chevron-back-sharp"
-      >
+        >
       </ion-icon>
     </button>
     <ion-title class="header__text"> Mis clientes </ion-title>
@@ -16,42 +16,41 @@
 <ion-content fullscreen="true" scroll-y="true" class="content">
   <app-loading></app-loading>
 
-  <div
-    *ngFor="let item of clientes$ | async"
-    lines="none"
-    class="card item-client"
-  >
-    <div>
-      <ion-avatar class="img-avatar" slot="start">
-        <img
-          class="avatar"
-          alt="img-avatar"
-          src="https://ionicframework.com/docs/img/demos/avatar.svg"
-        />
-      </ion-avatar>
+  @for (item of clientes$ | async; track item) {
+    <div
+      lines="none"
+      class="card item-client"
+      >
+      <div>
+        <ion-avatar class="img-avatar" slot="start">
+          <img
+            class="avatar"
+            alt="img-avatar"
+            src="https://ionicframework.com/docs/img/demos/avatar.svg"
+            />
+        </ion-avatar>
+      </div>
+      <div   [routerLink]="['/customer', item.phone]">
+        <p class="text">
+          <strong>{{ item.name }} {{ item.lastName1 }}  </strong> - <em>   {{item.empresa}}</em>
+        </p>
+        <p class="text text-1">{{ item.phone }}</p>
+        <p class="text text-2">
+          {{ item.adress.adress.location }}
+        </p>
+        <p class="text text-2">
+          {{ item.adress.distrito }} - {{ item.adress.provincia }} -
+          {{ item.adress.estado }}
+        </p>
+        <!-- <p class="text text-1">
+        <em>Último pedido: 11-05-22</em>
+      </p> -->
     </div>
-
-    <div   [routerLink]="['/customer', item.phone]">
-      <p class="text">
-        <strong>{{ item.name }} {{ item.lastName1 }}  </strong> - <em>   {{item.empresa}}</em>
-      </p>
-      <p class="text text-1">{{ item.phone }}</p>
-      <p class="text text-2">
-        {{ item.adress.adress.location }}
-      </p>
-      <p class="text text-2">
-        {{ item.adress.distrito }} - {{ item.adress.provincia }} -
-        {{ item.adress.estado }}
-      </p>
-      <!-- <p class="text text-1">
-            <em>Último pedido: 11-05-22</em>
-          </p> -->
-    </div>
-
     <div>
       <ion-button (click)="deleteClient(item.id)" color="light">
         <ion-icon color="danger" slot="icon-only" name="trash"></ion-icon>
       </ion-button>
     </div>
   </div>
+}
 </ion-content>

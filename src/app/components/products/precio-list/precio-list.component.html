@@ -17,15 +17,16 @@
         name="cate"
         id=""
         (change)="selectProdByCategoria($event)"
-      >
-        <option class="option" value="">Seleccione</option>
-        <option
-          class="option"
-          *ngFor="let item of categorias$ | async"
-          value="{{ item.id }}"
         >
-          {{ item.name }}
-        </option>
+        <option class="option" value="">Seleccione</option>
+        @for (item of categorias$ | async; track item) {
+          <option
+            class="option"
+            value="{{ item.id }}"
+            >
+            {{ item.name }}
+          </option>
+        }
       </select>
     </div>
 
@@ -37,15 +38,16 @@
         name="subca"
         id=""
         (change)="selectProdBySubCategoria($event)"
-      >
-        <option class="option" value="">Seleccione</option>
-        <option
-          class="option"
-          *ngFor="let item of subcategorias$ | async"
-          value="{{ item.id }}"
         >
-          {{ item.name }}
-        </option>
+        <option class="option" value="">Seleccione</option>
+        @for (item of subcategorias$ | async; track item) {
+          <option
+            class="option"
+            value="{{ item.id }}"
+            >
+            {{ item.name }}
+          </option>
+        }
       </select>
     </div>
 
@@ -55,13 +57,14 @@
       <div class="label-select">
         <select class="select select-product" (change)="selectProduct($event)">
           <option class="option" value="">Seleccione</option>
-          <option
-            class="option"
-            value="{{ item.id }}"
-            *ngFor="let item of productos$ | async"
-          >
-            {{ item.name }}
-          </option>
+          @for (item of productos$ | async; track item) {
+            <option
+              class="option"
+              value="{{ item.id }}"
+              >
+              {{ item.name }}
+            </option>
+          }
         </select>
       </div>
     </div>
@@ -79,50 +82,62 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="t-tr" *ngFor="let it of preciosGeneral$ | async">
-          <th>{{ it.step }}</th>
-          <td colspan="2">[{{ it.range.start }} - {{ it.range.end }}]</td>
-          <td>{{ it.unidadMoneda }} {{ it.price }}</td>
-          <td>{{ it.toUser }}</td>
-        </tr>
-        <tr class="t-tr-1" *ngFor="let it of preciosSeller1$ | async">
-          <th>{{ it.step }}</th>
-          <td colspan="2">[{{ it.range.start }} - {{ it.range.end }}]</td>
-          <td>{{ it.unidadMoneda }} {{ it.price }}</td>
-          <td>{{ it.toUser }}</td>
-        </tr>
-        <tr class="t-tr-2" *ngFor="let it of preciosSeller2$ | async">
-          <th>{{ it.step }}</th>
-          <td colspan="2">[{{ it.range.start }} - {{ it.range.end }}]</td>
-          <td>{{ it.unidadMoneda }} {{ it.price }}</td>
-          <td>{{ it.toUser }}</td>
-        </tr>
-        <tr class="t-tr-3" *ngFor="let it of preciosSeller3$ | async">
-          <th>{{ it.step }}</th>
-          <td colspan="2">[{{ it.range.start }} - {{ it.range.end }}]</td>
-          <td>{{ it.unidadMoneda }} {{ it.price }}</td>
-          <td>{{ it.toUser }}</td>
-        </tr>
-        <tr class="t-tr-4" *ngFor="let it of preciosSeller4$ | async">
-          <th>{{ it.step }}</th>
-          <td colspan="2">[{{ it.range.start }} - {{ it.range.end }}]</td>
-          <td>{{ it.unidadMoneda }} {{ it.price }}</td>
-          <td>{{ it.toUser }}</td>
-        </tr>
-        <tr class="t-tr-5" *ngFor="let it of preciosSeller5$ | async">
-          <th>{{ it.step }}</th>
-          <td colspan="2">[{{ it.range.start }} - {{ it.range.end }}]</td>
-          <td>{{ it.unidadMoneda }} {{ it.price }}</td>
-          <td>{{ it.toUser }}</td>
-        </tr>
+        @for (it of preciosGeneral$ | async; track it) {
+          <tr class="t-tr">
+            <th>{{ it.step }}</th>
+            <td colspan="2">[{{ it.range.start }} - {{ it.range.end }}]</td>
+            <td>{{ it.unidadMoneda }} {{ it.price }}</td>
+            <td>{{ it.toUser }}</td>
+          </tr>
+        }
+        @for (it of preciosSeller1$ | async; track it) {
+          <tr class="t-tr-1">
+            <th>{{ it.step }}</th>
+            <td colspan="2">[{{ it.range.start }} - {{ it.range.end }}]</td>
+            <td>{{ it.unidadMoneda }} {{ it.price }}</td>
+            <td>{{ it.toUser }}</td>
+          </tr>
+        }
+        @for (it of preciosSeller2$ | async; track it) {
+          <tr class="t-tr-2">
+            <th>{{ it.step }}</th>
+            <td colspan="2">[{{ it.range.start }} - {{ it.range.end }}]</td>
+            <td>{{ it.unidadMoneda }} {{ it.price }}</td>
+            <td>{{ it.toUser }}</td>
+          </tr>
+        }
+        @for (it of preciosSeller3$ | async; track it) {
+          <tr class="t-tr-3">
+            <th>{{ it.step }}</th>
+            <td colspan="2">[{{ it.range.start }} - {{ it.range.end }}]</td>
+            <td>{{ it.unidadMoneda }} {{ it.price }}</td>
+            <td>{{ it.toUser }}</td>
+          </tr>
+        }
+        @for (it of preciosSeller4$ | async; track it) {
+          <tr class="t-tr-4">
+            <th>{{ it.step }}</th>
+            <td colspan="2">[{{ it.range.start }} - {{ it.range.end }}]</td>
+            <td>{{ it.unidadMoneda }} {{ it.price }}</td>
+            <td>{{ it.toUser }}</td>
+          </tr>
+        }
+        @for (it of preciosSeller5$ | async; track it) {
+          <tr class="t-tr-5">
+            <th>{{ it.step }}</th>
+            <td colspan="2">[{{ it.range.start }} - {{ it.range.end }}]</td>
+            <td>{{ it.unidadMoneda }} {{ it.price }}</td>
+            <td>{{ it.toUser }}</td>
+          </tr>
+        }
       </tbody>
       <!-- <tfoot>
-        <tr>
-          <th>Balance</th>
-          <td colspan="2">$20,00</td>
-          <td colspan="2">$10,00</td>
-        </tr>
-      </tfoot> -->
-    </table>
-  </div>
+      <tr>
+        <th>Balance</th>
+        <td colspan="2">$20,00</td>
+        <td colspan="2">$10,00</td>
+      </tr>
+    </tfoot> -->
+  </table>
+</div>
 </ion-content>

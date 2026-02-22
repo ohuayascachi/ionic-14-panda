@@ -2,7 +2,7 @@
   [title]="'carrito de compras'"
   [iconName]="'chevron-back-sharp'"
   (pathRetro)="cerrarOrder()"
->
+  >
 </app-header>
 <!-- [count]="cantidadItems$ | async" -->
 <ion-content [scrollEvents]="true" class="content">
@@ -11,12 +11,16 @@
       <h3 class="card-title">{{ fullName | titlecase }}</h3>
       <p class="text-sub">Telf. {{ telefono }}</p>
 
-      <p *ngIf="direccion === 'Sin direccion'" class="text-sub-foot">
-        Direccion: {{ direccion }}
-      </p>
-      <p *ngIf="direccion !== 'Sin direccion'" class="text-sub-foot">
-        Direccion: {{ direccion }}
-      </p>
+      @if (direccion === 'Sin direccion') {
+        <p class="text-sub-foot">
+          Direccion: {{ direccion }}
+        </p>
+      }
+      @if (direccion !== 'Sin direccion') {
+        <p class="text-sub-foot">
+          Direccion: {{ direccion }}
+        </p>
+      }
     </div>
 
     <div [hidden]="(userRole$ | async) === 'general'">
@@ -31,11 +35,13 @@
             (change)="selectClient($event)"
             class="select"
             placeholder="Clientes"
-          >
+            >
             <option value="yo">Yo mismo</option>
-            <option *ngFor="let item of clients$ | async" value="{{ item.id }}">
-              {{ item.name }} {{ item.lastName1 }}
-            </option>
+            @for (item of clients$ | async; track item) {
+              <option value="{{ item.id }}">
+                {{ item.name }} {{ item.lastName1 }}
+              </option>
+            }
           </select>
         </div>
       </div>
@@ -57,13 +63,14 @@
 
   <app-loading></app-loading>
 
-  <app-card-list-product
-    *ngIf="carList"
-    [cart]="carrito$ | async"
-    (delCart)="deleteArrayCart($event)"
-    (pricingChanged)="patchCountCart($event)"
-  >
-  </app-card-list-product>
+  @if (carList) {
+    <app-card-list-product
+      [cart]="carrito$ | async"
+      (delCart)="deleteArrayCart($event)"
+      (pricingChanged)="patchCountCart($event)"
+      >
+    </app-card-list-product>
+  }
 
   <form [formGroup]="formOrder">
     <!-- metodo de pago -->
@@ -79,118 +86,119 @@
           <ion-row>
             <ion-col size="6" size-md="4" size-lg="2" class="sub-note"
               >Subtotal</ion-col
-            >
-            <ion-col size="6" size-md="4" size-lg="2" class="pricing">
-              <span>{{ tipoMoneda }} </span>{{ subtotal$ | async }}</ion-col
-            >
-          </ion-row>
-          <ion-row>
-            <ion-col size="6" size-md="4" size-lg="2" class="sub-note"
-              >Envio</ion-col
-            >
-            <ion-col size="6" size-md="4" size-lg="2" class="pricing">
-              <span>{{ tipoMoneda }}</span
-              >{{ envio }}</ion-col
-            >
-          </ion-row>
-          <ion-row>
-            <ion-col size="6" size-md="4" size-lg="2" class="sub-note"
-              >Descuento</ion-col
-            >
-            <ion-col size="6" size-md="4" size-lg="2" class="pricing"
-              ><span>{{ tipoMoneda }}</span
-              >{{ descuento }}</ion-col
-            >
-          </ion-row>
-          <ion-row>
-            <ion-col size="6" size-md="4" size-lg="2" class="sub-note total"
-              >TOTAL</ion-col
-            >
-            <ion-col size="6" size-md="4" size-lg="2" class="pricing">
-              <span>{{ tipoMoneda }}</span>
-              <span> {{ (subtotal$ | async) + envio }}</span>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </div>
-    </div>
+              >
+              <ion-col size="6" size-md="4" size-lg="2" class="pricing">
+                <span>{{ tipoMoneda }} </span>{{ subtotal$ | async }}</ion-col
+                >
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" size-md="4" size-lg="2" class="sub-note"
+                  >Envio</ion-col
+                  >
+                  <ion-col size="6" size-md="4" size-lg="2" class="pricing">
+                    <span>{{ tipoMoneda }}</span
+                      >{{ envio }}</ion-col
+                      >
+                    </ion-row>
+                    <ion-row>
+                      <ion-col size="6" size-md="4" size-lg="2" class="sub-note"
+                        >Descuento</ion-col
+                        >
+                        <ion-col size="6" size-md="4" size-lg="2" class="pricing"
+                          ><span>{{ tipoMoneda }}</span
+                          >{{ descuento }}</ion-col
+                          >
+                        </ion-row>
+                        <ion-row>
+                          <ion-col size="6" size-md="4" size-lg="2" class="sub-note total"
+                            >TOTAL</ion-col
+                            >
+                            <ion-col size="6" size-md="4" size-lg="2" class="pricing">
+                              <span>{{ tipoMoneda }}</span>
+                              <span> {{ (subtotal$ | async) + envio }}</span>
+                            </ion-col>
+                          </ion-row>
+                        </ion-grid>
+                      </div>
+                    </div>
 
-    <ion-title class="toolbar-subtitile">
-      <strong>Método de pago</strong>
-    </ion-title>
+                    <ion-title class="toolbar-subtitile">
+                      <strong>Método de pago</strong>
+                    </ion-title>
 
-    <div class="card item-metodoPago">
-      <ion-label> Seleccione </ion-label>
+                    <div class="card item-metodoPago">
+                      <ion-label> Seleccione </ion-label>
 
-      <ion-select
-        class="seleccione-metodo"
-        (ionChange)="metodoPago($event)"
-        placeholder="Método"
-        formControlName="metodoPago"
-      >
-        <ion-select-option
-          *ngFor="let item of metodosPago"
-          [value]="item.name"
-          >{{ item.name }}</ion-select-option
-        >
-      </ion-select>
-    </div>
+                      <ion-select
+                        class="seleccione-metodo"
+                        (ionChange)="metodoPago($event)"
+                        placeholder="Método"
+                        formControlName="metodoPago"
+                        >
+                        @for (item of metodosPago; track item) {
+                          <ion-select-option
+                            [value]="item.name"
+                            >{{ item.name }}</ion-select-option
+                            >
+                          }
+                        </ion-select>
+                      </div>
 
-    <div class="card item-metodoPago">
-      <ion-label> Documento requerido </ion-label>
+                      <div class="card item-metodoPago">
+                        <ion-label> Documento requerido </ion-label>
 
-      <ion-select
-        class="seleccione-metodo"
-        placeholder="Documento"
-        formControlName="docSolitado"
-      >
-        <ion-select-option
-          *ngFor="let item of docSolicitado"
-          [value]="item.name"
-          >{{ item.name }}</ion-select-option
-        >
-      </ion-select>
-    </div>
+                        <ion-select
+                          class="seleccione-metodo"
+                          placeholder="Documento"
+                          formControlName="docSolitado"
+                          >
+                          @for (item of docSolicitado; track item) {
+                            <ion-select-option
+                              [value]="item.name"
+                              >{{ item.name }}</ion-select-option
+                              >
+                            }
+                          </ion-select>
+                        </div>
 
-    <!-- Nota adicional de pedido -->
-    <div class="item-nota">
-      <ion-title class="toolbar-subtitile">
-        <strong>Nota </strong>
-      </ion-title>
+                        <!-- Nota adicional de pedido -->
+                        <div class="item-nota">
+                          <ion-title class="toolbar-subtitile">
+                            <strong>Nota </strong>
+                          </ion-title>
 
-      <div>
-        <ion-textarea
-          formControlName="comment"
-          class="text-nota"
-          placeholder="Nota ...."
-        >
-        </ion-textarea>
-      </div>
-    </div>
+                          <div>
+                            <ion-textarea
+                              formControlName="comment"
+                              class="text-nota"
+                              placeholder="Nota ...."
+                              >
+                            </ion-textarea>
+                          </div>
+                        </div>
 
-    <!-- <br />
-    <span style="margin-bottom: 5rem">
-      <strong>{{ formOrder.value | json }} </strong>
-    </span>
-    <br /> -->
-    <!--
-    <span style="margin-bottom: 5rem">
-      <strong>{{ formOrder.valid }} </strong>
-    </span> -->
-  </form>
+                        <!-- <br />
+                        <span style="margin-bottom: 5rem">
+                          <strong>{{ formOrder.value | json }} </strong>
+                        </span>
+                        <br /> -->
+                        <!--
+                        <span style="margin-bottom: 5rem">
+                          <strong>{{ formOrder.valid }} </strong>
+                        </span> -->
+                      </form>
 
-  <div>
-    <ion-button
-      (click)="postPedido()"
-      expand="full"
-      shape="round"
-      [disabled]="!formOrder.valid"
-      ><strong>Realizar pedido</strong>
-    </ion-button>
-    <!-- <button  class="my-popover-product"  class="btn-button-pedido" class="btn btn-warning" type="button" data-bs-toggle="offcanvas" 
-                  data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><strong>Realizar pedido</strong></button> -->
-    <!-- <ion-fab vertical="bottom" slot="fixed"></ion-fab> -->
-  </div>
-</ion-content>
+                      <div>
+                        <ion-button
+                          (click)="postPedido()"
+                          expand="full"
+                          shape="round"
+                          [disabled]="!formOrder.valid"
+                          ><strong>Realizar pedido</strong>
+                        </ion-button>
+                        <!-- <button  class="my-popover-product"  class="btn-button-pedido" class="btn btn-warning" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><strong>Realizar pedido</strong></button> -->
+                        <!-- <ion-fab vertical="bottom" slot="fixed"></ion-fab> -->
+                      </div>
+                    </ion-content>
 
- 

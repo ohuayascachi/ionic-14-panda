@@ -10,307 +10,316 @@
 <ion-content class="content">
   <!-- INFORMATION OF PRODUCT -->
   <div class="info-product">
-    <ion-spinner *ngIf="!product" name="circular"></ion-spinner>
+    @if (!product) {
+      <ion-spinner name="circular"></ion-spinner>
+    }
 
     <h3 class="info-title">{{ productName | async }}</h3>
-    <p style="text-align: center" *ngIf="product">
-      {{ product.description }}
-    </p>
-    <p *ngIf="product" class="info-count">
-      <label for=""> Cantidad :</label>
-      <span class="info-count-number" *ngIf="product"
-        >{{ "   " }} {{ product.count }}</span
-      >
-    </p>
-
-    <div *ngIf="product">
-      <p *ngIf="product.precios.length === 0">
-        Producto no tiene precio para mostrar
+    @if (product) {
+      <p style="text-align: center">
+        {{ product.description }}
       </p>
-    </div>
-  </div>
+    }
+    @if (product) {
+      <p class="info-count">
+        <label for=""> Cantidad :</label>
+        @if (product) {
+          <span class="info-count-number"
+            >{{ "   " }} {{ product.count }}</span
+            >
+          }
+        </p>
+      }
 
-  <div class="select-rango">
-    <div>Indicar. ¿Cuantos rangos de precio tendra su producto?</div>
-    <div>
-      <select
-        id="select-vends"
-        (change)="selectRango($event)"
-        class="select s-number"
-      >
-        <option value="1" selected="true">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-    </div>
-  </div>
-
-  <!-- ACTIVAR VENDEDORES -->
-  <div class="select-seller">
-    <div>Seleccionar vendedores</div>
-    <div class="seller-option">
-      <ion-toggle
-        (ionChange)="selectVendedor($event, 'seller-1')"
-        [checked]="false"
-        >Vendedor 1</ion-toggle
-      >
-      <ion-toggle
-        (ionChange)="selectVendedor($event, 'seller-2')"
-        [checked]="false"
-        >Vendedor 2</ion-toggle
-      >
-      <ion-toggle
-        (ionChange)="selectVendedor($event, 'seller-3')"
-        [checked]="false"
-        >Vendedor 3
-      </ion-toggle>
-      <ion-toggle
-        (ionChange)="selectVendedor($event, 'seller-4')"
-        [checked]="false"
-        >Vendedor 4
-      </ion-toggle>
-      <ion-toggle
-        (ionChange)="selectVendedor($event, 'seller-5')"
-        [checked]="false"
-        >Vendedor 5
-      </ion-toggle>
-    </div>
-  </div>
-
-  <!-- NOTA DE RANGO Y VENDEDORES -->
-  <div class="nota">
-    <div class="nota-title">NOTA:</div>
-
-    <div class="nota-text">
-      <ul>
-        <li>Máximo puede tener 5 rangos de precio.</li>
-        <li>
-          El rango espeficicado es aplicable a los tipos de vendedores
-          activados.
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- BUTTON FOR GENERATE MATRIX -->
-  <div class="btn">
-    <ion-button
-      class="btn-change"
-      (click)="generarMatrix()"
-      [disabled]="isDisabled"
-      color="light"
-      >Generar matrix</ion-button
-    >
-  </div>
-
-  <!-- ARRAY OF PRICES -->
-  <div id="tpg1" class="matrix-prices">
-    <!-- General -->
-
-    <div *ngIf="matrix">
-      <div class="title-seller">
-        <h4>General</h4>
-      </div>
-
-      <ion-grid line="true" *ngIf="sellers[0].check && isOk">
-        <ion-row class="t-header">
-          <ion-col size="1"># </ion-col>
-          <ion-col size="5">Rango </ion-col>
-          <ion-col size="3">Precio</ion-col>
-          <!-- <ion-col size="3">Descuento</ion-col> -->
-        </ion-row>
-
-        <div class="t-body">
-          <!-- Fila 1 - G -->
-          <ion-row>
-            <ion-col class="t-col" size="1">1 </ion-col>
-
-            <ion-col size="2.5">
-              <input id="input-general-s-1" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-general-e-1" class="t-input" type="number" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-general-p-1" class="t-input" type="number" />
-            </ion-col>
-            <!-- <ion-col size="3">
-              <input
-                disabled="true"
-                id="input-general-d-1"
-                class="t-input"
-                type="number"
-              />
-            </ion-col> -->
-          </ion-row>
-          <!-- Fila 2 - G -->
-          <ion-row *ngIf="file2">
-            <ion-col class="t-col" size="1">2 </ion-col>
-
-            <ion-col size="2.5">
-              <input id="input-general-s-2" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-general-e-2" class="t-input" type="number" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-general-p-2" class="t-input" type="number" />
-            </ion-col>
-            <!-- <ion-col size="3">
-              <input
-                disabled="true"
-                id="input-general-d-2"
-                class="t-input"
-                type="number"
-              />
-            </ion-col> -->
-          </ion-row>
-
-          <!-- Fila 3 - G -->
-          <ion-row *ngIf="file3">
-            <ion-col class="t-col" size="1">3 </ion-col>
-
-            <ion-col size="2.5">
-              <input
-                id="input-general-s-3"
-                class="t-input"
-                type="number"
-                [disabled]="false"
-              />
-            </ion-col>
-            <ion-col size="2.5">
-              <input
-                id="input-general-e-3"
-                class="t-input"
-                type="number"
-                [disabled]="false"
-              />
-            </ion-col>
-
-            <ion-col size="3">
-              <input
-                id="input-general-p-3"
-                class="t-input"
-                type="number"
-                [disabled]="false"
-              />
-            </ion-col>
-            <!-- <ion-col size="3">
-              <input
-                id="input-general-d-3"
-                class="t-input"
-                type="number"
-                disabled="true"
-              />
-            </ion-col> -->
-          </ion-row>
-          <!-- Fila 4 - G -->
-          <ion-row *ngIf="file4">
-            <ion-col class="t-col" size="1">4 </ion-col>
-
-            <ion-col size="2.5">
-              <input id="input-general-s-4" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-general-e-4" class="t-input" type="number" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-general-p-4" class="t-input" type="number" />
-            </ion-col>
-            <!-- <ion-col size="3">
-              <input
-                id="input-general-d-4"
-                class="t-input"
-                type="number"
-                disabled="true"
-              />
-            </ion-col> -->
-          </ion-row>
-          <!-- Fila 5 - G -->
-          <ion-row *ngIf="file5">
-            <ion-col class="t-col" size="1">5 </ion-col>
-
-            <ion-col size="2.5">
-              <input id="input-general-s-5" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-general-e-5" class="t-input" type="number" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-general-p-5" class="t-input" type="number" />
-            </ion-col>
-            <!-- <ion-col size="3">
-              <input
-                id="input-general-d-5"
-                class="t-input"
-                type="number"
-                name=""
-                disabled="true"
-              />
-            </ion-col> -->
-          </ion-row>
+      @if (product) {
+        <div>
+          @if (product.precios.length === 0) {
+            <p>
+              Producto no tiene precio para mostrar
+            </p>
+          }
         </div>
-      </ion-grid>
+      }
     </div>
-    <!-- seller-1 -->
-    <div *ngIf="matrix">
+
+    <div class="select-rango">
+      <div>Indicar. ¿Cuantos rangos de precio tendra su producto?</div>
+      <div>
+        <select
+          id="select-vends"
+          (change)="selectRango($event)"
+          class="select s-number"
+          >
+          <option value="1" selected="true">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- ACTIVAR VENDEDORES -->
+    <div class="select-seller">
+      <div>Seleccionar vendedores</div>
+      <div class="seller-option">
+        <ion-toggle
+          (ionChange)="selectVendedor($event, 'seller-1')"
+          [checked]="false"
+          >Vendedor 1</ion-toggle
+          >
+          <ion-toggle
+            (ionChange)="selectVendedor($event, 'seller-2')"
+            [checked]="false"
+            >Vendedor 2</ion-toggle
+            >
+            <ion-toggle
+              (ionChange)="selectVendedor($event, 'seller-3')"
+              [checked]="false"
+              >Vendedor 3
+            </ion-toggle>
+            <ion-toggle
+              (ionChange)="selectVendedor($event, 'seller-4')"
+              [checked]="false"
+              >Vendedor 4
+            </ion-toggle>
+            <ion-toggle
+              (ionChange)="selectVendedor($event, 'seller-5')"
+              [checked]="false"
+              >Vendedor 5
+            </ion-toggle>
+          </div>
+        </div>
+
+        <!-- NOTA DE RANGO Y VENDEDORES -->
+        <div class="nota">
+          <div class="nota-title">NOTA:</div>
+
+          <div class="nota-text">
+            <ul>
+              <li>Máximo puede tener 5 rangos de precio.</li>
+              <li>
+                El rango espeficicado es aplicable a los tipos de vendedores
+                activados.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- BUTTON FOR GENERATE MATRIX -->
+        <div class="btn">
+          <ion-button
+            class="btn-change"
+            (click)="generarMatrix()"
+            [disabled]="isDisabled"
+            color="light"
+            >Generar matrix</ion-button
+            >
+          </div>
+
+          <!-- ARRAY OF PRICES -->
+          <div id="tpg1" class="matrix-prices">
+            <!-- General -->
+
+            @if (matrix) {
+              <div>
+                <div class="title-seller">
+                  <h4>General</h4>
+                </div>
+                @if (sellers[0].check && isOk) {
+                  <ion-grid line="true">
+                    <ion-row class="t-header">
+                      <ion-col size="1"># </ion-col>
+                      <ion-col size="5">Rango </ion-col>
+                      <ion-col size="3">Precio</ion-col>
+                      <!-- <ion-col size="3">Descuento</ion-col> -->
+                    </ion-row>
+                    <div class="t-body">
+                      <!-- Fila 1 - G -->
+                      <ion-row>
+                        <ion-col class="t-col" size="1">1 </ion-col>
+                        <ion-col size="2.5">
+                          <input id="input-general-s-1" class="t-input" type="number" />
+                        </ion-col>
+                        <ion-col size="2.5">
+                          <input id="input-general-e-1" class="t-input" type="number" />
+                        </ion-col>
+                        <ion-col size="3">
+                          <input id="input-general-p-1" class="t-input" type="number" />
+                        </ion-col>
+                        <!-- <ion-col size="3">
+                        <input
+                          disabled="true"
+                          id="input-general-d-1"
+                          class="t-input"
+                          type="number"
+                          />
+                      </ion-col> -->
+                    </ion-row>
+                    <!-- Fila 2 - G -->
+                    @if (file2) {
+                      <ion-row>
+                        <ion-col class="t-col" size="1">2 </ion-col>
+                        <ion-col size="2.5">
+                          <input id="input-general-s-2" class="t-input" type="number" />
+                        </ion-col>
+                        <ion-col size="2.5">
+                          <input id="input-general-e-2" class="t-input" type="number" />
+                        </ion-col>
+                        <ion-col size="3">
+                          <input id="input-general-p-2" class="t-input" type="number" />
+                        </ion-col>
+                        <!-- <ion-col size="3">
+                        <input
+                          disabled="true"
+                          id="input-general-d-2"
+                          class="t-input"
+                          type="number"
+                          />
+                      </ion-col> -->
+                    </ion-row>
+                  }
+                  <!-- Fila 3 - G -->
+                  @if (file3) {
+                    <ion-row>
+                      <ion-col class="t-col" size="1">3 </ion-col>
+                      <ion-col size="2.5">
+                        <input
+                          id="input-general-s-3"
+                          class="t-input"
+                          type="number"
+                          [disabled]="false"
+                          />
+                      </ion-col>
+                      <ion-col size="2.5">
+                        <input
+                          id="input-general-e-3"
+                          class="t-input"
+                          type="number"
+                          [disabled]="false"
+                          />
+                      </ion-col>
+                      <ion-col size="3">
+                        <input
+                          id="input-general-p-3"
+                          class="t-input"
+                          type="number"
+                          [disabled]="false"
+                          />
+                      </ion-col>
+                      <!-- <ion-col size="3">
+                      <input
+                        id="input-general-d-3"
+                        class="t-input"
+                        type="number"
+                        disabled="true"
+                        />
+                    </ion-col> -->
+                  </ion-row>
+                }
+                <!-- Fila 4 - G -->
+                @if (file4) {
+                  <ion-row>
+                    <ion-col class="t-col" size="1">4 </ion-col>
+                    <ion-col size="2.5">
+                      <input id="input-general-s-4" class="t-input" type="number" />
+                    </ion-col>
+                    <ion-col size="2.5">
+                      <input id="input-general-e-4" class="t-input" type="number" />
+                    </ion-col>
+                    <ion-col size="3">
+                      <input id="input-general-p-4" class="t-input" type="number" />
+                    </ion-col>
+                    <!-- <ion-col size="3">
+                    <input
+                      id="input-general-d-4"
+                      class="t-input"
+                      type="number"
+                      disabled="true"
+                      />
+                  </ion-col> -->
+                </ion-row>
+              }
+              <!-- Fila 5 - G -->
+              @if (file5) {
+                <ion-row>
+                  <ion-col class="t-col" size="1">5 </ion-col>
+                  <ion-col size="2.5">
+                    <input id="input-general-s-5" class="t-input" type="number" />
+                  </ion-col>
+                  <ion-col size="2.5">
+                    <input id="input-general-e-5" class="t-input" type="number" />
+                  </ion-col>
+                  <ion-col size="3">
+                    <input id="input-general-p-5" class="t-input" type="number" />
+                  </ion-col>
+                  <!-- <ion-col size="3">
+                  <input
+                    id="input-general-d-5"
+                    class="t-input"
+                    type="number"
+                    name=""
+                    disabled="true"
+                    />
+                </ion-col> -->
+              </ion-row>
+            }
+          </div>
+        </ion-grid>
+      }
+    </div>
+  }
+  <!-- seller-1 -->
+  @if (matrix) {
+    <div>
       <div class="title-seller">
         <h4>Vendedor 1</h4>
       </div>
-      <ion-grid *ngIf="sellers[1].check && isOk">
-        <ion-row class="t-header">
-          <ion-col size="1"># </ion-col>
-          <ion-col size="5">Rango </ion-col>
-          <ion-col size="3">Precio</ion-col>
-          <!-- <ion-col size="3">Descuento</ion-col> -->
-        </ion-row>
-
-        <div class="t-body">
-          <!-- Fila 1 - G -->
-          <ion-row>
-            <ion-col class="t-col" size="1">1 </ion-col>
-
-            <ion-col size="2.5">
-              <input id="input-1-s-1" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-1-e-1" class="t-input" type="number" name="" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-1-p-1" class="t-input" type="number" name="" />
-            </ion-col>
-            <!-- <ion-col size="3">
+      @if (sellers[1].check && isOk) {
+        <ion-grid>
+          <ion-row class="t-header">
+            <ion-col size="1"># </ion-col>
+            <ion-col size="5">Rango </ion-col>
+            <ion-col size="3">Precio</ion-col>
+            <!-- <ion-col size="3">Descuento</ion-col> -->
+          </ion-row>
+          <div class="t-body">
+            <!-- Fila 1 - G -->
+            <ion-row>
+              <ion-col class="t-col" size="1">1 </ion-col>
+              <ion-col size="2.5">
+                <input id="input-1-s-1" class="t-input" type="number" />
+              </ion-col>
+              <ion-col size="2.5">
+                <input id="input-1-e-1" class="t-input" type="number" name="" />
+              </ion-col>
+              <ion-col size="3">
+                <input id="input-1-p-1" class="t-input" type="number" name="" />
+              </ion-col>
+              <!-- <ion-col size="3">
               <input
                 disabled="true"
                 id="input-1-d-1"
                 class="t-input"
                 type="number"
                 name=""
-              />
+                />
             </ion-col> -->
           </ion-row>
           <!-- Fila 2 - G -->
-          <ion-row *ngIf="file2">
-            <ion-col class="t-col" size="1">2 </ion-col>
-
-            <ion-col size="2.5">
-              <input id="input-1-s-2" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-1-e-2" class="t-input" type="number" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-1-p-2" class="t-input" type="number" />
-            </ion-col>
-            <!-- <ion-col size="3">
+          @if (file2) {
+            <ion-row>
+              <ion-col class="t-col" size="1">2 </ion-col>
+              <ion-col size="2.5">
+                <input id="input-1-s-2" class="t-input" type="number" />
+              </ion-col>
+              <ion-col size="2.5">
+                <input id="input-1-e-2" class="t-input" type="number" />
+              </ion-col>
+              <ion-col size="3">
+                <input id="input-1-p-2" class="t-input" type="number" />
+              </ion-col>
+              <!-- <ion-col size="3">
               <input
                 disabled="true"
                 id="input-1-d-2"
@@ -318,521 +327,518 @@
                 type="number"
                 name=""
                 disabled="true"
-              />
+                />
             </ion-col> -->
           </ion-row>
-
-          <!-- Fila 3 - G -->
-          <ion-row *ngIf="file3">
+        }
+        <!-- Fila 3 - G -->
+        @if (file3) {
+          <ion-row>
             <ion-col class="t-col" size="1">3 </ion-col>
-
             <ion-col size="2.5">
               <input
                 id="input-1-s-3"
                 class="t-input"
                 type="number"
                 [disabled]="false"
-              />
+                />
             </ion-col>
             <ion-col size="2.5">
               <input id="input-1-e-3" class="t-input" type="number" />
             </ion-col>
-
             <ion-col size="3">
               <input id="input-1-p-3" class="t-input" type="number" />
             </ion-col>
             <!-- <ion-col size="3">
-              <input
-                id="input-1-d-3"
-                class="t-input"
-                type="number"
-                name=""
-                disabled="true"
+            <input
+              id="input-1-d-3"
+              class="t-input"
+              type="number"
+              name=""
+              disabled="true"
               />
-            </ion-col> -->
-          </ion-row>
-          <!-- Fila 4 - G -->
-          <ion-row *ngIf="file4">
-            <ion-col class="t-col" size="1">4 </ion-col>
+          </ion-col> -->
+        </ion-row>
+      }
+      <!-- Fila 4 - G -->
+      @if (file4) {
+        <ion-row>
+          <ion-col class="t-col" size="1">4 </ion-col>
+          <ion-col size="2.5">
+            <input id="input-1-s-4" class="t-input" type="number" />
+          </ion-col>
+          <ion-col size="2.5">
+            <input id="input-1-e-4" class="t-input" type="number" />
+          </ion-col>
+          <ion-col size="3">
+            <input id="input-1-p-4" class="t-input" type="number" />
+          </ion-col>
+          <!-- <ion-col size="3">
+          <input
+            id="input-1-d-4"
+            class="t-input"
+            type="number"
+            name=""
+            disabled="true"
+            />
+        </ion-col> -->
+      </ion-row>
+    }
+    <!-- Fila 5 - G -->
+    @if (file5) {
+      <ion-row>
+        <ion-col class="t-col" size="1">5 </ion-col>
+        <ion-col size="2.5">
+          <input id="input-1-s-5" class="t-input" type="number" />
+        </ion-col>
+        <ion-col size="2.5">
+          <input id="input-1-e-5" class="t-input" type="number" />
+        </ion-col>
+        <ion-col size="3">
+          <input id="input-1-p-5" class="t-input" type="number" />
+        </ion-col>
+        <!-- <ion-col size="3">
+        <input
+          id="input-1-d-5"
+          class="t-input"
+          type="number"
+          disabled="true"
+          />
+      </ion-col> -->
+    </ion-row>
+  }
+</div>
+</ion-grid>
+}
+</div>
+}
 
-            <ion-col size="2.5">
-              <input id="input-1-s-4" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-1-e-4" class="t-input" type="number" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-1-p-4" class="t-input" type="number" />
-            </ion-col>
-            <!-- <ion-col size="3">
-              <input
-                id="input-1-d-4"
-                class="t-input"
-                type="number"
-                name=""
-                disabled="true"
-              />
-            </ion-col> -->
-          </ion-row>
-          <!-- Fila 5 - G -->
-          <ion-row *ngIf="file5">
-            <ion-col class="t-col" size="1">5 </ion-col>
-
-            <ion-col size="2.5">
-              <input id="input-1-s-5" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-1-e-5" class="t-input" type="number" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-1-p-5" class="t-input" type="number" />
-            </ion-col>
-            <!-- <ion-col size="3">
-              <input
-                id="input-1-d-5"
-                class="t-input"
-                type="number"
-                disabled="true"
-              />
-            </ion-col> -->
-          </ion-row>
-        </div>
-      </ion-grid>
+<!-- seller-2 -->
+@if (matrix) {
+  <div>
+    <div class="title-seller">
+      <h4>Vendedor 2</h4>
     </div>
-
-    <!-- seller-2 -->
-    <div *ngIf="matrix">
-      <div class="title-seller">
-        <h4>Vendedor 2</h4>
-      </div>
-
-      <ion-grid *ngIf="sellers[2].check && isOk">
+    @if (sellers[2].check && isOk) {
+      <ion-grid>
         <ion-row class="t-header">
           <ion-col size="1"># </ion-col>
           <ion-col size="5">Rango </ion-col>
           <ion-col size="3">Precio</ion-col>
           <!-- <ion-col size="3">Descuento</ion-col> -->
         </ion-row>
-
         <div class="t-body">
           <!-- Fila 1 - G -->
           <ion-row>
             <ion-col class="t-col" size="1">1 </ion-col>
-
             <ion-col size="2.5">
               <input id="input-2-s-1" class="t-input" type="number" />
             </ion-col>
             <ion-col size="2.5">
               <input id="input-2-e-1" class="t-input" type="number" />
             </ion-col>
-
             <ion-col size="3">
               <input id="input-2-p-1" class="t-input" type="number" />
             </ion-col>
             <!-- <ion-col size="3">
-              <input
-                disabled="true"
-                id="input-2-d-1"
-                class="t-input"
-                type="number"
+            <input
+              disabled="true"
+              id="input-2-d-1"
+              class="t-input"
+              type="number"
               />
-            </ion-col> -->
-          </ion-row>
-          <!-- Fila 2 - G -->
-          <ion-row *ngIf="file2">
+          </ion-col> -->
+        </ion-row>
+        <!-- Fila 2 - G -->
+        @if (file2) {
+          <ion-row>
             <ion-col class="t-col" size="1">2 </ion-col>
-
             <ion-col size="2.5">
               <input id="input-2-s-2" class="t-input" type="number" />
             </ion-col>
             <ion-col size="2.5">
               <input id="input-2-e-2" class="t-input" type="number" />
             </ion-col>
-
             <ion-col size="3">
               <input id="input-2-p-2" class="t-input" type="number" />
             </ion-col>
             <!-- <ion-col size="3">
-              <input
-                disabled="true"
-                id="input-2-d-2"
-                class="t-input"
-                type="number"
+            <input
+              disabled="true"
+              id="input-2-d-2"
+              class="t-input"
+              type="number"
               />
-            </ion-col> -->
-          </ion-row>
+          </ion-col> -->
+        </ion-row>
+      }
+      <!-- Fila 3 - G -->
+      @if (file3) {
+        <ion-row>
+          <ion-col class="t-col" size="1">3 </ion-col>
+          <ion-col size="2.5">
+            <input id="input-2-s-3" class="t-input" type="number" />
+          </ion-col>
+          <ion-col size="2.5">
+            <input id="input-2-e-3" class="t-input" type="number" name="" />
+          </ion-col>
+          <ion-col size="3">
+            <input id="input-2-p-3" class="t-input" type="number" name="" />
+          </ion-col>
+          <!-- <ion-col size="3">
+          <input
+            id="input-2-d-3"
+            class="t-input"
+            type="number"
+            name=""
+            disabled="true"
+            />
+        </ion-col> -->
+      </ion-row>
+    }
+    <!-- Fila 4 - G -->
+    @if (file4) {
+      <ion-row>
+        <ion-col class="t-col" size="1">4 </ion-col>
+        <ion-col size="2.5">
+          <input id="input-2-s-4" class="t-input" type="number" />
+        </ion-col>
+        <ion-col size="2.5">
+          <input id="input-2-e-4" class="t-input" type="number" />
+        </ion-col>
+        <ion-col size="3">
+          <input id="input-2-p-4" class="t-input" type="number" />
+        </ion-col>
+        <!-- <ion-col size="3">
+        <input
+          id="input-2-d-4"
+          class="t-input"
+          type="number"
+          disabled="true"
+          />
+      </ion-col> -->
+    </ion-row>
+  }
+  <!-- Fila 5 - G -->
+  @if (file5) {
+    <ion-row>
+      <ion-col class="t-col" size="1">5 </ion-col>
+      <ion-col size="2.5">
+        <input id="input-2-s-5" class="t-input" type="number" />
+      </ion-col>
+      <ion-col size="2.5">
+        <input id="input-2-e-5" class="t-input" type="number" />
+      </ion-col>
+      <ion-col size="3">
+        <input id="input-2-p-5" class="t-input" type="number" />
+      </ion-col>
+      <!-- <ion-col size="3">
+      <input
+        id="input-2-d-5"
+        disabled="true"
+        class="t-input"
+        type="number"
+        />
+    </ion-col> -->
+  </ion-row>
+}
+</div>
+</ion-grid>
+}
+</div>
+}
+<!-- seller-3 -->
 
-          <!-- Fila 3 - G -->
-          <ion-row *ngIf="file3">
-            <ion-col class="t-col" size="1">3 </ion-col>
-
-            <ion-col size="2.5">
-              <input id="input-2-s-3" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-2-e-3" class="t-input" type="number" name="" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-2-p-3" class="t-input" type="number" name="" />
-            </ion-col>
-            <!-- <ion-col size="3">
-              <input
-                id="input-2-d-3"
-                class="t-input"
-                type="number"
-                name=""
-                disabled="true"
-              />
-            </ion-col> -->
-          </ion-row>
-          <!-- Fila 4 - G -->
-          <ion-row *ngIf="file4">
-            <ion-col class="t-col" size="1">4 </ion-col>
-
-            <ion-col size="2.5">
-              <input id="input-2-s-4" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-2-e-4" class="t-input" type="number" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-2-p-4" class="t-input" type="number" />
-            </ion-col>
-            <!-- <ion-col size="3">
-              <input
-                id="input-2-d-4"
-                class="t-input"
-                type="number"
-                disabled="true"
-              />
-            </ion-col> -->
-          </ion-row>
-          <!-- Fila 5 - G -->
-          <ion-row *ngIf="file5">
-            <ion-col class="t-col" size="1">5 </ion-col>
-
-            <ion-col size="2.5">
-              <input id="input-2-s-5" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-2-e-5" class="t-input" type="number" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-2-p-5" class="t-input" type="number" />
-            </ion-col>
-            <!-- <ion-col size="3">
-              <input
-                id="input-2-d-5"
-                disabled="true"
-                class="t-input"
-                type="number"
-              />
-            </ion-col> -->
-          </ion-row>
-        </div>
-      </ion-grid>
+@if (matrix) {
+  <div>
+    <div class="title-seller">
+      <h4>Vendedor 3</h4>
     </div>
-    <!-- seller-3 -->
-
-    <div *ngIf="matrix">
-      <div class="title-seller">
-        <h4>Vendedor 3</h4>
-      </div>
-
-      <ion-grid *ngIf="sellers[3].check && isOk">
+    @if (sellers[3].check && isOk) {
+      <ion-grid>
         <ion-row class="t-header">
           <ion-col size="1"># </ion-col>
           <ion-col size="5">Rango </ion-col>
           <ion-col size="3">Precio</ion-col>
           <!-- <ion-col size="3">Descuento</ion-col> -->
         </ion-row>
-
         <div class="t-body">
           <!-- Fila 1 - G -->
           <ion-row>
             <ion-col class="t-col" size="1">1 </ion-col>
-
             <ion-col size="2.5">
               <input id="input-3-s-1" class="t-input" type="number" />
             </ion-col>
             <ion-col size="2.5">
               <input id="input-3-e-1" class="t-input" type="number" />
             </ion-col>
-
             <ion-col size="3">
               <input id="input-3-p-1" class="t-input" type="number" />
             </ion-col>
             <!-- <ion-col size="3">
-              <input
-                disabled="true"
-                id="input-3-d-1"
-                class="t-input"
-                type="number"
+            <input
+              disabled="true"
+              id="input-3-d-1"
+              class="t-input"
+              type="number"
               />
-            </ion-col> -->
-          </ion-row>
-          <!-- Fila 2 - G -->
-          <ion-row *ngIf="file2">
+          </ion-col> -->
+        </ion-row>
+        <!-- Fila 2 - G -->
+        @if (file2) {
+          <ion-row>
             <ion-col class="t-col" size="1">2 </ion-col>
-
             <ion-col size="2.5">
               <input id="input-3-s-2" class="t-input" type="number" />
             </ion-col>
             <ion-col size="2.5">
               <input id="input-3-e-2" class="t-input" type="number" />
             </ion-col>
-
             <ion-col size="3">
               <input id="input-3-p-2" class="t-input" type="number" />
             </ion-col>
             <!-- <ion-col size="3">
-              <input
-                disabled="true"
-                id="input-3-d-2"
-                class="t-input"
-                type="number"
+            <input
+              disabled="true"
+              id="input-3-d-2"
+              class="t-input"
+              type="number"
               />
-            </ion-col> -->
-          </ion-row>
+          </ion-col> -->
+        </ion-row>
+      }
+      <!-- Fila 3 - G -->
+      @if (file3) {
+        <ion-row>
+          <ion-col class="t-col" size="1">3 </ion-col>
+          <ion-col size="2.5">
+            <input id="input-3-s-3" class="t-input" type="number" />
+          </ion-col>
+          <ion-col size="2.5">
+            <input id="input-3-e-3" class="t-input" type="number" />
+          </ion-col>
+          <ion-col size="3">
+            <input id="input-3-p-3" class="t-input" type="number" />
+          </ion-col>
+          <!-- <ion-col size="3">
+          <input
+            id="input-3-d-3"
+            class="t-input"
+            type="number"
+            disabled="true"
+            />
+        </ion-col> -->
+      </ion-row>
+    }
+    <!-- Fila 4 - G -->
+    @if (file4) {
+      <ion-row>
+        <ion-col class="t-col" size="1">4 </ion-col>
+        <ion-col size="2.5">
+          <input id="input-3-s-4" class="t-input" type="number" />
+        </ion-col>
+        <ion-col size="2.5">
+          <input id="input-3-e-4" class="t-input" type="number" />
+        </ion-col>
+        <ion-col size="3">
+          <input id="input-3-p-4" class="t-input" type="number" />
+        </ion-col>
+        <!-- <ion-col size="3">
+        <input
+          disabled="true"
+          id="input-3-d-4"
+          class="t-input"
+          type="number"
+          />
+      </ion-col> -->
+    </ion-row>
+  }
+  <!-- Fila 5 - G -->
+  @if (file5) {
+    <ion-row>
+      <ion-col class="t-col" size="1">5 </ion-col>
+      <ion-col size="2.5">
+        <input id="input-3-s-5" class="t-input" type="number" />
+      </ion-col>
+      <ion-col size="2.5">
+        <input id="input-3-e-5" class="t-input" type="number" />
+      </ion-col>
+      <ion-col size="3">
+        <input id="input-3-p-5" class="t-input" type="number" />
+      </ion-col>
+      <!-- <ion-col size="3">
+      <input
+        disabled="true"
+        id="input-3-d-5"
+        class="t-input"
+        type="number"
+        />
+    </ion-col> -->
+  </ion-row>
+}
+</div>
+</ion-grid>
+}
+</div>
+}
+<!-- seller-4 -->
 
-          <!-- Fila 3 - G -->
-          <ion-row *ngIf="file3">
-            <ion-col class="t-col" size="1">3 </ion-col>
-
-            <ion-col size="2.5">
-              <input id="input-3-s-3" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-3-e-3" class="t-input" type="number" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-3-p-3" class="t-input" type="number" />
-            </ion-col>
-            <!-- <ion-col size="3">
-              <input
-                id="input-3-d-3"
-                class="t-input"
-                type="number"
-                disabled="true"
-              />
-            </ion-col> -->
-          </ion-row>
-          <!-- Fila 4 - G -->
-          <ion-row *ngIf="file4">
-            <ion-col class="t-col" size="1">4 </ion-col>
-
-            <ion-col size="2.5">
-              <input id="input-3-s-4" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-3-e-4" class="t-input" type="number" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-3-p-4" class="t-input" type="number" />
-            </ion-col>
-            <!-- <ion-col size="3">
-              <input
-                disabled="true"
-                id="input-3-d-4"
-                class="t-input"
-                type="number"
-              />
-            </ion-col> -->
-          </ion-row>
-          <!-- Fila 5 - G -->
-          <ion-row *ngIf="file5">
-            <ion-col class="t-col" size="1">5 </ion-col>
-
-            <ion-col size="2.5">
-              <input id="input-3-s-5" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-3-e-5" class="t-input" type="number" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-3-p-5" class="t-input" type="number" />
-            </ion-col>
-            <!-- <ion-col size="3">
-              <input
-                disabled="true"
-                id="input-3-d-5"
-                class="t-input"
-                type="number"
-              />
-            </ion-col> -->
-          </ion-row>
-        </div>
-      </ion-grid>
+@if (matrix) {
+  <div>
+    <div class="title-seller">
+      <h4>Vendedor 4</h4>
     </div>
-    <!-- seller-4 -->
-
-    <div *ngIf="matrix">
-      <div class="title-seller">
-        <h4>Vendedor 4</h4>
-      </div>
-
-      <ion-grid *ngIf="sellers[4].check && isOk">
+    @if (sellers[4].check && isOk) {
+      <ion-grid>
         <ion-row class="t-header">
           <ion-col size="1"># </ion-col>
           <ion-col size="5">Rango </ion-col>
           <ion-col size="3">Precio</ion-col>
           <!-- <ion-col size="3">Descuento</ion-col> -->
         </ion-row>
-
         <div class="t-body">
           <!-- Fila 1 - G -->
           <ion-row>
             <ion-col class="t-col" size="1">1 </ion-col>
-
             <ion-col size="2.5">
               <input id="input-4-s-1" class="t-input" type="number" />
             </ion-col>
             <ion-col size="2.5">
               <input id="input-4-e-1" class="t-input" type="number" />
             </ion-col>
-
             <ion-col size="3">
               <input id="input-4-p-1" class="t-input" type="number" />
             </ion-col>
             <!-- <ion-col size="3">
-              <input
-                disabled="true"
-                id="input-4-d-1"
-                class="t-input"
-                type="number"
+            <input
+              disabled="true"
+              id="input-4-d-1"
+              class="t-input"
+              type="number"
               />
-            </ion-col> -->
-          </ion-row>
-          <!-- Fila 2 - G -->
-          <ion-row *ngIf="file2">
+          </ion-col> -->
+        </ion-row>
+        <!-- Fila 2 - G -->
+        @if (file2) {
+          <ion-row>
             <ion-col class="t-col" size="1">2 </ion-col>
-
             <ion-col size="2.5">
               <input id="input-4-s-2" class="t-input" type="number" />
             </ion-col>
             <ion-col size="2.5">
               <input id="input-4-e-2" class="t-input" type="number" />
             </ion-col>
-
             <ion-col size="3">
               <input id="input-4-p-2" class="t-input" type="number" />
             </ion-col>
             <!-- <ion-col size="3">
-              <input
-                disabled="true"
-                id="input-4-d-2"
-                class="t-input"
-                type="number"
+            <input
+              disabled="true"
+              id="input-4-d-2"
+              class="t-input"
+              type="number"
               />
-            </ion-col> -->
-          </ion-row>
-
-          <!-- Fila 3 - G -->
-          <ion-row *ngIf="file3">
-            <ion-col class="t-col" size="1">3 </ion-col>
-
-            <ion-col size="2.5">
-              <input id="input-4-s-3" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-4-e-3" class="t-input" type="number" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-4-p-3" class="t-input" type="number" />
-            </ion-col>
-            <!-- <ion-col size="3">
-              <input
-                disabled="true"
-                id="input-4-d-3"
-                class="t-input"
-                type="number"
-              />
-            </ion-col> -->
-          </ion-row>
-          <!-- Fila 4 - G -->
-          <ion-row *ngIf="file4">
-            <ion-col class="t-col" size="1">4 </ion-col>
-
-            <ion-col size="2.5">
-              <input id="input-4-s-4" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-4-e-4" class="t-input" type="number" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-4-p-4" class="t-input" type="number" />
-            </ion-col>
-            <!-- <ion-col size="3">
-              <input
-                disabled="true"
-                id="input-4-d-4"
-                class="t-input"
-                type="number"
-              />
-            </ion-col> -->
-          </ion-row>
-          <!-- Fila 5 - G -->
-          <ion-row *ngIf="file5">
-            <ion-col class="t-col" size="1">5 </ion-col>
-
-            <ion-col size="2.5">
-              <input id="input-4-s-5" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-4-e-5" class="t-input" type="number" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-4-p-5" class="t-input" type="number" />
-            </ion-col>
-            <!-- <ion-col size="3">
-              <input
-                disabled="true"
-                id="input-4-d-5"
-                class="t-input"
-                type="number"
-              />
-            </ion-col> -->
-          </ion-row>
-        </div>
-      </ion-grid>
+          </ion-col> -->
+        </ion-row>
+      }
+      <!-- Fila 3 - G -->
+      @if (file3) {
+        <ion-row>
+          <ion-col class="t-col" size="1">3 </ion-col>
+          <ion-col size="2.5">
+            <input id="input-4-s-3" class="t-input" type="number" />
+          </ion-col>
+          <ion-col size="2.5">
+            <input id="input-4-e-3" class="t-input" type="number" />
+          </ion-col>
+          <ion-col size="3">
+            <input id="input-4-p-3" class="t-input" type="number" />
+          </ion-col>
+          <!-- <ion-col size="3">
+          <input
+            disabled="true"
+            id="input-4-d-3"
+            class="t-input"
+            type="number"
+            />
+        </ion-col> -->
+      </ion-row>
+    }
+    <!-- Fila 4 - G -->
+    @if (file4) {
+      <ion-row>
+        <ion-col class="t-col" size="1">4 </ion-col>
+        <ion-col size="2.5">
+          <input id="input-4-s-4" class="t-input" type="number" />
+        </ion-col>
+        <ion-col size="2.5">
+          <input id="input-4-e-4" class="t-input" type="number" />
+        </ion-col>
+        <ion-col size="3">
+          <input id="input-4-p-4" class="t-input" type="number" />
+        </ion-col>
+        <!-- <ion-col size="3">
+        <input
+          disabled="true"
+          id="input-4-d-4"
+          class="t-input"
+          type="number"
+          />
+      </ion-col> -->
+    </ion-row>
+  }
+  <!-- Fila 5 - G -->
+  @if (file5) {
+    <ion-row>
+      <ion-col class="t-col" size="1">5 </ion-col>
+      <ion-col size="2.5">
+        <input id="input-4-s-5" class="t-input" type="number" />
+      </ion-col>
+      <ion-col size="2.5">
+        <input id="input-4-e-5" class="t-input" type="number" />
+      </ion-col>
+      <ion-col size="3">
+        <input id="input-4-p-5" class="t-input" type="number" />
+      </ion-col>
+      <!-- <ion-col size="3">
+      <input
+        disabled="true"
+        id="input-4-d-5"
+        class="t-input"
+        type="number"
+        />
+    </ion-col> -->
+  </ion-row>
+}
+</div>
+</ion-grid>
+}
+</div>
+}
+<!-- seller-5 -->
+@if (matrix) {
+  <div>
+    <div class="title-seller">
+      <h4>Vendedor 5</h4>
     </div>
-    <!-- seller-5 -->
-    <div *ngIf="matrix">
-      <div class="title-seller">
-        <h4>Vendedor 5</h4>
-      </div>
-
-      <ion-grid *ngIf="sellers[5].check && isOk">
+    @if (sellers[5].check && isOk) {
+      <ion-grid>
         <ion-row class="t-header">
           <ion-col size="1"># </ion-col>
           <ion-col size="5">Rango </ion-col>
           <ion-col size="3">Precio</ion-col>
           <!-- <ion-col size="3">Descuento</ion-col> -->
         </ion-row>
-
         <div class="t-body">
           <!-- Fila 1 - G -->
           <ion-row>
             <ion-col class="t-col" size="1">1 </ion-col>
-
             <ion-col size="2.5">
               <input id="input-5-s-1" class="t-input" type="number" />
             </ion-col>
             <ion-col size="2.5">
               <input id="input-5-e-1" class="t-input" type="number" />
             </ion-col>
-
             <ion-col size="3">
               <input id="input-5-p-1" class="t-input" type="number" />
             </ion-col>
@@ -842,152 +848,153 @@
                 id="input-5-d-1"
                 class="t-input"
                 type="number"
-              />
+                />
             </ion-col>
           </ion-row>
           <!-- Fila 2 - G -->
-          <ion-row *ngIf="file2">
-            <ion-col class="t-col" size="1">2 </ion-col>
-
-            <ion-col size="2.5">
-              <input id="input-5-s-2" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-5-e-2" class="t-input" type="number" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-5-p-2" class="t-input" type="number" />
-            </ion-col>
-            <!-- <ion-col size="3">
+          @if (file2) {
+            <ion-row>
+              <ion-col class="t-col" size="1">2 </ion-col>
+              <ion-col size="2.5">
+                <input id="input-5-s-2" class="t-input" type="number" />
+              </ion-col>
+              <ion-col size="2.5">
+                <input id="input-5-e-2" class="t-input" type="number" />
+              </ion-col>
+              <ion-col size="3">
+                <input id="input-5-p-2" class="t-input" type="number" />
+              </ion-col>
+              <!-- <ion-col size="3">
               <input
                 disabled="true"
                 id="input-5-d-2"
                 class="t-input"
                 type="number"
-              />
+                />
             </ion-col> -->
           </ion-row>
-
-          <!-- Fila 3 - G -->
-          <ion-row *ngIf="file3">
+        }
+        <!-- Fila 3 - G -->
+        @if (file3) {
+          <ion-row>
             <ion-col class="t-col" size="1">3 </ion-col>
-
             <ion-col size="2.5">
               <input id="input-5-s-3" class="t-input" type="number" />
             </ion-col>
             <ion-col size="2.5">
               <input id="input-5-e-3" class="t-input" type="number" />
             </ion-col>
-
             <ion-col size="3">
               <input id="input-5-p-3" class="t-input" type="number" />
             </ion-col>
             <!-- <ion-col size="3">
-              <input
-                id="input-5-d-3"
-                class="t-input"
-                type="number"
-                disabled="true"
+            <input
+              id="input-5-d-3"
+              class="t-input"
+              type="number"
+              disabled="true"
               />
-            </ion-col> -->
-          </ion-row>
-          <!-- Fila 4 - G -->
-          <ion-row *ngIf="file4">
-            <ion-col class="t-col" size="1">4 </ion-col>
+          </ion-col> -->
+        </ion-row>
+      }
+      <!-- Fila 4 - G -->
+      @if (file4) {
+        <ion-row>
+          <ion-col class="t-col" size="1">4 </ion-col>
+          <ion-col size="2.5">
+            <input id="input-5-s-4" class="t-input" type="number" />
+          </ion-col>
+          <ion-col size="2.5">
+            <input id="input-5-e-4" class="t-input" type="number" />
+          </ion-col>
+          <ion-col size="3">
+            <input id="input-5-p-4" class="t-input" type="number" />
+          </ion-col>
+          <!-- <ion-col size="3">
+          <input
+            disabled="true"
+            id="input-5-d-4"
+            class="t-input"
+            type="number"
+            />
+        </ion-col> -->
+      </ion-row>
+    }
+    <!-- Fila 5 - G -->
+    @if (file5) {
+      <ion-row>
+        <ion-col class="t-col" size="1">5 </ion-col>
+        <ion-col size="2.5">
+          <input id="input-5-s-5" class="t-input" type="number" />
+        </ion-col>
+        <ion-col size="2.5">
+          <input id="input-5-e-5" class="t-input" type="number" />
+        </ion-col>
+        <ion-col size="3">
+          <input id="input-5-p-5" class="t-input" type="number" />
+        </ion-col>
+        <!-- <ion-col size="3">
+        <input
+          disabled="true"
+          id="input-5-d-5"
+          class="t-input"
+          type="number"
+          />
+      </ion-col> -->
+    </ion-row>
+  }
+</div>
+</ion-grid>
+}
+</div>
+}
+</div>
+<!-- <span>{{ formPrices.value | json }}</span> -->
+<!-- <span>{{ form.value | json }}</span> -->
 
-            <ion-col size="2.5">
-              <input id="input-5-s-4" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-5-e-4" class="t-input" type="number" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-5-p-4" class="t-input" type="number" />
-            </ion-col>
-            <!-- <ion-col size="3">
-              <input
-                disabled="true"
-                id="input-5-d-4"
-                class="t-input"
-                type="number"
-              />
-            </ion-col> -->
-          </ion-row>
-          <!-- Fila 5 - G -->
-          <ion-row *ngIf="file5">
-            <ion-col class="t-col" size="1">5 </ion-col>
-
-            <ion-col size="2.5">
-              <input id="input-5-s-5" class="t-input" type="number" />
-            </ion-col>
-            <ion-col size="2.5">
-              <input id="input-5-e-5" class="t-input" type="number" />
-            </ion-col>
-
-            <ion-col size="3">
-              <input id="input-5-p-5" class="t-input" type="number" />
-            </ion-col>
-            <!-- <ion-col size="3">
-              <input
-                disabled="true"
-                id="input-5-d-5"
-                class="t-input"
-                type="number"
-              />
-            </ion-col> -->
-          </ion-row>
-        </div>
-      </ion-grid>
-    </div>
-  </div>
-  <!-- <span>{{ formPrices.value | json }}</span> -->
-  <!-- <span>{{ form.value | json }}</span> -->
-
-  <ion-button
-    class="btn"
-    [disabled]="!isDisabled"
-    expand="block"
-    color="danger"
-    (click)="postPrices()"
+<ion-button
+  class="btn"
+  [disabled]="!isDisabled"
+  expand="block"
+  color="danger"
+  (click)="postPrices()"
   >
-    enviar
-  </ion-button>
+  enviar
+</ion-button>
 
-  <!-- <h3>Lista de vendedores</h3>
+<!-- <h3>Lista de vendedores</h3>
 
-  <div class="card">
-    <h5>Vendedores 1</h5>
+<div class="card">
+  <h5>Vendedores 1</h5>
 
-    <ul>
-      <li>Coffee</li>
-      <li>Tea</li>
-      <li>Milk</li>
-    </ul>
-  </div>
-  <div class="card">
-    <h5>Vendedores 2</h5>
+  <ul>
+    <li>Coffee</li>
+    <li>Tea</li>
+    <li>Milk</li>
+  </ul>
+</div>
+<div class="card">
+  <h5>Vendedores 2</h5>
 
-    <ul>
-      <li>Coffee</li>
-      <li>Tea</li>
-      <li>Milk</li>
-      <li>Coffee</li>
-      <li>Tea</li>
-      <li>Milk</li>
-    </ul>
-  </div>
+  <ul>
+    <li>Coffee</li>
+    <li>Tea</li>
+    <li>Milk</li>
+    <li>Coffee</li>
+    <li>Tea</li>
+    <li>Milk</li>
+  </ul>
+</div>
 
-  <div class="card">
-    <h5>Vendedores 3</h5>
+<div class="card">
+  <h5>Vendedores 3</h5>
 
-    <ul>
-      <li>Coffee</li>
-      <li>Tea</li>
-      <li>Milk</li>
-    </ul>
-  </div> -->
+  <ul>
+    <li>Coffee</li>
+    <li>Tea</li>
+    <li>Milk</li>
+  </ul>
+</div> -->
 </ion-content>
 
 <!--
@@ -1054,8 +1061,8 @@
   </table>
 </div>
 
-   <div class="btns-add">
-      <button class="btn-small" (click)="addFileTable()">agregar</button>
-      <button class="btn-small" (click)="deleteFileTable()">eliminar</button>
-    </div>  
- -->
+<div class="btns-add">
+  <button class="btn-small" (click)="addFileTable()">agregar</button>
+  <button class="btn-small" (click)="deleteFileTable()">eliminar</button>
+</div>
+-->

@@ -1,13 +1,13 @@
 <ion-content
   [ngClass]="this.screemSeller === false ? 'content-reg' : 'content-ven'"
->
+  >
   <section id="formInput">
     <form (ngSubmit)="onSubmit()" [formGroup]="formRegister">
       <ion-grid fixed>
         <ion-row>
           <ion-col>
             <h1 class="titile-first">
-              {{ tittleRegister }} 
+              {{ tittleRegister }}
             </h1>
             <p>Fácil y rápido</p>
           </ion-col>
@@ -37,144 +37,146 @@
                 ></ion-input>
               </ion-item>
               <!-- <ion-item>
-                <ion-label>Segundo Apellido</ion-label>
-                <ion-input
-                  name="text"
-                  id="lastName2Input"
-                  formControlName="lastName2"
-                  type="tex"
-                  required
-                ></ion-input>
-              </ion-item> -->
-              <ion-item>
-                <ion-label>DNI/Pasaporte</ion-label>
-                <ion-input
-                  name="text"
-                  formControlName="dni"
-                  type="tex"
-                  required
-                ></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label>Número de celular</ion-label>
-                <ion-input
-                  name="tel"
-                  inputmode="tel"
-                  maxlength="9"
-                  formControlName="phone"
-                  placeholder="987987654"
-                  type="text"
-                  required
-                ></ion-input>
-              </ion-item>
-              <!-- <ion-item>
-                <ion-label>Email</ion-label>
-                <ion-input
-                  name="email"
-                  autocomplete="email"
-                  formControlName="email"
-                  type="email"
-                  equired
-                ></ion-input>
-              </ion-item> -->
-              <ion-item>
-                <ion-label>Contraseña</ion-label>
-                <ion-input
-                  name="password"
-                  formControlName="password"
-                  [type]="valueText1"
-                  required
-                ></ion-input>
-                <ion-icon
-                  (click)="verPassword1()"
-                  slot="end"
-                  name="eye"
-                  value="pass1"
-                ></ion-icon>
-              </ion-item>
-              <ion-item>
-                <ion-label>Verificar constraseña</ion-label>
-                <ion-input
-                  formControlName="confiPassword"
-                  [type]="valueText2"
-                ></ion-input>
-                <ion-icon
-                  (click)="verPassword2()"
-                  slot="end"
-                  name="eye"
-                  value="pass2"
-                ></ion-icon>
-              </ion-item>
-              <small>
-                <p
-                  class="text-valid"
-                  [ngStyle]="{ color: messegerColor }"
-                  *ngIf="formRegister.get('confiPassword').valid"
+              <ion-label>Segundo Apellido</ion-label>
+              <ion-input
+                name="text"
+                id="lastName2Input"
+                formControlName="lastName2"
+                type="tex"
+                required
+              ></ion-input>
+            </ion-item> -->
+            <ion-item>
+              <ion-label>DNI/Pasaporte</ion-label>
+              <ion-input
+                name="text"
+                formControlName="dni"
+                type="tex"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>Número de celular</ion-label>
+              <ion-input
+                name="tel"
+                inputmode="tel"
+                maxlength="9"
+                formControlName="phone"
+                placeholder="987987654"
+                type="text"
+                required
+              ></ion-input>
+            </ion-item>
+            <!-- <ion-item>
+            <ion-label>Email</ion-label>
+            <ion-input
+              name="email"
+              autocomplete="email"
+              formControlName="email"
+              type="email"
+              equired
+            ></ion-input>
+          </ion-item> -->
+          <ion-item>
+            <ion-label>Contraseña</ion-label>
+            <ion-input
+              name="password"
+              formControlName="password"
+              [type]="valueText1"
+              required
+            ></ion-input>
+            <ion-icon
+              (click)="verPassword1()"
+              slot="end"
+              name="eye"
+              value="pass1"
+            ></ion-icon>
+          </ion-item>
+          <ion-item>
+            <ion-label>Verificar constraseña</ion-label>
+            <ion-input
+              formControlName="confiPassword"
+              [type]="valueText2"
+            ></ion-input>
+            <ion-icon
+              (click)="verPassword2()"
+              slot="end"
+              name="eye"
+              value="pass2"
+            ></ion-icon>
+          </ion-item>
+          <small>
+            @if (formRegister.get('confiPassword').valid) {
+              <p
+                class="text-valid"
+                [ngStyle]="{ color: messegerColor }"
                 >
-                  {{ messeger }}
-                </p>
-              </small>
-              <!-- <small>
-                <p
-                  class="text-valid"
-                  [ngStyle]="{ color: messegerColor }"
-                  *ngIf="formRegister.get('phone').invalid"
-                >
-                  {{ messeger }}
-                </p>
-              </small> -->
-              <!-- <small>
-                <p
-                  class="text-invalid"
+                {{ messeger }}
+              </p>
+            }
+          </small>
+          <!-- <small>
+          <p
+            class="text-valid"
+            [ngStyle]="{ color: messegerColor }"
+            *ngIf="formRegister.get('phone').invalid"
+            >
+            {{ messeger }}
+          </p>
+        </small> -->
+        <!-- <small>
+        <p
+          class="text-invalid"
                   *ngIf="
                     (formRegister.get('confiPassword').invalid) &&
                     formRegister.get('confiPassword').dirty 
                   "
-                >QUESO  
-                  {{ messeger }}
-                </p>
-              </small> -->
-            </ion-list>
-          </ion-col>
-        </ion-row>
+          >QUESO
+          {{ messeger }}
+        </p>
+      </small> -->
+    </ion-list>
+  </ion-col>
+</ion-row>
 
-        <ion-row>
-          <ion-col>
-            <ion-button
-              [disabled]="this.formRegister.invalid"
-              id="buttonColor"
-              type="submit"
-              shape="round"
-          
-            >
-              Registrarse
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </form>
-  </section>
-  <!-- <ion-row>
-    {{ this.formRegister.valid }}
-  </ion-row> -->
+<ion-row>
+  <ion-col>
+    <ion-button
+      [disabled]="this.formRegister.invalid"
+      id="buttonColor"
+      type="submit"
+      shape="round"
 
-  <div></div>
-  <div></div>
-  <ion-button class="text-cuenta" color="danger" shape="round"> 
-    <a href="/auth/log-in"> Ya tengo cuenta </a>
-  </ion-button>
-  <!-- <ion-label class="text-cuenta"  style="z-index: 5">
-    <a href="/auth/log-in"> Ya tengo cuenta </a>
-  </ion-label> -->
-  <div class="vendedor-register" *ngIf="!screemSeller">
+      >
+      Registrarse
+    </ion-button>
+  </ion-col>
+</ion-row>
+</ion-grid>
+</form>
+</section>
+<!-- <ion-row>
+{{ this.formRegister.valid }}
+</ion-row> -->
+
+<div></div>
+<div></div>
+<ion-button class="text-cuenta" color="danger" shape="round">
+  <a href="/auth/log-in"> Ya tengo cuenta </a>
+</ion-button>
+<!-- <ion-label class="text-cuenta"  style="z-index: 5">
+<a href="/auth/log-in"> Ya tengo cuenta </a>
+</ion-label> -->
+@if (!screemSeller) {
+  <div class="vendedor-register">
     <!-- href="#home" -->
     <ion-label style="z-index: 5" (click)="registerLikeSeller()">
       <b>Registarte como Vendedor </b>
- 
     </ion-label>
     <ion-icon style="font-size: 20px;" name="cart-outline"></ion-icon>
   </div>
-  <!-- <ion-icon style="font-size: 20px;" name="market" ></ion-icon> -->
+}
+<!-- <ion-icon style="font-size: 20px;" name="market" ></ion-icon> -->
 
-  <!-- {{ this.formRegister.value | json }} -->
+<!-- {{ this.formRegister.value | json }} -->
 </ion-content>

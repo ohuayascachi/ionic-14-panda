@@ -2,7 +2,7 @@
   [title]="'Mis compras'"
   [iconName]="'chevron-back-sharp'"
   (pathRetro)="routerLinkRetro()"
->
+  >
 </app-header>
 
 <ion-content fullscreen class="content">
@@ -20,7 +20,7 @@
     (ionChange)="cambioSegment($event)"
     value="no-completed"
     mode="ios"
-  >
+    >
     <ion-segment-button class="segment-1" value="no-completed">
       <ion-label class="segment-label">En proceso</ion-label>
     </ion-segment-button>
@@ -33,19 +33,19 @@
   <app-loading></app-loading>
 
   <div class="content-ordes">
-    <app-card-list-orders
-    *ngIf="this.segment !== 'completed'"
-    [orders]="ordersNoEnd$ | async"
-  >
- 
-  </app-card-list-orders>
-  
-  <app-card-list-orders
-    *ngIf="this.segment === 'completed'"
-    [orders]="ordersEnd$ | async"
-  >
- 
-  </app-card-list-orders>
+    @if (this.segment !== 'completed') {
+      <app-card-list-orders
+        [orders]="ordersNoEnd$ | async"
+        >
+      </app-card-list-orders>
+    }
+
+    @if (this.segment === 'completed') {
+      <app-card-list-orders
+        [orders]="ordersEnd$ | async"
+        >
+      </app-card-list-orders>
+    }
   </div>
 
 
