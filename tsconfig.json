@@ -15,7 +15,9 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "es2020",
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "skipLibCheck": true,
+
   },
 
   "angularCompilerOptions": {
@@ -23,6 +25,6 @@
     "strictInjectionParameters": false,
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
- 
+
   }
 }
