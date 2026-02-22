@@ -23,7 +23,7 @@ export class UserService {
 
   dataUser$: Observable<UserGet> = this.subjectUser.asObservable();
 
-  constructor(    private fncService: FuncionesService, 
+  constructor(    private fncService: FuncionesService,
                   private http: HttpClient,    private router: Router,     private toastController: ToastController) {}
   get token(): string {
     return localStorage.getItem('token') || '';
@@ -52,7 +52,7 @@ export class UserService {
       )
       .pipe(
         tap((x) => this.subjectUser.next(x.item)),
-        //  tap((x) => console.log(x)),
+        // tap((x) => console.log(x)),
          catchError(this.errorHandler),
       )
       .subscribe();
@@ -111,7 +111,7 @@ export class UserService {
         position: 'top',
         color: col,
       });
-  
+
       await toast.present();
     }
 }

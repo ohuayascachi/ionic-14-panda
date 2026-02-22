@@ -51,19 +51,27 @@ export class OrderListComponent implements OnInit {
 
   cambioSegment(e: any) {
     const busqueda = e.detail.value;
-    //console.log(e.detail.value);
+  //   console.log(e.detail.value);
     this.segment = busqueda;
 
     const orders$ = this.orderService.dataOrders$;
+
     this.ordersNoEnd$ = orders$.pipe(
-      map((resp) => resp.filter((x) => x.statusOrder !== busqueda))
+      map((resp) => resp.filter((x) => x.statusOrder !== 'completed')),
+     // tap( x => console.log(x))
       //  finalize(() => this.loandingService.loadingOff())
     );
 
+    //this.ordersNoEnd$.subscribe( p => console.log('No-com',p))
+
     this.ordersEnd$ = orders$.pipe(
-      map((resp) => resp.filter((x) => x.statusOrder === busqueda))
+      //tap( ()=>  this.ordersNoEnd$.subscribe( x=> console.log(x))),
+      map((resp) => resp.filter((x) => x.statusOrder === busqueda)),
+      // tap( x => console.log(x))
       //    finalize(() => this.loandingService.loadingOff())
     );
+   // this.ordersEnd$.subscribe( p => console.log('comple',p))
+
   }
   routerLinkRetro() {
     this.router.navigateByUrl('/user');

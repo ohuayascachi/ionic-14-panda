@@ -89,7 +89,7 @@ import { MydatosComponent } from './share/mydatos/mydatos.component';
   exports: [
     CardListOrdersComponent,
     LoadingComponent,
-    InventoryComponent,
+   //InventoryComponent,
     Tab3Page,
   ],
 })

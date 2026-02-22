@@ -2,6 +2,13 @@
   padding-bottom: 0px;
 }
 
+.detalle-product{
+  margin-top: 0.5rem 0.5rem 0.5rem;
+}
+// .container{
+// display: flex;
+// align-items:self-start;
+// }
 
 ng-template {
   height: max-content !important;
@@ -15,13 +22,13 @@ ion-thumbnail {
 }
 
 ion-content {
-  height: 90vh !important;
+  height: 100vh !important;
 
 }
 
-ion-accordion-group {
-  --background: red;
-}
+// ion-accordion-group {
+//   --background: red;
+// }
 
 .start-btn {
   width: 100px;
@@ -74,7 +81,7 @@ ion-accordion-group {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+ // position: relative;
  
 }
 
@@ -95,19 +102,116 @@ ion-accordion-group {
   }
 }
 
+.final{
+  height: 1rem;
+}
+// ion-fab  {
 
-ion-fab  {
-
-  display: flex;
-  width: 100% !important;
-  align-items: center;
-  justify-content: center;
+//   display: flex;
+//   width: 100% !important;
+//   align-items: center;
+//   justify-content: center;
    
+// }
+
+// @media screen and (min-width: 768px) {
+//   .img-prod{
+ 
+//     width: 25rem !important;
+//     background: #ffd700;
+//   }
+// }
+
+.container-prod {
+ 
+  --background-color: #eaff00;
+ 
+   background-color: #2dd5d3;
+   --background : #eaff00;
+ 
+   background : #2dd5d3;
+
 }
 
-@media screen and (min-width: 768px) {
-  .img-prod{
+ /**************************/
+ /* Aqui responsible device /
+ /**************************/
+
+
+
+ /**************************/
+ /* BELOW 1344px (Smaller desktops) */
+ /**************************/
+
+ @media (max-width: 98em) {
  
-    width: 25rem !important;
-  }
+  .container-prod {
+      margin-left: 27rem;
+      margin-right: 27rem;
+      width: auto; 
+      --background-color: #00fffb;
+      --background: #00fffb;
+      z-index: 2;
+
+   }
+
+    .img-prod{
+ 
+        width: 22rem !important ;
+ 
+      }
+}
+
+/**************************/
+/* BELOW 1200px (Landscape Tablets) */
+/**************************/
+
+@media (max-width: 75em) {
+  .container-prod {
+      margin-left: 21rem;
+      margin-right: 21rem;
+      width: auto;
+      background: #00fffb;
+   }
+}
+
+/**************************/
+/* BELOW 944px (Tablets) */
+/**************************/
+
+@media (max-width: 59em) {
+
+  .container-prod {
+      margin-left: 12rem;
+      margin-right: 12rem;
+      width: auto;
+   }
+
+}
+
+/**************************/
+/* BELOW 704px (Smaller tablets) */
+/**************************/
+
+@media (max-width: 44em) {
+  .container-prod {
+      margin-left: 6rem;
+      margin-right: 6rem;
+      width: auto;
+   }
+
+}
+
+/**************************/
+/* BELOW 544px (Phones) */
+/**************************/
+
+@media (max-width: 34em) {
+ 
+  .container-prod {
+      margin-left: 0.1rem;
+      margin-right: 0.1rem;
+      width: auto;
+   }
+
 }

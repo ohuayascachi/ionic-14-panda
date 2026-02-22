@@ -25,9 +25,15 @@ const routes: Routes = [
     ],
   },
 
+  // {
+  //   path: '',
+  //   redirectTo: '/auth/log-in',
+  //   pathMatch: 'full',
+  // },
+
   {
     path: '',
-    redirectTo: '/auth/log-in',
+    redirectTo: '/products',
     pathMatch: 'full',
   },
 

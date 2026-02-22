@@ -30,9 +30,18 @@ export class InventoryComponent implements OnInit {
     this.ordersNoEnd$ = ordersAll$.pipe(
       // tap(() => (this.segment = 'no-completed')),
       // tap((x) => console.log(x)),
-      debounceTime(300),
-      map((resp) => resp.filter((x) => x.statusOrder !== 'completed')),
-      tap(() => this.loandingService.loadingOff())
+      //debounceTime(300),
+      map((resp) =>{ 
+        if( resp == null){
+          return;
+        }else{
+          this.loandingService.loadingOff();
+          return resp.filter((x) => x.statusOrder !== 'completed');
+            
+        }
+       
+      }),
+     // tap(() => this.loandingService.loadingOff())
     );
   }
 

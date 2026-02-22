@@ -10,169 +10,160 @@
   </ion-toolbar>
 </ion-header>
 
-<div *ngIf="noExiste === false" class="container">
-  <ion-segment (ionChange)="segmentChange($event)" value="producto">
-    <ion-segment-button value="producto">
-      <ion-label style="text-transform: capitalize">
-        <strong>Producto</strong>
-      </ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="relacionado" disabled>
-      <ion-label style="text-transform: capitalize">
-        <strong>Relacionado</strong>
-      </ion-label>
-    </ion-segment-button>
-  </ion-segment>
-  <ion-content [scrollEvents]="true" *ngIf="seletedValue === 'producto'">
-    <!-- aqui viene las imagenes -->
-    <swiper (slideChange)="onSlideChange($event)">
-      <ng-template swiperSlide>
-        <ion-thumbnail>
-          <img
-          class="img-prod"
-            *ngIf="product.image1.imgLarge"
-            alt="Product"
-            [src]="product.image1.imgLarge"
-          />
+ 
+<div class="container-prod" >
+  <ion-content *ngIf="noExiste === false">
+    
+    <div class="detalle-product" *ngIf="seletedValue === 'producto'">
+      <!-- aqui viene las imagenes -->
+      <swiper (slideChange)="onSlideChange($event)">
+        <ng-template swiperSlide>
+          <ion-thumbnail>
+            <img
+              class="img-prod"
+              *ngIf="product.image1.imgLarge"
+              alt="Product"
+              [src]="product.image1.imgLarge"
+            />
 
-          <img
-          class="img-prod"
-            *ngIf="!product.image1.imgLarge"
-            alt="Product"
-            src="../../../../assets/img/products/noproduct-large.png"
-          />
-        </ion-thumbnail>
-      </ng-template>
-      <ng-template swiperSlide>
-        <ion-thumbnail>
-          <img
-          class="img-prod"
-            *ngIf="product.image2.imgLarge"
-            alt="Product-aws"
-            [src]="product.image1.imgLarge"
-          />
+            <img
+              class="img-prod"
+              *ngIf="!product.image1.imgLarge"
+              alt="Product"
+              src="../../../../assets/img/products/noproduct-large.png"
+            />
+          </ion-thumbnail>
+        </ng-template>
+        <ng-template swiperSlide>
+          <ion-thumbnail>
+            <img
+              class="img-prod"
+              *ngIf="product.image2.imgLarge"
+              alt="Product-aws"
+              [src]="product.image1.imgLarge"
+            />
 
-          <img
-          class="img-prod"
-            *ngIf="!product.image2.imgLarge"
-            alt="Product"
-            src="../../../../assets/img/products/noproduct-large.png"
-          />
-        </ion-thumbnail>
-      </ng-template>
-      <ng-template swiperSlide>
-        <ion-thumbnail>
-          <img
-          class="img-prod"
-            *ngIf="product.image3.imgLarge"
-            alt="Product aws"
-            [src]="product.image3.imgLarge"
-          />
+            <img
+              class="img-prod"
+              *ngIf="!product.image2.imgLarge"
+              alt="Product"
+              src="../../../../assets/img/products/noproduct-large.png"
+            />
+          </ion-thumbnail>
+        </ng-template>
+        <ng-template swiperSlide>
+          <ion-thumbnail>
+            <img
+              class="img-prod"
+              *ngIf="product.image3.imgLarge"
+              alt="Product aws"
+              [src]="product.image3.imgLarge"
+            />
 
-          <img
-          class="img-prod"
-            *ngIf="!product.image3.imgLarge"
-            alt="Product"
-            src="../../../../assets/img/products/noproduct-large.png"
-          />
-        </ion-thumbnail>
-      </ng-template>
-    </swiper>
+            <img
+              class="img-prod"
+              *ngIf="!product.image3.imgLarge"
+              alt="Product"
+              src="../../../../assets/img/products/noproduct-large.png"
+            />
+          </ion-thumbnail>
+        </ng-template>
+      </swiper>
 
-    <div class="text-title">
-      <span [formGroup]="formStar">
-        <ngx-star-rating
-          formControlName="rating"
-          [id]="'rating'"
-          rating="5"
-        ></ngx-star-rating>
-      </span>
-      <h4 class="text-name">{{ product.name }}</h4>
-    </div>
+      <div class="text-title">
+        <span [formGroup]="formStar">
+          <ngx-star-rating
+            formControlName="rating"
+            [id]="'rating'"
+            rating="5"
+          ></ngx-star-rating>
+        </span>
+        <h4 class="text-name">{{ product.name }}</h4>
+      </div>
 
-    <!-- <span>{{ this.formStar.value | json }}</span> -->
-    <ion-accordion-group>
-      <ion-accordion value="first">
-        <ion-item slot="header" color="light">
-          <h5><strong> Caracteristícas </strong></h5>
-        </ion-item>
-
-        <div slot="content">
-          <ion-item *ngFor="let item of product.features">
-            <ion-label class="label">
-              {{ item.key }}
-            </ion-label>
-            <p class="valor">{{ item.value }}</p>
-          </ion-item>
-        </div>
-      </ion-accordion>
-      <ion-accordion value="second">
-        <ion-item slot="header" color="light">
-          <h5><strong> Descripción </strong></h5>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          {{ product.description }}
-        </div>
-      </ion-accordion>
-      <ion-accordion value="third">
-        <ion-item slot="header" color="light">
-          <h5><strong> Precios </strong></h5>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          <ion-item lines="none" *ngFor="let item of product.precios">
-            <ion-label
-              >De {{ item["range"].start }} a {{ item.range.end }} Unidades
-            </ion-label>
-            <div>
-              <h5>
-                <strong>{{ item["unidadMoneda"] }} </strong>
-              </h5>
-            </div>
-            <div>
-              <h5>
-                <strong>{{ item["price"] }}</strong>
-              </h5>
-            </div>
+      <!-- <span>{{ this.formStar.value | json }}</span> -->
+      <ion-accordion-group>
+        <ion-accordion value="first">
+          <ion-item slot="header" color="light">
+            <h5><strong> Caracteristícas </strong></h5>
           </ion-item>
 
-          <!-- <p>
+          <div slot="content">
+            <ion-item *ngFor="let item of product.features">
+              <ion-label class="label">
+                {{ item.key }}
+              </ion-label>
+              <p class="valor">{{ item.value }}</p>
+            </ion-item>
+          </div>
+        </ion-accordion>
+        <ion-accordion value="second">
+          <ion-item slot="header" color="light">
+            <h5><strong> Descripción </strong></h5>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            {{ product.description }}
+          </div>
+        </ion-accordion>
+        <ion-accordion value="third">
+          <ion-item slot="header" color="light">
+            <h5><strong> Precios </strong></h5>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-item lines="none" *ngFor="let item of product.precios">
+              <ion-label
+                >De {{ item["range"].start }} a {{ item.range.end }} Unidades
+              </ion-label>
+              <div>
+                <h5>
+                  <strong>{{ item["unidadMoneda"] }} </strong>
+                </h5>
+              </div>
+              <div>
+                <h5>
+                  <strong>{{ item["price"] }}</strong>
+                </h5>
+              </div>
+            </ion-item>
+
+            <!-- <p>
             Para el despacho tener en cuenta que {{ product.nota | lowercase }}
           </p> -->
-          <p>
-            NOTA:Precios indicados al por unidad.<br />
-            Una caja contiene
-            <strong>{{ product.countByBox }}</strong> unidades.
-          </p>
-        </div>
-      </ion-accordion>
-      <ion-accordion value="forth">
-        <ion-item slot="header" color="light">
-          <h5><strong> Tienda & envio</strong></h5>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          <div class="tienda-information" lines="none">
-            <div>
-              Envío <strong> gratis </strong> a patir de compras a mayor a S/
-              100.
-            </div>
-            <div>
-              El costo de envío para compras menores S/100 es de S/ 10 ( Solo
-              para Lima ).
-            </div>
-            <div>
-              Para envío a provincia favor de coordianar directamente con los
-              números de contacto.
-            </div>
+            <p>
+              NOTA:Precios indicados al por unidad.<br />
+              Una caja contiene
+              <strong>{{ product.countByBox }}</strong> unidades.
+            </p>
           </div>
-          <ion-item lines="none">
-            <ion-label>Tienda</ion-label>
-            <div>
-              {{ product.location || "cintas - panda" | uppercase }}
-            </div>
+        </ion-accordion>
+        <ion-accordion value="forth">
+          <ion-item slot="header" color="light">
+            <h5><strong> Tienda & envio</strong></h5>
           </ion-item>
+          <div class="ion-padding" slot="content">
+            <div class="tienda-information" lines="none">
+              <div>
+                Envío <strong> gratis </strong> a patir de compras a mayor a S/
+                100.
+              </div>
+              <div>
+                El costo de envío para compras menores S/100 es de S/ 10 ( Solo
+                para Lima ).
+              </div>
+              <div>
+                Para envío a provincia favor de coordianar directamente con los
+                números de contacto.
+              </div>
+            </div>
+            <ion-item lines="none">
+              <ion-label>Tienda</ion-label>
+              <div>
+                {{ product.location || "cintas - panda" | uppercase }}
+              </div>
+            </ion-item>
 
-          <!-- pendiente para agregar - NOmbre del vendedor -->
-          <!-- <ion-item lines="none">
+            <!-- pendiente para agregar - NOmbre del vendedor -->
+            <!-- <ion-item lines="none">
             <ion-label>Producto de </ion-label>
             <div>
               <h5>
@@ -182,36 +173,34 @@
               </h5>
             </div>
           </ion-item> -->
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+
+      <ion-item lines="none">
+        <ion-label>Publicado </ion-label>
+        <div>
+          <h5>
+            <strong> {{ product.createdAt | date }} </strong>
+          </h5>
         </div>
-      </ion-accordion>
-    </ion-accordion-group>
+      </ion-item>
+      <!-- actualizado ultimo -->
+      <ion-item lines="none">
+        <ion-label>Actualizado </ion-label>
+        <div>
+          <h5>
+            <strong> {{ product.updatedAt | date }} </strong>
+          </h5>
+        </div>
+      </ion-item>
 
-    <ion-item lines="none">
-      <ion-label>Publicado </ion-label>
-      <div>
-        <h5>
-          <strong> {{ product.createdAt | date }} </strong>
-        </h5>
-      </div>
-    </ion-item>
-    <!-- actualizado ultimo -->
-    <ion-item lines="none">
-      <ion-label>Actualizado </ion-label>
-      <div>
-        <h5>
-          <strong> {{ product.updatedAt | date }} </strong>
-        </h5>
-      </div>
-    </ion-item>
+      <ion-item lines="none">
+        <div>En el carrito podras seleccionar la cantidad deseada.</div>
+      </ion-item>
+      <ion-item lines="none" class="final"> </ion-item>
 
-    <ion-item lines="none">
-      <div>En el carrito podras seleccionar la cantidad deseada.</div>
-    </ion-item>
-    <ion-item lines="none">
-      <div></div>
-    </ion-item>
-
-    <ion-fab vertical="bottom" slot="fixed" style="width: 23rem">
+      <!-- <ion-fab vertical="bottom" slot="fixed" style="width: 23rem">
       <ion-button
         expand="block"
         class="my-popover-product"
@@ -220,11 +209,21 @@
         (click)="addCarrrito()"
         ><strong>Agregar a carrito</strong>
       </ion-button>
-    </ion-fab>
-    <!-- <ion-fab class="btn-flotante">
-      <ion-fab-button>
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
     </ion-fab> -->
+
+      <ion-button
+        expand="block"
+        type="submit"
+        shape="round"
+        color="danger"
+        class="my-popover-product"
+        (click)="addCarrrito()"
+        >Agregar a carrito
+        <ion-icon name="cart" slot="end"></ion-icon>
+  
+      </ion-button>
+    </div>
   </ion-content>
+ 
 </div>
+

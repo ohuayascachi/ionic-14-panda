@@ -24,6 +24,8 @@ const server = environment.serverDev;
 })
 export class ProductService {
   public islogingMsg$: Observable<string>;
+  public countDocumentAll$ : Observable<number>;
+
 
   private subjectPrAll = new BehaviorSubject<ProductGet[]>([]);
   private subjectProds = new BehaviorSubject<ProductGet[]>([]); // Aqui solo viene los productos filtrados con precios
@@ -69,7 +71,7 @@ export class ProductService {
         //tap((x) => console.log('1', x)),
         tap(() => {
           alert.present();
-        }),
+        }), 
 
         map((resp) => resp.item),
         tap((x) => loading.dismiss(x))
@@ -116,28 +118,41 @@ export class ProductService {
   /*Esto reemplazara get ALL PRODUCTO
   - si no tiene los precios no se muestra */
 
-  getAllProducts(palabra?: any) {
-    //console.log('getAllProducts');
+  getAllProducts(palabra?: any, cant?: number, page?: number ) {
     let query: any;
-    if (palabra === undefined) {
-      query = null;
-    } else {
-      query = `text=${palabra}`;
+    console.log(cant, page);
+    query= `text=${palabra||null}&page=${page||2}&limit=${cant||20}`
+
+    if(query.split("undefined&")[1]){
+      query = query.split("undefined&")[1]
     }
+     else if(query.split("null&")[1] ){
+      console.log('FUNCIONA UNDEFINED');
+      query = query.split("null&")[1]
+    }
+  
+   
     //Ccambioamos el "return" si algo se afecta
+    console.log('QUERY  ',query);
     return this.http
       .get<{ item: ProductGet[]; msg: string; count: number }>(
+       // `${server}/products/all?page=1&limit=100`
         `${server}/products/all?${query}`
       )
       .pipe(
         shareReplay(),
+        tap((res) => {
+        
+          this.countDocumentAll$ = of(Number(res.msg));
+      
+        }),
         map((resp) => resp.item),
-        // tap((res) => console.log('servicoo', res)),
+       // tap((res) => console.log('servicioo', res)),
         tap((x) => this.subjectPrAll.next(x)), // Muestra todo los products
         map((resp) => resp.filter((x) => x.precios.length > 0)),
         tap((x) => {
           this.subjectProds.next(x);
-          // console.log(x);
+         // console.log(x);
         })
       );
     //  .subscribe();
@@ -168,7 +183,7 @@ export class ProductService {
         shareReplay(),
         map((resp) => resp.item),
         tap((x) => {
-          console.log(x);
+          //console.log(x);
           this.subjectProds.next(x);
         })
         // tap( (x) => {

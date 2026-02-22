@@ -90,7 +90,7 @@
             <ion-text>{{ item.name }}</ion-text>
             <br />
 
-            <ion-note *ngIf="item.cost.length === 0" class="text-note">
+            <ion-note *ngIf="item.cost.length ===  0*1" class="text-note">
               Aún no tiene costo registrado.
             </ion-note>
 
@@ -102,7 +102,7 @@
             </ion-note>
           </ion-label>
           <div class="pricing">
-            <ion-note *ngIf="item.cost.length === 0" color="danger">
+            <ion-note *ngIf="item.cost.length === 0*1" color="danger">
               <strong>None</strong>
             </ion-note>
             <ion-note *ngIf="item.cost.length > 0" color="black">
@@ -126,7 +126,7 @@
           />
 
           <input
-            *ngIf="item.cost.length === 0"
+            *ngIf="item.cost.length === 0*1"
             id="cost-{{ i + 1 }}"
             class="i-number"
             type="number"

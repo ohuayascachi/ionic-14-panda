@@ -13,6 +13,13 @@ img {
     opacity: 0.3;
 }
 
+.titile-first{
+    font-size: 25px;
+    font-weight: 600;
+  
+    text-transform: uppercase;
+
+}
 .pick-avatar-seleccionado {
     transition: opacity 0.5s linear;
     opacity: 1 !important;
@@ -22,7 +29,8 @@ img {
     text-align: center;
     position: relative;
 
-    --background: linear-gradient(180deg, hsla(212, 35%, 58%, 1) 0%, hsla(218, 32%, 80%, 1) 100%);
+   // --background: linear-gradient(180deg, hsla(212, 35%, 58%, 1) 0%, hsla(218, 32%, 80%, 1) 100%);
+    --background: linear-gradient(180deg, hsla(217, 83%, 50%, 1) 0%, hsla(186, 100%, 69%, 1) 96%);
 
 }
 
@@ -30,7 +38,7 @@ img {
     text-align: center;
     position: relative;
 
-    // --background: hsla(217, 83%, 50%, 1);
+    //--background: #1667e9;
 
     --background: linear-gradient(180deg, hsla(217, 83%, 50%, 1) 0%, hsla(186, 100%, 69%, 1) 96%);
 }
@@ -52,7 +60,7 @@ img {
     top: 10%;
 
     font-weight: 600;
-    //font-weight: bold;
+ 
 }
 
 .vendedor-register {
@@ -60,8 +68,8 @@ img {
     border-radius: 15px;
     position: relative;
     top: 8%;
-    right: 50%;
-    transform: translate(70%, 0);
+    right: 44%;
+    transform: translate(50%, 0);
     font-weight: 600;
 }
 
@@ -102,3 +110,90 @@ ion-input {
     color: red;
     font-weight: 600;
 }
+
+.text-cuenta{
+     margin: 1.5rem;
+    // border-radius: 15px;
+    position: relative;
+     top: 10%;
+    
+    // font-weight: 600;
+    // background-color: #bf3000;
+    // padding:8px ;
+
+    a{
+        text-decoration: none;
+        font-size: 0.8rem;
+        letter-spacing: 0.1px;
+        color: black;
+        font-weight: 600;
+    }
+
+}
+
+
+ /**************************/
+ /* BELOW 1344px (Smaller desktops) */
+ /**************************/
+
+ @media (max-width: 98em) {
+ 
+    #formInput {
+        margin-left: 29rem;
+        margin-right: 29rem;
+        width: auto;
+     }
+  }
+ 
+  /**************************/
+  /* BELOW 1200px (Landscape Tablets) */
+  /**************************/
+ 
+  @media (max-width: 75em) {
+    #formInput {
+        margin-left: 21rem;
+        margin-right: 21rem;
+        width: auto;
+     }
+  }
+ 
+  /**************************/
+  /* BELOW 944px (Tablets) */
+  /**************************/
+ 
+  @media (max-width: 59em) {
+ 
+    #formInput {
+        margin-left: 13rem;
+        margin-right: 13rem;
+        width: auto;
+     }
+  
+  }
+  
+  /**************************/
+  /* BELOW 704px (Smaller tablets) */
+  /**************************/
+ 
+  @media (max-width: 44em) {
+    #formInput {
+        margin-left: 7rem;
+        margin-right: 7rem;
+        width: auto;
+     }
+  
+  }
+ 
+  /**************************/
+  /* BELOW 544px (Phones) */
+  /**************************/
+ 
+  @media (max-width: 34em) {
+   
+    #formInput {
+        margin-left: 2rem;
+        margin-right: 2rem;
+        width: auto;
+     }
+ 
+  }

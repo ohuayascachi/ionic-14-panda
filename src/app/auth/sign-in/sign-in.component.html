@@ -6,8 +6,8 @@
       <ion-grid fixed>
         <ion-row>
           <ion-col>
-            <h1>
-              <strong> {{ tittleRegister }}</strong>
+            <h1 class="titile-first">
+              {{ tittleRegister }} 
             </h1>
             <p>Fácil y rápido</p>
           </ion-col>
@@ -36,7 +36,7 @@
                   required
                 ></ion-input>
               </ion-item>
-              <ion-item>
+              <!-- <ion-item>
                 <ion-label>Segundo Apellido</ion-label>
                 <ion-input
                   name="text"
@@ -45,7 +45,7 @@
                   type="tex"
                   required
                 ></ion-input>
-              </ion-item>
+              </ion-item> -->
               <ion-item>
                 <ion-label>DNI/Pasaporte</ion-label>
                 <ion-input
@@ -108,22 +108,32 @@
               <small>
                 <p
                   class="text-valid"
+                  [ngStyle]="{ color: messegerColor }"
                   *ngIf="formRegister.get('confiPassword').valid"
                 >
                   {{ messeger }}
                 </p>
               </small>
-              <small>
+              <!-- <small>
                 <p
-                  class="text-invalid"
-                  *ngIf="
-                    formRegister.get('confiPassword').invalid &&
-                    formRegister.get('confiPassword').dirty
-                  "
+                  class="text-valid"
+                  [ngStyle]="{ color: messegerColor }"
+                  *ngIf="formRegister.get('phone').invalid"
                 >
                   {{ messeger }}
                 </p>
-              </small>
+              </small> -->
+              <!-- <small>
+                <p
+                  class="text-invalid"
+                  *ngIf="
+                    (formRegister.get('confiPassword').invalid) &&
+                    formRegister.get('confiPassword').dirty 
+                  "
+                >QUESO  
+                  {{ messeger }}
+                </p>
+              </small> -->
             </ion-list>
           </ion-col>
         </ion-row>
@@ -131,11 +141,11 @@
         <ion-row>
           <ion-col>
             <ion-button
-              [disabled]="!this.formRegister.valid"
+              [disabled]="this.formRegister.invalid"
               id="buttonColor"
               type="submit"
               shape="round"
-              color="danger"
+          
             >
               Registrarse
             </ion-button>
@@ -144,21 +154,27 @@
       </ion-grid>
     </form>
   </section>
-  <ion-row>
-    <!-- {{ this.formRegister.valid }} -->
-  </ion-row>
+  <!-- <ion-row>
+    {{ this.formRegister.valid }}
+  </ion-row> -->
 
   <div></div>
   <div></div>
-  <div id="register">
-    <a href="/auth/log-in"> Ya tengo una cuenta </a>
-  </div>
+  <ion-button class="text-cuenta" color="danger" shape="round"> 
+    <a href="/auth/log-in"> Ya tengo cuenta </a>
+  </ion-button>
+  <!-- <ion-label class="text-cuenta"  style="z-index: 5">
+    <a href="/auth/log-in"> Ya tengo cuenta </a>
+  </ion-label> -->
   <div class="vendedor-register" *ngIf="!screemSeller">
     <!-- href="#home" -->
-    <ion-breadcrumb (click)="registerLikeSeller()">
-      Registarte como Vendedor
-      <ion-icon name="happy-outline"></ion-icon>
-    </ion-breadcrumb>
+    <ion-label style="z-index: 5" (click)="registerLikeSeller()">
+      <b>Registarte como Vendedor </b>
+ 
+    </ion-label>
+    <ion-icon style="font-size: 20px;" name="cart-outline"></ion-icon>
   </div>
+  <!-- <ion-icon style="font-size: 20px;" name="market" ></ion-icon> -->
+
   <!-- {{ this.formRegister.value | json }} -->
 </ion-content>

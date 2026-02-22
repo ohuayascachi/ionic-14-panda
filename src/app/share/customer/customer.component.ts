@@ -58,6 +58,7 @@ export class CustomerComponent implements OnInit, OnDestroy {
       ],
       lastName2: [''],
       image: [],
+      empresa:[],
       dni: [],
       ruc: [],
       genero: [],
@@ -195,6 +196,7 @@ export class CustomerComponent implements OnInit, OnDestroy {
       
     }else{
       loading.present().then(() => {
+        console.log(this.formCustomer.value);
         this.customerService
           .postCustomer(this.formCustomer.value)
           .subscribe((postData) => {

@@ -42,13 +42,13 @@ export class ProductsComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnChanges() {
-    const prods$ = this.productsService.getAllProducts(this.busqueda);
+    const prods$ = this.productsService.getAllProducts(this.busqueda, 10, 1);
     this.products$ =
       this.loadingService.showLoaderUntilCompleted<ProductGet[]>(prods$);
   }
 
   async ngOnInit() {
-    const prods$ = this.productsService.getAllProducts();
+    const prods$ = this.productsService.getAllProducts(null, 50, 1);
     this.products$ =
       this.loadingService.showLoaderUntilCompleted<ProductGet[]>(prods$);
 

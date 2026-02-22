@@ -167,6 +167,14 @@
               ></ion-input>
             </ion-item>
             <ion-item>
+              <ion-label>Nombre de empresa</ion-label>
+              <ion-input
+                formControlName="empresa"
+                type="text"
+                class="input input-datos"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
               <ion-label>RUC</ion-label>
               <ion-input
                 formControlName="ruc"
@@ -357,7 +365,10 @@
         </div>
       </ion-accordion>
     </ion-accordion-group>
-
+    <p class="nota">
+      NOTA: Solo los 3 primeros campos son requeridos ( Número, Nombre y Primer apellido), los demás campos son opcionales <br />
+       
+    </p>
     <ion-button
       expand="block"
       type="submit"

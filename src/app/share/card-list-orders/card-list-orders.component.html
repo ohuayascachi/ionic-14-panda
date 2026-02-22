@@ -17,10 +17,10 @@
       </p>
 
       <p class="text-fecha">
-        Fecha de pedido: {{ item.createdAt | date : "dd/mm/yyyy" }}
+        Fecha de pedido: {{ item.createdAt | date : "dd/MM/yyyy" }}
       </p>
     </ion-label>
-
+ 
     <ion-badge
       (click)="changeStatusOrder(item.id)"
       class="info-badge-2"

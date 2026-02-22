@@ -31,11 +31,12 @@ export class Tab4Page implements OnDestroy, OnInit {
     public loadingService: LoadingService,
     public svc: FuncionesService
   ) {
-    this.activeUserData();
+   this.activeUserData();
   }
 
   ngOnInit(): void {}
   activeUserData() {
+    console.log('aqui siempoke mensaje')
     this.userName = localStorage.getItem('name');
     this.userLas1 = localStorage.getItem('lastName1');
 
@@ -43,7 +44,7 @@ export class Tab4Page implements OnDestroy, OnInit {
     const loginIn$ = this.authService.isLoggedIn$;
 
     loginIn$.subscribe((x) => {
-      // console.log(x);
+      console.log(x);
       if (x === true) {
         this.datasOfUser();
         // console.log('yA EXISTE!!');

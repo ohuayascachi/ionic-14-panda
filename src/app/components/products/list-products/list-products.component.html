@@ -1,9 +1,12 @@
+
+
+
 <ion-segment
   (ionChange)="filtroProducts($event)"
   value="todos"
   mode="ios"
   class="segment"
->
+> 
   <ion-segment-button value="todos">
     <ion-label>Todos</ion-label>
   </ion-segment-button>
@@ -53,6 +56,28 @@
         </span>
       </p>
     </ion-card>
+  </div>
+
+  <div>
+    <div style="margin-top: 1rem;">
+      <nav>
+        <ul class="pagination justify-content-center">
+          <li class="page-item"  [ngClass]="BTNatras">
+            <!-- DISABLED -->
+            <a class="page-link" (click)="pagina($event)" value="pre">Previous</a>
+          </li>
+          <li class="page-item" [ngClass]="PAGI===1? 'active':''"><a class="page-link" value="1" 
+              (click)="pagina($event)">1</a></li>
+          <li class="page-item" [ngClass]="PAGI===2? 'active':''"><a class="page-link" value="2"
+              (click)="pagina($event)">2</a></li>
+          <li class="page-item" [ngClass]="PAGI===3? 'active':''"><a class="page-link" value="3"
+              (click)="pagina($event)">3</a></li>
+          <li class="page-item" [ngClass]="BTNSiguiente">
+            <a class="page-link" (click)="pagina($event)" value="nex">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 
   <app-loading></app-loading>

@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { CustomerComponent } from './customer.component';
 import {RouterModule} from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { BrowserModule } from '@angular/platform-browser';
+ 
  //import { PhoneNumberPipe } from 'src/app/pipes';
 
 @NgModule({
@@ -14,11 +14,15 @@ import { BrowserModule } from '@angular/platform-browser';
   ],
   imports: [
     IonicModule,
+    
+   
     //BrowserModule,
     CommonModule,
     FormsModule, ReactiveFormsModule,
     RouterModule
   ],
-  exports: [ CustomerComponent ],
+  exports: [ 
+    CustomerComponent
+   ],
 })
 export class CustomerModule { }

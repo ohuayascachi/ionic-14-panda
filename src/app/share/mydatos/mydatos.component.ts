@@ -61,19 +61,19 @@ export class MydatosComponent implements OnInit, OnDestroy  {
   }
 
   ngOnInit() {
-    this.userService.getUser();
+     this.userService.getUser();
     this.userService.dataUser$
-      .pipe 
+      .pipe
       ()
       .subscribe((resp) => {
         if (resp) {
-          
+
           // setTimeout(() => {
             this.show = true;
           //   console.log('verdad',this.show);
           // },2000)
 
-     
+
           delete resp.carrito;
           delete resp.nameFull;
           delete resp.registerOrder;
@@ -85,7 +85,7 @@ export class MydatosComponent implements OnInit, OnDestroy  {
   }
 
   postForm(){
-    
+
     this.userService.patchUser(this.formMyDato.value)
   }
 
@@ -139,6 +139,6 @@ export class MydatosComponent implements OnInit, OnDestroy  {
   }
 
   ngOnDestroy() {
-  
+
   }
 }

@@ -54,6 +54,9 @@ export class CardListOrdersComponent implements OnInit {
     //     }, 800);
     //   }
     // }, 50);
+
+  
+   // console.log(this.orders);
   }
   // Permite como botton el ion-badge para root
   changeStatusOrder(e: any) {

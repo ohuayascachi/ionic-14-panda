@@ -27,7 +27,7 @@ export class CustomerListComponent implements OnInit {
         clientesList$
       );
 
-    this.clientes$.subscribe();
+    this.clientes$.subscribe(x => console.log(x));
   }
 
   // PENDIENTE PARA CREAR DELETE CONDICIONADO

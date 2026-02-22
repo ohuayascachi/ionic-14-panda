@@ -14,15 +14,17 @@ export class SignInComponent implements OnInit {
   valueText1 = 'password';
   valueText2 = 'password';
   messeger = null;
+  messegerColor = null;
   screemSeller = false;
   tittleRegister = 'Registrarse';
   private passw1 = null;
+  private passw2 = null;
 
   constructor(private fb: FormBuilder, private authSVS: AuthService) {
     this.formRegister = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       lastName1: ['', Validators.required],
-      lastName2: ['', Validators.required],
+      // lastName2: ['' ],
       dni: ['', Validators.required],
       phone: ['', [Validators.required, Validators.minLength(9)]], //chanf
       role: ['general', Validators.required],
@@ -35,15 +37,34 @@ export class SignInComponent implements OnInit {
     // this.formRegister.get('veryPassword').dirty;
     this.formRegister.get('password').valueChanges.subscribe((resp) => {
       this.passw1 = resp;
-    });
-
-    this.formRegister.get('confiPassword').valueChanges.subscribe((resp) => {
-      if (this.passw1 === resp) {
+      if (this.passw2 === resp) {
+        this.messegerColor = 'green';
         this.messeger = 'Las contraseñas son iguales';
       } else {
         this.messeger = 'Las contraseñas no son iguales';
+        this.messegerColor = 'red';
       }
     });
+
+    this.formRegister.get('confiPassword').valueChanges.subscribe((resp) => {
+      this.passw2 = resp;
+      if (this.passw1 === resp) {
+        this.messegerColor = 'green';
+        this.messeger = 'Las contraseñas son iguales';
+      } else {
+        this.messeger = 'Las contraseñas no son iguales';
+        this.messegerColor = 'red';
+      }
+    });
+
+    this.formRegister.get('phone').valueChanges.subscribe( resp => {
+      
+      if( resp.length !== 9){
+        this.messeger = 'Número de celular no es valido'
+
+      } 
+      console.log(resp.length);
+    })
   }
 
   onSubmit() {

@@ -34,14 +34,17 @@
 
   <div class="content-ordes">
     <app-card-list-orders
-    *ngIf="segment === 'no-completed'"
+    *ngIf="this.segment !== 'completed'"
     [orders]="ordersNoEnd$ | async"
   >
+ 
   </app-card-list-orders>
+  
   <app-card-list-orders
-    *ngIf="segment === 'completed'"
+    *ngIf="this.segment === 'completed'"
     [orders]="ordersEnd$ | async"
   >
+ 
   </app-card-list-orders>
   </div>
 

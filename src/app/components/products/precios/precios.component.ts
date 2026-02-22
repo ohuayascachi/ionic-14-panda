@@ -20,12 +20,12 @@ export class PreciosComponent implements OnInit {
     // this.productService.getAllProducts();
     const products$ = this.productService.getProductsByUser();
     this.productsAllWithPrecio$ = products$ .pipe(
-       tap((x) => console.log('COM PRECIO', x)),
+       //tap((x) => console.log('COM PRECIO', x)),
       map((resp) => resp.filter((x: ProductGet) => x.precios.length > 0))
     );
 
     this.productsAllWithoutPrecio$ = products$ .pipe(
-      tap((x) => console.log('SIN PRECIO', x)),
+      //tap((x) => console.log('SIN PRECIO', x)),
       map((resp) => resp.filter((x: ProductGet) => x.precios.length < 1))
     );
   }

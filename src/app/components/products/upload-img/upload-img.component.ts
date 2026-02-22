@@ -34,6 +34,7 @@ export class UploadImgComponent implements OnInit {
   public loading4 = false;
   public loading5 = false;
   public prodId: string;
+  msg = false;
 
   //vARIABLES DE ANIMACION
   private animation: Animation;
@@ -48,24 +49,23 @@ export class UploadImgComponent implements OnInit {
   ngOnInit() {
     //Get all products
     // this.productService.getAllProducts();
-    // this.productos$ = this.productService.dataPrAll$;
+      this.productos$ = this.productService.dataPrAll$;
 
     //GET ALL CATEGORIAS
     this.categoriaService.getCategorias().subscribe();
     this.categorias$ = this.categoriaService.dataCateg$.pipe(
       //tap((x) => console.log(1, x)),
       map((resp) => resp.filter((x) => x.cantidadProduc > 0))
-    );
-    // setTimeout(() => {
-    //   this.productos$.pipe(tap((x) => console.log(x))).subscribe();
-    // }, 100);
+    ); 
   }
 
   selectProdByCategoria(e: Event) {
-    //  console.log(e);
+    this.msg =  false;
     const target = e.target as HTMLButtonElement;
-
+  // console.log(target.value);
     if (!target.value) {
+      this.productos$ = this.productService.dataPrAll$;
+      this.subcategorias$ = null;
       console.log('No hay ID en la pedición');
       return;
     }
@@ -77,7 +77,7 @@ export class UploadImgComponent implements OnInit {
 
     this.productos$ = this.productService.getProductsByUser().pipe(
       map((resp) => resp.filter((x) => x.categoria === target.value)),
-      tap( x => console.log(x))
+    tap( x => { this.msg =  true})
       // map((resp) => resp.map( x => x.costo[0].cost.map( t => t) ))
     );
 
@@ -96,7 +96,7 @@ export class UploadImgComponent implements OnInit {
 
   selectProdBySubCategoria(e: Event) {
     const target = e.target as HTMLButtonElement;
-    console.log('sub', target.value);
+   //console.log('sub', target.value);
     //this.productService.getAllProducts();
     const subca$ = this.subcategorias$.pipe(
       map((resp) => resp.filter((x) => x.id === target.value))
@@ -170,24 +170,9 @@ export class UploadImgComponent implements OnInit {
       this.productService
         .patchDelteImage(this.prodId, num)
         .subscribe((resp) => {
-          console.log(resp);
+       //   console.log(resp);
           this.seleccionarCampo(num, false, resp);
         });
-
-      // if (num === 'image1') {
-      //   this.loading1 = true;
-
-      //     this.loading1 = false;
-
-      // } else if (num === 'image2') {
-      //   this.ima2 = null;
-      // } else if (num === 'image3') {
-      //   this.ima3 = null;
-      // } else if (num === 'image4') {
-      //   this.ima4 = null;
-      // } else if (num === 'image5') {
-      //   this.ima5 = null;
-      // }
     }
   }
 

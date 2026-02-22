@@ -28,6 +28,7 @@ export interface CustomerGet {
   lastName1: string;
   lastName2: string;
   image: string;
+  empresa: string;
   userRigister: string;
   dni: string;
   email: string;

@@ -8,7 +8,9 @@ import { SharesModule } from '../shares/shares.module';
 import { ShareModule } from 'src/app/share/share.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [ 
+  //  InventoryComponent
+  ],
   imports: [CommonModule],
   exports: [],
 })
