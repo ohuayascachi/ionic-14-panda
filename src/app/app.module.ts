@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, provideZoneChangeDetection } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -83,5 +83,6 @@ import { MydatosComponent } from './share/mydatos/mydatos.component';
         CookieService,
         LoadingService,
         provideHttpClient(withInterceptorsFromDi()),
+        provideZoneChangeDetection({ eventCoalescing: true }),
     ] })
 export class AppModule { }
