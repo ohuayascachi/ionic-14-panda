@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  Resolve,
-  RouterStateSnapshot,
-  ActivatedRouteSnapshot,
-  ActivatedRoute,
-} from '@angular/router';
+import { RouterStateSnapshot, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { ProductGet } from 'src/model/product.model';
 import { ProductService } from '../services/product.service';
@@ -13,7 +8,7 @@ import {  HttpErrorResponse } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
-export class ProductResolver implements Resolve<any> {
+export class ProductResolver  {
   public product$: Observable<ProductGet[]>;
   public prod$: Observable<ProductGet[]>;
 

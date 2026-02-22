@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserService } from './services/user.service';
 import { Storage } from '@ionic/storage-angular';
@@ -12,7 +7,7 @@ import { Storage } from '@ionic/storage-angular';
 @Injectable({
   providedIn: 'root',
 })
-export class UserGeneralGuard implements CanActivate {
+export class UserGeneralGuard  {
   userRole = 'general';
   constructor(private userService: UserService, private storage: Storage) {}
   canActivate(
