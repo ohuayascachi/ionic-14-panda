@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../service/auth.service';
 
@@ -12,7 +13,11 @@ import { AuthService } from '../service/auth.service';
 export class LogInComponent implements OnInit {
   formLogin: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.formLogin = this.fb.group({
       phone: [
         '',
@@ -29,6 +34,15 @@ export class LogInComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit() {
-    this.authService.postLogin(this.formLogin.value);
+    if (this.formLogin.valid) {
+      this.authService.postLogin(this.formLogin.value).subscribe({
+        next: () => {
+          this.router.navigate(['/products']);
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      });
+    }
   }
 }

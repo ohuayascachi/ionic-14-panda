@@ -7,7 +7,7 @@ import {
   Observable,
   Subject,
   of,
-  throwError as observableThrowError,
+  throwError,
 } from 'rxjs';
 import { UserGet, UserPost, UserLogin } from 'src/model/user.model';
 import { Router } from '@angular/router';
@@ -77,7 +77,7 @@ export class AuthService {
       )
       .subscribe((resp) => {
         this.subjectUser.next(resp);
-        this._storage.set('user', resp);
+        this._storage?.set('user', resp);
         localStorage.setItem('name', resp.name);
         localStorage.setItem('lastName1', resp.lastName1);
         this.router.navigate(['/products']);
@@ -85,10 +85,8 @@ export class AuthService {
   }
 
   // Login
-  postLogin(formUser: UserLogin) {
-    // console.log(formUser);
-
-    this.http
+  postLogin(formUser: UserLogin): Observable<any> {
+    return this.http
       .post<{
         ok: boolean;
         msg: string;
@@ -99,26 +97,25 @@ export class AuthService {
       .pipe(
         tap((resp) => {
           this.subjectUser.next(resp.item);
-          this._storage.set('user', resp.item);
+          if (this._storage) {
+            this._storage.set('user', resp.item);
+          } else {
+            console.warn('Storage not initialized');
+          }
         }),
         map((resp) => {
-          // console.log(resp);
           if (resp) {
             localStorage.setItem('token', resp.token);
             localStorage.setItem('name', resp.item.name);
             localStorage.setItem('lastName1', resp.item.lastName1);
-            this.router.navigate(['/products']);
             return resp.item;
           }
         }),
-        //   shareReplay(),
-        catchError((err: HttpErrorResponse) =>
-          of(this.presentToast(err.error.message, 'warning'), this.errorHandler)
-        )
-        //tap((resp) => console.log( t resp)),
-        // tap((resp) => console.log(resp))
-      )
-      .subscribe(() => {});
+        catchError((err: HttpErrorResponse) => {
+          this.presentToast(err.error.message || 'Error en login', 'warning');
+          return throwError(() => err);
+        })
+      );
   }
 
   //Salir de session

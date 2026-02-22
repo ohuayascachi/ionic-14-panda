@@ -4,10 +4,11 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductGet } from 'src/model/product.model';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, ToastController } from '@ionic/angular';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrderService } from 'src/app/services/order.service';
 import { CartService } from 'src/app/services/cart.service';
+import { AuthService } from 'src/app/auth/service/auth.service';
 
 //
 @Component({
@@ -37,7 +38,9 @@ export class ItemProductComponent implements OnInit {
     private router: Router,
     private actionSheetCtrl: ActionSheetController,
     private orderService: OrderService,
-    private cartService: CartService
+    private cartService: CartService,
+    private authService: AuthService,
+    private toastController: ToastController
   ) {
     this.formOrderProducts = this.fb.group({
       client: [],
@@ -90,6 +93,17 @@ export class ItemProductComponent implements OnInit {
 
   // Add a carrito
   async addCarrrito() {
+    if (!this.authService.token) {
+      const toast = await this.toastController.create({
+        message: 'Debes iniciar sesión para agregar al carrito',
+        duration: 2000,
+        color: 'warning',
+        position: 'top',
+      });
+      await toast.present();
+      this.router.navigate(['/auth/log-in']);
+      return;
+    }
     const form = {
       producto: this.product.id,
       count: 1,
