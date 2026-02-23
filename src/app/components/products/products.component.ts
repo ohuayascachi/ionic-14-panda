@@ -1,26 +1,26 @@
-/* eslint-disable @typescript-eslint/member-ordering */
-import { Component, OnChanges, OnInit, ViewChild, Input } from '@angular/core';
-
+import { Component, OnChanges, OnInit, ViewChild, Input, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
 import { map } from 'rxjs/operators';
-
 import { CustomerGet } from 'src/model/customer.model';
-import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { ProductGet } from 'src/model/product.model';
 import { Observable, Subscription, of } from 'rxjs';
 import { Storage } from '@ionic/storage-angular';
-import { PriceGet } from 'src/model/precios.model';
 import { LoadingService } from '../shares/loading/loading.service';
+import { ListProductsComponent } from './list-products/list-products.component';
 
 @Component({
-    selector: 'app-products',
-    templateUrl: './products.component.html',
-    styleUrls: ['./products.component.scss'],
-    standalone: false
+  selector: 'app-products',
+  templateUrl: './products.component.html',
+  styleUrls: ['./products.component.scss'],
+  standalone: true,
+  imports: [CommonModule, IonicModule, RouterModule, ListProductsComponent]
 })
 export class ProductsComponent implements OnInit, OnChanges {
   @ViewChild('popover') popover;
-  isOpen = false;
+  isOpen = signal(false);
   @Input() busqueda: string;
 
   products: ProductGet[] = [];
@@ -52,10 +52,7 @@ export class ProductsComponent implements OnInit, OnChanges {
     this.products$ =
       this.loadingService.showLoaderUntilCompleted<ProductGet[]>(prods$);
 
-    //this.products$ = this.productsService.dataProds$;
-
     setTimeout(() => {
-      // console.log('ngOnInit tiempo');
       this.store.get('user').then((resp) => {
         if (resp == null || undefined) {
           return;
@@ -67,16 +64,16 @@ export class ProductsComponent implements OnInit, OnChanges {
   }
 
   presentPopover(e: Event) {
-    this.popover.event = e;
-    //  console.log(e);
-    this.isOpen = true;
+    if (this.popover) {
+        this.popover.event = e;
+    }
+    this.isOpen.set(true);
   }
 
   changeProductsXUser(e: Event) {
     const target = e.target as HTMLButtonElement;
     this.roleSelect = target.value;
     this.productsService.getAllProducts();
-    //console.log(this.roleSelect);
     this.seleccionarProductos(this.roleSelect);
   }
 
@@ -84,24 +81,18 @@ export class ProductsComponent implements OnInit, OnChanges {
     this.productsService.dataProds$.subscribe((resp) => {
       this.products = resp;
     });
-    // console.log(this.products);
     this.products.forEach((res) => {
-      // console.log('antes', res);
       const valor = res.precios.filter((x: any) => x.toUser === role);
       res.precios = [null];
       res.precios.push(...valor);
     });
     this.prodByRoot$ = of(this.products).pipe(
       map((resp) => resp.filter((x) => x.precios.length > 0))
-      //  tap((x) => console.log('desdepues', x))
     );
-    // });
   }
 
   filterCategoria(e: string) {
     console.log('todos', e);
-
-    //this.productsService.getAllProducts();
     if (e === 'todos') {
       this.products$ = this.productsService.dataProds$;
     } else {
@@ -111,58 +102,3 @@ export class ProductsComponent implements OnInit, OnChanges {
     }
   }
 }
-
-// agregarUser(numerUser: string) {
-//   const numeroCel = numerUser.replace(/ /g, '');
-//   this.router.navigate(['/customer', numeroCel]);
-// }
-// this.formClient = this.fb.group({
-//   phone: [
-//     '',
-//     [
-//       Validators.maxLength(11),
-//       Validators.minLength(11),
-//       Validators.required,
-//     ],
-//   ],
-// });
-// this.formClient
-//   .get('phone')
-//   .valueChanges.pipe(distinctUntilChanged(), debounceTime(1000))
-//   .subscribe((val) => {
-//     console.log('cambio un valor' + val, val.length); // Lineas abajo se ejecuta si es valido el form
-//     const numeroCel = val.replace(/ /g, '');
-//     console.log(this.customer);
-//     if (numeroCel.length === 9 && this.formClient.get('phone').dirty) {
-//       this.messegeFormNumber = '';
-
-//       // Simulamos que tomara un tiempo de busqueda en BD 2Seg
-//       this.customerService
-//         .getCustomerNumber(numeroCel)
-//         .subscribe((respData) => {
-//           this.timeBusqueda = false;
-//           if (respData.ok === false) {
-//             this.classInputNumber1 = false;
-//             this.classInputNumber2 = true;
-//           } else {
-//             this.classInputNumber1 = true;
-//             this.classInputNumber2 = false;
-//             this.customer = respData.item;
-//           }
-//         });
-
-//       this.timeBusqueda = true;
-//       this.classInputNumber2 = false;
-//       this.classInputNumber1 = false;
-//       // };
-//     } else {
-//       this.classInputNumber2 = false;
-//       this.classInputNumber1 = false;
-
-//       this.messegeFormNumber = 'Número no valido';
-//     }
-//   });
-
-// formClient: FormGroup;
-// public classInputNumber1 = false;
-// public classInputNumber2 = false;

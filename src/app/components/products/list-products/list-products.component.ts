@@ -1,23 +1,21 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  OnChanges,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { ProductService } from 'src/app/services/product.service';
 import { CategoriaGet } from 'src/model/categoria.model';
 import { ProductGet } from 'src/model/product.model';
+import { LoadingComponent } from '../../shares/loading/loading.component';
 
 @Component({
-    selector: 'app-list-products',
-    templateUrl: './list-products.component.html',
-    styleUrls: ['./list-products.component.scss'],
-    standalone: false
+  selector: 'app-list-products',
+  templateUrl: './list-products.component.html',
+  styleUrls: ['./list-products.component.scss'],
+  standalone: true,
+  imports: [CommonModule, IonicModule, RouterModule, LoadingComponent]
 })
 export class ListProductsComponent implements OnInit, OnChanges {
   @Input() productsList: ProductGet[] = [];

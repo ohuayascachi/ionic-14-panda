@@ -1,4 +1,4 @@
-@if (noExiste === true) {
+@if (noExiste()) {
   <div id="container">Cargando...</div>
 }
 
@@ -14,9 +14,9 @@
 
 
 <div class="container-prod" >
-  @if (noExiste === false) {
+  @if (!noExiste()) {
     <ion-content>
-      @if (seletedValue === 'producto') {
+      @if (seletedValue() === 'producto') {
         <div class="detalle-product">
           <!-- aqui viene las imagenes -->
           <swiper (slideChange)="onSlideChange($event)">
@@ -216,7 +216,7 @@
       expand="block"
       type="submit"
       shape="round"
-      color="danger"
+      color="secondary"
       class="my-popover-product"
       (click)="addCarrrito()"
       >Agregar a carrito
