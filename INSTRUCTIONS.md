@@ -1,36 +1,25 @@
 # Instructions to Run the Project Locally
 
-The project dependencies have been updated to resolve the blank screen issue caused by invalid version numbers in `package.json`. The project now targets **Angular 18** and **Ionic 8**.
+The project has been refactored to use **Angular 18 Standalone Components** and **Signals**, and updated to **Ionic 8**.
 
-To run this project on your local machine (WebStorm, VS Code, etc.), please follow these steps carefully:
+## 1. Clean Your Environment (Windows)
+Run these commands in PowerShell or Command Prompt to ensure a clean slate:
 
-## 1. Clean Your Environment
-Before installing anything, remove existing dependency files to avoid conflicts.
-
-Run the following commands in your terminal (inside the project folder):
-
-```bash
-# macOS / Linux
-rm -rf node_modules package-lock.json
-
-# Windows (Command Prompt)
-rmdir /s /q node_modules
-del package-lock.json
-
-# Windows (PowerShell)
+```powershell
+# PowerShell
 Remove-Item -Recurse -Force node_modules
 Remove-Item -Force package-lock.json
 ```
 
 ## 2. Install Dependencies
-Since some older libraries (like `ngx-star-rating`) have strict peer dependencies that haven't been updated for Angular 18, you must use the `--legacy-peer-deps` flag.
+Install dependencies using the legacy peer deps flag to handle older libraries:
 
 ```bash
 npm install --legacy-peer-deps
 ```
 
 ## 3. Run the Application
-You can now start the development server.
+Start the development server:
 
 ```bash
 npm start
@@ -38,18 +27,25 @@ npm start
 ionic serve
 ```
 
-The application should now render correctly in your browser.
+## Changes Made
+1.  **Modern Angular Architecture**:
+    *   Migrated from `NgModule` to **Standalone Components**.
+    *   Removed `AppModule`, `ProductsModule`, `ItemProductModule`, `LogInModule`.
+    *   Bootstrapping is now done in `main.ts` using `bootstrapApplication`.
+    *   Routing is defined in `src/app/app.routes.ts`.
 
-## Summary of Changes Made
-1.  **`package.json`**:
-    *   Replaced invalid "21.x" Angular versions with **Angular 18.x**.
-    *   Updated TypeScript to **~5.4.0**.
-    *   Updated `ngx-cookie-service` to a version compatible with Angular 18 (`^18.0.0`).
-    *   Updated `@ionic/angular` to **^8.0.0**.
-2.  **`src/main.ts`**:
-    *   Removed `applicationProviders` configuration which was causing a crash.
-    *   Simplified bootstrapping to standard `platformBrowserDynamic().bootstrapModule(AppModule)`.
-3.  **`src/app/app.module.ts`**:
-    *   Added `provideZoneChangeDetection({ eventCoalescing: true })` to providers to ensure proper change detection in Angular 18.
+2.  **State Management**:
+    *   Refactored `AuthService` to use **Signals** (`currentUser`, `isLoggedIn`).
+    *   Updated `LogInComponent` to use Signals for UI state.
 
-If you encounter any issues, please check the console logs for errors.
+3.  **Authentication Fixes**:
+    *   Added handling for "jwt expired" errors. The app will now automatically logout and redirect to login if the session expires.
+    *   Fixed login flow to correctly handle `Storage` initialization.
+
+4.  **Visual Updates**:
+    *   Changed the primary color to **Green** (`#2dd36f`) as requested.
+
+## Troubleshooting
+*   **Cache Issues**: If you see old styles or errors, try clearing the browser cache or running `npm start` again.
+*   **"Invalid base URL" in Console**: You might see warnings about base URL or icons in the console. These are often related to the development environment and shouldn't affect core functionality.
+*   **Backend Connection**: Ensure your backend server is running on `http://localhost:2001` (or update `src/environments/environment.ts`). The app handles connection errors gracefully but features will be limited.

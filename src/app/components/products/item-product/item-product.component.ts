@@ -1,39 +1,39 @@
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable @typescript-eslint/member-ordering */
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductGet } from 'src/model/product.model';
-import { ActionSheetController, ToastController } from '@ionic/angular';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActionSheetController, ToastController, IonicModule } from '@ionic/angular';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OrderService } from 'src/app/services/order.service';
 import { CartService } from 'src/app/services/cart.service';
 import { AuthService } from 'src/app/auth/service/auth.service';
+import { CommonModule } from '@angular/common';
+import { SwiperModule } from 'swiper/angular';
+import { NgxStarRatingModule } from 'ngx-star-rating';
 
-//
 @Component({
-    selector: 'app-item-product',
-    templateUrl: './item-product.component.html',
-    styleUrls: ['./item-product.component.scss'],
-    standalone: false
+  selector: 'app-item-product',
+  templateUrl: './item-product.component.html',
+  styleUrls: ['./item-product.component.scss'],
+  standalone: true,
+  imports: [CommonModule, IonicModule, ReactiveFormsModule, SwiperModule, NgxStarRatingModule]
 })
 export class ItemProductComponent implements OnInit {
   @ViewChild('userInput') userInputViewChild: ElementRef;
 
   userInputElement: HTMLInputElement;
-  public product: ProductGet;
+  public product: ProductGet | null = null;
   public productSub: Subscription;
   public formOrderProducts: FormGroup;
-  public noExiste = true;
-  public seletedValue = 'producto';
+  public noExiste = signal(true);
+  public seletedValue = signal('producto');
   formOrder: FormGroup;
   formStar: FormGroup;
   private idProductSeleted: string;
-  public orderArray: Array<[]> = []; // SOLO UNO DE ESTOS DOS DEBO EXISTIR
+  public orderArray: Array<[]> = [];
 
   constructor(
     private route: ActivatedRoute,
-
     private fb: FormBuilder,
     private router: Router,
     private actionSheetCtrl: ActionSheetController,
@@ -60,23 +60,21 @@ export class ItemProductComponent implements OnInit {
       status: ['status', Validators.required],
       unidadPrecio: ['S/', Validators.required],
     });
+
+    this.formStar = this.fb.group({
+        rating: [5],
+    });
   }
 
   ngOnInit() {
     const result = this.route.snapshot.data.productSlug;
-    this.product = result[0];
-    //  console.log(this.product);
-
-    if (result) {
-      this.noExiste = false;
+    if (result && result.length > 0) {
+        this.product = result[0];
+        this.noExiste.set(false);
+        this.formStar.patchValue({ rating: this.product.ratingsAverage || 5 });
     } else {
-      this.noExiste = true;
+        this.noExiste.set(true);
     }
-    this.formStar = this.fb.group({
-      rating: [this.product.ratingsAverage || 5],
-    });
-
-    //  console.log(this.product);
   }
 
   get productsArray() {
@@ -84,7 +82,7 @@ export class ItemProductComponent implements OnInit {
   }
 
   segmentChange(event: any) {
-    this.seletedValue = event.detail.value;
+    this.seletedValue.set(event.detail.value);
   }
 
   onSlideChange(event: any) {
@@ -104,14 +102,17 @@ export class ItemProductComponent implements OnInit {
       this.router.navigate(['/auth/log-in']);
       return;
     }
-    const form = {
-      producto: this.product.id,
-      count: 1,
-      status: true,
-    };
 
-    if (form.producto && form.count && form.status) {
-      this.cartService.postCart(form);
+    if (this.product) {
+        const form = {
+        producto: this.product.id,
+        count: 1,
+        status: true,
+        };
+
+        if (form.producto && form.count && form.status) {
+            this.cartService.postCart(form);
+        }
     }
   }
 
@@ -119,6 +120,3 @@ export class ItemProductComponent implements OnInit {
     this.router.navigate(['/products']);
   }
 }
-
-/*
- */

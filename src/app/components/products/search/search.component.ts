@@ -1,14 +1,14 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-
-import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'app-search',
-    templateUrl: './search.component.html',
-    styleUrls: ['./search.component.scss'],
-    standalone: false
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.scss'],
+  standalone: true,
+  imports: [CommonModule, IonicModule, FormsModule, ReactiveFormsModule]
 })
 export class SearchComponent implements OnInit {
   @Output() busqueda = new EventEmitter<any>();

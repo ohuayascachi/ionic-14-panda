@@ -1,46 +1,40 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import { ErrorHandler, Injectable } from '@angular/core';
+import { Injectable, signal, computed, effect } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import {
-  BehaviorSubject,
-  Observable,
-  Subject,
-  of,
-  throwError,
-} from 'rxjs';
+import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
 import { UserGet, UserPost, UserLogin } from 'src/model/user.model';
 import { Router } from '@angular/router';
-import { map, tap, catchError, shareReplay } from 'rxjs/operators';
+import { map, tap, catchError } from 'rxjs/operators';
 import { Storage } from '@ionic/storage-angular';
 import { ToastController } from '@ionic/angular';
+import { toObservable } from '@angular/core/rxjs-interop';
+
 const server = environment.serverDev;
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private postsUser: any[] = [];
-  private userUpdated = new Subject<any[]>();
-  userID = null;
+  // Signals
+  private _currentUser = signal<UserGet | null>(null);
+  public currentUser = computed(() => this._currentUser());
 
-  private subjectUser = new BehaviorSubject<UserGet>(null);
-  userDate$: Observable<UserGet> = this.subjectUser.asObservable();
+  // Using signals for derived state
+  public isLoggedIn = computed(() => !!this._currentUser() || !!localStorage.getItem('token'));
 
-  isLoggedIn$: Observable<boolean>;
-  isLoggedOut$: Observable<boolean>;
-  islogingMsg$: Observable<string>;
+  // Observables for backward compatibility
+  public isLoggedIn$ = toObservable(this.isLoggedIn);
+  public isLoggedOut$ = this.isLoggedIn$.pipe(map(loggedIn => !loggedIn));
 
   private _storage: Storage | null = null;
+
   constructor(
     private http: HttpClient,
     private router: Router,
     private storage: Storage,
     private toastController: ToastController
   ) {
-    this.isLoggedIn$ = this.userDate$.pipe(map((user) => !!user)) || this.tok;
-    this.isLoggedOut$ = this.isLoggedIn$.pipe(map((loggedIn) => !loggedIn));
-
     this.init();
   }
 
@@ -48,21 +42,21 @@ export class AuthService {
     return localStorage.getItem('token') || '';
   }
 
-  get tok(): Observable<boolean> {
-    // console.log('xxx', localStorage.getItem('token'));
-    const token$ = of(!!localStorage.getItem('token'));
-    return token$;
-  }
-
   get headers() {
     return { headers: { 'x-token': this.token } };
   }
 
   async init() {
-    // If using, define drivers here: await this.storage.defineDriver(/*...*/);
     const storage = await this.storage.create();
     this._storage = storage;
+
+    // Attempt to restore user from storage
+    const storedUser = await this._storage.get('user');
+    if (storedUser) {
+      this._currentUser.set(storedUser);
+    }
   }
+
   // Registro auth/signup
   postUser(formUser: UserPost) {
     this.http
@@ -71,16 +65,20 @@ export class AuthService {
         formUser
       )
       .pipe(
-        catchError(this.errorHandler),
-        tap((resp) => localStorage.setItem('token', resp.token)),
-        map((resp) => resp.item)
+        catchError((err) => this.handleError(err)),
+        tap((resp: any) => {
+             if (resp && resp.token) localStorage.setItem('token', resp.token)
+        }),
+        map((resp: any) => resp.item)
       )
-      .subscribe((resp) => {
-        this.subjectUser.next(resp);
-        this._storage?.set('user', resp);
-        localStorage.setItem('name', resp.name);
-        localStorage.setItem('lastName1', resp.lastName1);
-        this.router.navigate(['/products']);
+      .subscribe((resp: any) => {
+        if(resp){
+            this._currentUser.set(resp);
+            this._storage?.set('user', resp);
+            localStorage.setItem('name', resp.name);
+            localStorage.setItem('lastName1', resp.lastName1);
+            this.router.navigate(['/products']);
+        }
       });
   }
 
@@ -96,7 +94,7 @@ export class AuthService {
       }>(`${server}/auth/login`, formUser)
       .pipe(
         tap((resp) => {
-          this.subjectUser.next(resp.item);
+          this._currentUser.set(resp.item);
           if (this._storage) {
             this._storage.set('user', resp.item);
           } else {
@@ -112,6 +110,7 @@ export class AuthService {
           }
         }),
         catchError((err: HttpErrorResponse) => {
+          this.handleError(err);
           this.presentToast(err.error.message || 'Error en login', 'warning');
           return throwError(() => err);
         })
@@ -126,22 +125,31 @@ export class AuthService {
         { withCredentials: true },
         { headers: { 'x-token': this.token } }
       )
+      .pipe(
+         catchError(err => of(null))
+      )
       .subscribe(() => {
-        // console.log(this.token);
-        this.subjectUser.next(null);
-        localStorage.removeItem('lastName1');
-        localStorage.removeItem('name');
-        localStorage.removeItem('token');
-        this._storage.remove('user');
-        this.router.navigate(['/auth/log-in']);
+        this.doLogoutCleanup();
       });
   }
 
-  errorHandler(er: HttpErrorResponse) {
-    //this.islogingMsg$ = of(er.error.message);
-    // alert(er.error.message);
-    return of(er.error.message);
+  doLogoutCleanup() {
+    this._currentUser.set(null);
+    localStorage.removeItem('lastName1');
+    localStorage.removeItem('name');
+    localStorage.removeItem('token');
+    this._storage?.remove('user');
+    this.router.navigate(['/auth/log-in']);
   }
+
+  private handleError(er: HttpErrorResponse) {
+    if (er.status === 401 || (er.error && er.error.message === 'jwt expired') || (er.error && er.error.message === 'Token no válido')) {
+        this.presentToast('Session expired. Please login again.', 'danger');
+        this.doLogoutCleanup();
+    }
+    return throwError(() => er);
+  }
+
   async presentToast(mensaje: string, col: string) {
     const toast = await this.toastController.create({
       message: mensaje,
@@ -149,7 +157,6 @@ export class AuthService {
       position: 'top',
       color: col,
     });
-    //console.log('mensaje');
     await toast.present();
   }
 }

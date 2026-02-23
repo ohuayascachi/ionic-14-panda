@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { Tab3Page } from './tab3.page';
 
 import { Tab3PageRoutingModule } from './tab3-routing.module';
-import { InventoryModule } from '../components/inventory/inventory.module';
 import { CardListOrdersComponent } from '../share/card-list-orders/card-list-orders.component';
 import { LoadingComponent } from '../components/shares/loading/loading.component';
 import { InventoryComponent } from '../components/inventory/inventory.component';
